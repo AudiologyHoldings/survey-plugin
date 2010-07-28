@@ -1,0 +1,10 @@
+<?php
+/**
+  * Set the custom SurveyContact model
+  */
+$config = array(
+  'Survey' => array(
+    'model' => 'SurveyContact',
+  )
+);
+?>
