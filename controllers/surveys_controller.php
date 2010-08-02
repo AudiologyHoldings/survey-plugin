@@ -2,14 +2,17 @@
 class SurveysController extends SurveyAppController {
   var $name = 'Surveys';
   
-  var $uses = array('Survey.SurveyAnswer');
+  /**
+    * Uses is usually dirty, but we're going to want access to these models in almost every action
+    * So might as well load them the CakePHP way.
+    */
+  var $uses = array('Survey.SurveyAnswer', 'Survey.SurveyContact');
   
   /**
-    * Load the custom SurveyContact into the controller
+    * Load any custom settings here
     */
   function beforeFilter(){
     parent::beforeFilter();
-    $this->SurveyContact = SurveyUtil::getModel();
   }
   
   /**
@@ -17,7 +20,15 @@ class SurveysController extends SurveyAppController {
     * 2 questions + email contact
     */
   function first(){
-    //TODO
+    if(!empty($this->data)){
+      if($this->SurveyContact->saveFirst($this->data)){
+        $this->goodFlash('Thank you message');
+        $this->redirect(array('action' => 'thanks'));
+      }
+      else {
+        $this->badFlash('Email not valid, please try again.');
+      }
+    }    
   }
   
   /**

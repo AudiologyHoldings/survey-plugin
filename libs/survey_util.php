@@ -41,13 +41,5 @@ class SurveyUtil {
       self::$configs = Configure::read('Survey');
     }
   }
-  
-  /**
-    * Loads and returns the SurveyContact Model.
-    * @return SurveyContact model
-    */
-  static function getModel(){
-    return ClassRegistry::init(self::getConfig('model'));
-  }
 }
 ?>

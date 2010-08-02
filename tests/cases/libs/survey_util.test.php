@@ -18,11 +18,6 @@ class SurveyUtilTestCase extends CakeTestCase {
     $this->assertEqual($expected, $this->SurveyUtil->getConfig('model'));
   }
   
-  function testGetModel(){
-    $model = $this->SurveyUtil->getModel();
-    $this->assertEqual('SurveyContact', $model->alias);
-  }
-  
   function endTest(){
     unset($this->SurveyUtil);
   }
