@@ -1,0 +1,101 @@
+* {
+	margin:0;
+	padding:0;
+}
+
+body {
+  font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+}
+
+h2, h3 {
+  color: #0082c8 /* blue */
+}
+h2 {
+  margin: 15px 0px 15px 0px;
+}
+h3 {
+  margin: 10px 0px 10px 0px;
+}
+.hand {
+  cursor: pointer;
+}
+#popup{
+  margin: auto;
+}
+
+div.wrapper{
+  margin: auto;
+  width: 1000px;
+  height: 572px;
+  background: #f4f4f4 url('../img/popup_spiral.png') no-repeat;
+}
+
+#pop_top {
+  height: 34px;
+  width: 1000px;
+  padding: 5px 5px 0px 0px;
+  background: url('../img/popup_top.png') no-repeat;
+}
+#pop_top span{
+  float: right;
+}
+#pop_body {
+  padding: 10px;
+}
+
+.pop_questions{
+  width: 900px;
+  height: 210px;
+  margin: auto;
+}
+div.white_box {
+  background: white;
+  color: black;
+  border: 1px solid #ccc; /* grey */
+}
+div.pop_question {
+  width: 449px;
+  height: 203px;
+  padding: 10px;
+}
+p.pop_text {
+  margin: 25px 0px 50px 0px;
+}
+p.q_text {
+  height: 70px;
+  margin-top: 25px;
+}
+div.pop_button {
+  padding-top: 50px;
+  text-align: center;
+  margin: auto;
+}
+ul.question {
+  list-style: none;
+  margin-left: 30px;
+}
+ul.question li {
+  float: left;
+  width: 54px;
+  text-align: center;
+  font-size: .7em;
+}
+ul.question li label {
+  float: left;
+  width: 54px;
+  display: block;
+}
+
+/** Page Two **/
+div.gift_card {
+  float: right;
+}
+div.text label {
+  display: block;
+}
+div.text input[type=text] {
+  width: 450px;
+  height: 35px;
+  font-size: 1.5em;
+  border: 1px solid #ccc; /* grey */
+}

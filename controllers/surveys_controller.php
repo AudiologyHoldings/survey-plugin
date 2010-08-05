@@ -1,12 +1,16 @@
 <?php
 class SurveysController extends SurveyAppController {
   var $name = 'Surveys';
+  var $layout = 'survey';
   
   /**
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
   var $uses = array('Survey.SurveyAnswer', 'Survey.SurveyContact');
+  
+  var $components = array('Session');
+  var $helpers = array('Session','Html','Form');
   
   /**
     * Load any custom settings here
@@ -21,6 +25,8 @@ class SurveysController extends SurveyAppController {
     */
   function first(){
     if(!empty($this->data)){
+      debug($this->data);
+      exit();
       if($this->SurveyContact->saveFirst($this->data)){
         $this->goodFlash('Thank you message');
         $this->redirect(array('action' => 'thanks'));
