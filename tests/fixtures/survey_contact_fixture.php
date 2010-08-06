@@ -21,10 +21,20 @@ class SurveyContactFixture extends CakeTestFixture {
 			'id' => 1,
 			'first_name' => 'Lorem ipsum dolor sit amet',
 			'last_name' => 'Lorem ipsum dolor sit amet',
-			'email' => 'Lorem ipsum dolor sit amet',
-			'token' => 'Lorem ipsum dolor sit amet',
+			'email' => 'example@example.com',
+			'token' => 'token',
 			'phone' => 'Lorem ipsum dolor ',
 			'finished_survey' => 1,
+			'created' => '2010-07-27 22:54:48'
+		),
+		array(
+			'id' => 2,
+			'first_name' => 'Nick',
+			'last_name' => 'Baker',
+			'email' => 'nick@example.com',
+			'token' => 'token2',
+			'phone' => 'Lorem ipsum dolor ',
+			'finished_survey' => 0,
 			'created' => '2010-07-27 22:54:48'
 		),
 	);

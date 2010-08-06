@@ -6,16 +6,18 @@ class SurveyUtilTestCase extends CakeTestCase {
 
   function startTest(){
     $this->SurveyUtil = new SurveyUtil();
+    Configure::write('Survey', null);
   }
   
   function testGetConfig(){
     $expected = array(
-      'model' => 'SurveyContact'
+      'table' => 'survey_contact',
+      'email' => 'no_reply@webtechnick.com'
     );
     $this->assertEqual($expected, $this->SurveyUtil->getConfig());
     
-    $expected = 'SurveyContact';
-    $this->assertEqual($expected, $this->SurveyUtil->getConfig('model'));
+    $expected = 'survey_contact';
+    $this->assertEqual($expected, $this->SurveyUtil->getConfig('table'));
   }
   
   function endTest(){

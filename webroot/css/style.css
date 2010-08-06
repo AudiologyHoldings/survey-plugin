@@ -19,6 +19,48 @@ h3 {
 .hand {
   cursor: pointer;
 }
+.float_right {
+  float: right;
+}
+.float_left {
+  float: left;
+}
+.center{
+  margin: auto;
+  text-align: center;
+}
+
+/* flash */
+div#flash-message img {
+  vertical-align: middle;
+}
+div#bad-flash, div#good-flash, div#info-flash {
+  cursor: pointer;
+  width:90%;
+  font-family: arial, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid black;
+  
+}
+div#bad-flash {
+  color: white;
+  background: maroon;
+}
+
+div#good-flash {
+  color: white;
+  background: green;
+}
+
+div#info-flash {
+  color: white;
+  background: blue;
+}
+
+/* popup */
 #popup{
   margin: auto;
 }
@@ -33,7 +75,7 @@ div.wrapper{
 #pop_top {
   height: 34px;
   width: 1000px;
-  padding: 5px 5px 0px 0px;
+  padding: 10px 5px 0px 0px;
   background: url('../img/popup_top.png') no-repeat;
 }
 #pop_top span{
@@ -53,10 +95,17 @@ div.white_box {
   color: black;
   border: 1px solid #ccc; /* grey */
 }
+div.pop_question, div.pop_thanks {
+  padding: 10px;
+}
 div.pop_question {
   width: 449px;
   height: 203px;
-  padding: 10px;
+}
+div.pop_thanks {
+  width: 850px;
+  height: 203px;
+  text-align: left;
 }
 p.pop_text {
   margin: 25px 0px 50px 0px;

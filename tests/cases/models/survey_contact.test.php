@@ -9,6 +9,19 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testIsFinished(){
+	  $this->assertTrue($this->SurveyContact->isFinished(1));
+	  $this->assertTrue($this->SurveyContact->isFinished('token'));
+	  $this->assertFalse($this->SurveyContact->isFinished(2));
+	  $this->assertFalse($this->SurveyContact->isFinished('token2'));
+	}
+	
+	function testIdByToken(){
+	  $this->assertEqual(1, $this->SurveyContact->idByToken('token'));
+	  $this->assertEqual(2, $this->SurveyContact->idByToken('token2'));
+	  $this->assertEqual(0, $this->SurveyContact->idByToken('not_exist'));
+	}
+	
 	function testSaveFirstShouldSaveWithContact(){
 	  $data = array(
 	    'SurveyContact' => array(

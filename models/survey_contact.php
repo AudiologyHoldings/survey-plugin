@@ -8,6 +8,9 @@ class SurveyContact extends SurveyAppModel {
 			'email' => array(
 				'rule' => array('email'),
 			),
+			'unique' => array(
+			  'rule' => array('isUnique')
+			)
 		),
 		'token' => array(
 			'notempty' => array(
@@ -78,6 +81,7 @@ class SurveyContact extends SurveyAppModel {
 	  * an email address associated with it.  
 	  * If we have an email address, be sure to save contact.
 	  * @param array of data to save, contact and answers
+	  * @return mixed result of saveAll
 	  */
 	function saveFirst($data){
 	  //do not attempt to save the contact data if we don't have an email address,
@@ -85,6 +89,34 @@ class SurveyContact extends SurveyAppModel {
 	    return $this->SurveyAnswer->saveAll($data['SurveyAnswer']);
 	  }
 	  return parent::saveAll($data, array('validate' => 'first'));
+	}
+	
+	/**
+	  * Get the id of a contact by its token
+	  * @param string token
+	  * @return mixed id of contact with matching token or null
+	  */
+	function idByToken($token = null){
+	  return $this->field('id', array("{$this->alias}.token" => $token));
+	}
+	
+	/**
+	  * @param mixed id or token of contact
+	  * @return boolean true if contact has finished the entire survey
+	  */
+	function isFinished($id_or_token = null){
+	  if($id_or_token) $this->id = $id_or_token;
+	  $retval = $this->field('finished_survey');
+	  if($retval){
+	    return $retval;
+	  }
+	  
+	  $this->id = $this->idByToken($id_or_token);
+	  if($this->id){
+	    return $this->field('finished_survey');
+	  }
+	  
+	  return false;
 	}
 	
 	/**
