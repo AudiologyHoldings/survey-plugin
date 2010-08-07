@@ -11,12 +11,12 @@ class SurveyUtilTestCase extends CakeTestCase {
   
   function testGetConfig(){
     $expected = array(
-      'table' => 'survey_contact',
+      'table' => 'survey_contacts',
       'email' => 'no_reply@webtechnick.com'
     );
     $this->assertEqual($expected, $this->SurveyUtil->getConfig());
     
-    $expected = 'survey_contact';
+    $expected = 'survey_contacts';
     $this->assertEqual($expected, $this->SurveyUtil->getConfig('table'));
   }
   

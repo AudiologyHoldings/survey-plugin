@@ -42,7 +42,19 @@ class SurveysController extends SurveyAppController {
     * @param string token of survey_contact (required)
     */
   function second($token = null){
-    //TODO
+    if(!$token){
+      $this->badFlash('Token required.');
+      $this->redirect('/');
+    }
+    $contact = $this->SurveyContact->findByToken($token);
+    if(empty($contact)){
+      $this->badFlash('Invalid Token.');
+      $this->redirect('/');
+    }
+    if(!empty($this->data)){
+      $this->SurveyContact->saveSecond($this->data);
+      $this->redirect(array('action' => 'give_away', $token));
+    }
   }
   
   /**

@@ -7,14 +7,17 @@ body {
   font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 }
 
-h2, h3 {
+h2, h3, h4 {
   color: #0082c8 /* blue */
 }
 h2 {
   margin: 15px 0px 15px 0px;
 }
-h3 {
+h3, h4 {
   margin: 10px 0px 10px 0px;
+}
+h3.green{
+  color: #7ac142 /* green */ 
 }
 .hand {
   cursor: pointer;
@@ -28,6 +31,9 @@ h3 {
 .center{
   margin: auto;
   text-align: center;
+}
+a img {
+  border: none;
 }
 
 /* flash */
@@ -60,16 +66,24 @@ div#info-flash {
   background: blue;
 }
 
-/* popup */
-#popup{
-  margin: auto;
+/* survey */
+.final_survey_footer{
+  text-align: center;
 }
 
 div.wrapper{
   margin: auto;
-  width: 1000px;
-  height: 572px;
+  width: 1000px; 
+}
+div.wrapper-popup {
   background: #f4f4f4 url('../img/popup_spiral.png') no-repeat;
+  height: 572px;
+}
+div.wrapper-spiral {
+  background: #f4f4f4 url('../img/survey_spiral.png') no-repeat;
+  min-height: 572px;
+  height:auto !important;
+  height:572px;
 }
 
 #pop_top {
@@ -107,6 +121,11 @@ div.pop_thanks {
   height: 203px;
   text-align: left;
 }
+div.survey_question{
+  padding: 20px;
+  width: 850px;
+  text-align: left;
+}
 p.pop_text {
   margin: 25px 0px 50px 0px;
 }
@@ -119,9 +138,15 @@ div.pop_button {
   text-align: center;
   margin: auto;
 }
-ul.question {
+ul.question, ul.survey_question {
   list-style: none;
   margin-left: 30px;
+}
+ul.survey_question li{
+  margin-top: 10px;
+}
+ul.survey_question li label{
+  margin-left: 15px;
 }
 ul.question li {
   float: left;

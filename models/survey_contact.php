@@ -42,13 +42,13 @@ class SurveyContact extends SurveyAppModel {
 	);
 		
 	/**
-	  * Load custom table.  Defaults to survey_contact
+	  * Load custom table.  Defaults to survey_contacts
 	  */
 	function __construct($id = false, $table = null, $ds = null){
 	  parent::__construct($id, $table, $ds);
 	  $this->useTable = SurveyUtil::getConfig('table');
 	  if(!$this->useTable){
-	    $this->useTable = 'survey_contact';
+	    $this->useTable = 'survey_contacts';
 	  }
 	}
 	

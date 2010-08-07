@@ -1,8 +1,10 @@
 <?php echo $this->Html->script('/survey/js/survey_popup.js', array('inline' => false)); ?>
 <div id="popup">
-  <div class="wrapper">
+  <div class="wrapper wrapper-popup">
     <div id="pop_top">
-      <span><a href="#">CLOSE [X]</a></span>
+      <span>
+      <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false)); ?>
+      </span>
     </div>
     <div id="pop_body">
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
@@ -83,6 +85,8 @@
             <?php echo $this->Html->image('/survey/img/popup_contact.png'); ?>
             <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:')); ?>
           </div>
+          <h4>This survey is for research purposes only</h4>
+          <h4>We will not share your information or send unsolicited emails.</h4>
         </div>
         
         <div class="pop_button">
