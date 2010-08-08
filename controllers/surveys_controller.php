@@ -67,7 +67,7 @@ class SurveysController extends SurveyAppController {
     * @paran string token (required)
     */
   function give_away($token = null){
-    $contact = $this->SurveyContact->findByToken($token);
+    $contact = $this->SurveyContact->findByTokenForGiveAway($token);
     if(!$token){
       $this->badFlash('Token required.');
       $this->redirect('/');
@@ -77,7 +77,7 @@ class SurveysController extends SurveyAppController {
       $this->redirect('/');
     }
     elseif(!empty($this->data)){
-      if($this->SurveyContact->enterGiveAaway($this->data)){
+      if($this->SurveyContact->enterGiveAway($this->data)){
         $this->goodFlash('Thank you.');
         $this->redirect('/');
       }

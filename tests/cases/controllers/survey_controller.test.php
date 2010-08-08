@@ -42,6 +42,10 @@ class SurveysControllerTestCase extends CakeTestCase {
 		$this->Surveys->Session = new MockSessionComponent();
 	}
 	
+	function testGiveAway(){
+	  //TODO
+	}
+	
 	function testSecondShouldRedirectIfNoToken(){
 	  $this->Surveys->Session->expectOnce('setFlash', array('Token required.', 'badFlash'));
 	  $this->Surveys->second();

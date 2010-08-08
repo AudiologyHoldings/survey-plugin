@@ -87,7 +87,13 @@ class SurveyContact extends SurveyAppModel {
 	  * @return mixed token if successful, false if unable to determin string to generate token from
 	  */
 	function __generateToken($email = null){
-	  $base = $email ? $email : isset($this->data[$this->alias]['email']) ? $this->data[$this->alias]['email'] : null;
+	  $base = null;
+	  if($email){
+	    $base = $email;
+	  }
+	  elseif(isset($this->data[$this->alias]['email'])){
+	    $base = $this->data[$this->alias]['email'];
+	  }
 	  if(!$base){
 	    return false;
 	  }
@@ -133,7 +139,7 @@ class SurveyContact extends SurveyAppModel {
 	  * @param array of data to save
 	  * @return mixed results of save
 	  */
-	function enterGiveAaway($data){
+	function enterGiveAway($data){
 	  if(!isset($data[$this->alias]['is_18']) || !$data[$this->alias]['is_18']){
 	    $this->invalidate('is_18', 'You must be 18 years old or older to enter drawing.');
 	    return false;
@@ -178,6 +184,23 @@ class SurveyContact extends SurveyAppModel {
 	function finishSurvey($id = null){
 	  if($id) $this->id = $id;
 	  return $this->saveField('finished_survey', true);
+	}
+	
+	/**
+	  * Find a giveaway contact by their token
+	  * a contact that qualifies for the give_away
+	  * is a contact that has finished their survey
+	  * @param token of contact
+	  * @return mixed result of find
+	  */
+	function findByTokenForGiveAway($token){
+	  return $this->find('first', array(
+	    'conditions' => array(
+	      "{$this->alias}.finished_survey" => true,
+	      "{$this->alias}.token" => $token,
+	    ),
+	    'recursive' => -1
+	  ));
 	}
 
 }
