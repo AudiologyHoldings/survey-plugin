@@ -68,6 +68,9 @@ class SurveyContact extends SurveyAppModel {
 	  if(!$this->useTable){
 	    $this->useTable = 'survey_contacts';
 	  }
+	  if(!$this->__hasRequiredFields()){
+	    trigger_error("Required fields not present in {$this->useTable}.");
+	  }
 	}
 	
 	/**
@@ -201,6 +204,32 @@ class SurveyContact extends SurveyAppModel {
 	    ),
 	    'recursive' => -1
 	  ));
+	}
+	
+	/**
+	  * Since the table is customizable, verify we have all the fields
+	  * required for this plugin to function properly
+	  * @return boolean success
+	  */
+	function __hasRequiredFields(){
+	  $fields = array(
+	    'first_name',
+	    'last_name',
+	    'email',
+	    'token',
+	    'phone',
+	    'is_18',
+	    'entered_give_away',
+	    'finished_survey',
+	  );
+	  
+	  foreach($fields as $field){
+	    if(!$this->hasField($field)){
+	      return false;
+	    }
+	  }
+	  
+	  return true;
 	}
 
 }

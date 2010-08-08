@@ -157,6 +157,10 @@ class SurveyContactTestCase extends CakeTestCase {
 	  $this->assertEqual('new_email@example.com', $contact['SurveyContact']['email']);
 	  $this->assertTrue(!empty($contact['SurveyContact']['token']));
 	}
+	
+	function testHasRequiredFields(){
+	  $this->assertTrue($this->SurveyContact->__hasRequiredFields());
+	}
 
 	function endTest() {
 		unset($this->SurveyContact);
