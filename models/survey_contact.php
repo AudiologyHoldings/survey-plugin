@@ -20,9 +20,27 @@ class SurveyContact extends SurveyAppModel {
 			  'rule' => array('isUnique')
 			)
 		),
+		'first_name' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please enter a first name'
+			),
+		),
+		'last_name' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please enter a last name'
+			),
+		),
 		'phone' => array(
 			'phone' => array(
 				'rule' => array('phone'),
+				'message' => 'Please enter a valid phone number'
+			),
+		),
+		'is_18' => array(
+			'boolean' => array(
+				'rule' => array('boolean'),
 			),
 		),
 		'finished_survey' => array(
@@ -88,7 +106,40 @@ class SurveyContact extends SurveyAppModel {
 	  if(isset($data[$this->alias]['email']) && empty($data[$this->alias]['email'])){
 	    return $this->SurveyAnswer->saveAll($data['SurveyAnswer']);
 	  }
-	  return parent::saveAll($data, array('validate' => 'first'));
+	  return $this->saveAll($data, array('validate' => 'first'));
+	}
+	
+	/**
+	  * Save the second survey, no answer is truly required.
+	  * be sure to link the answers to the contact as we absolutely 
+	  * have a contact.  Also upon success, make sure to set the survey
+	  * to finished
+	  * @param array of data to save
+	  * @return mixed result of saveAll
+	  */
+	function saveSecond($data){
+	  $retval = $this->saveAll($data);
+	  if($retval){
+	    $this->finishSurvey();
+	  }
+	  return $retval;
+	}
+	
+	/**
+	  * Append entered_give_away to the data
+	  * and pass to save
+	  * Make sure we are at least 18
+	  *
+	  * @param array of data to save
+	  * @return mixed results of save
+	  */
+	function enterGiveAaway($data){
+	  if(!isset($data[$this->alias]['is_18']) || !$data[$this->alias]['is_18']){
+	    $this->invalidate('is_18', 'You must be 18 years old or older to enter drawing.');
+	    return false;
+	  }
+	  $data[$this->alias]['entered_give_away'] = true;
+	  return $this->save($data, array('validate' => 'first'));
 	}
 	
 	/**
@@ -120,9 +171,13 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
-	  * TODO
+	  * Set the contact's survey to finished
+	  * @param id of contact
+	  * @return boolean success
 	  */
 	function finishSurvey($id = null){
+	  if($id) $this->id = $id;
+	  return $this->saveField('finished_survey', true);
 	}
 
 }

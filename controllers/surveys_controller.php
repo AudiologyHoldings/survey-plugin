@@ -9,7 +9,7 @@ class SurveysController extends SurveyAppController {
     */
   var $uses = array('Survey.SurveyAnswer', 'Survey.SurveyContact');
   
-  var $components = array('Session','Email');
+  var $components = array('Session','Security','Email');
   
   /**
     * Load any custom settings here
@@ -42,19 +42,22 @@ class SurveysController extends SurveyAppController {
     * @param string token of survey_contact (required)
     */
   function second($token = null){
+    $contact = $this->SurveyContact->findByToken($token);
+    
     if(!$token){
       $this->badFlash('Token required.');
       $this->redirect('/');
     }
-    $contact = $this->SurveyContact->findByToken($token);
-    if(empty($contact)){
+    elseif(empty($contact)){
       $this->badFlash('Invalid Token.');
       $this->redirect('/');
     }
-    if(!empty($this->data)){
+    elseif(!empty($this->data)){
       $this->SurveyContact->saveSecond($this->data);
       $this->redirect(array('action' => 'give_away', $token));
     }
+    
+    $this->set('contact', $contact);
   }
   
   /**
@@ -64,7 +67,28 @@ class SurveysController extends SurveyAppController {
     * @paran string token (required)
     */
   function give_away($token = null){
-    //TODO
+    $contact = $this->SurveyContact->findByToken($token);
+    if(!$token){
+      $this->badFlash('Token required.');
+      $this->redirect('/');
+    }
+    elseif(empty($contact)){
+      $this->badFlash('Invalid Token.');
+      $this->redirect('/');
+    }
+    elseif(!empty($this->data)){
+      if($this->SurveyContact->enterGiveAaway($this->data)){
+        $this->goodFlash('Thank you.');
+        $this->redirect('/');
+      }
+      else {
+        //Unset the id so the form helper doesn't append it to the form action
+        unset($this->data['SurveyContact']['id']);
+        $this->badFlash('Please fill out every field.');
+      }
+    }
+    
+    $this->set('contact', $contact);
   }
   
   /**

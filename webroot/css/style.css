@@ -69,11 +69,13 @@ div#info-flash {
 /* survey */
 .final_survey_footer{
   text-align: center;
+  clear: both;
 }
 
 div.wrapper{
   margin: auto;
-  width: 1000px; 
+  width: 1000px;
+  border: 1px solid #ccc; /* grey */
 }
 div.wrapper-popup {
   background: #f4f4f4 url('../img/popup_spiral.png') no-repeat;
@@ -122,6 +124,7 @@ div.pop_thanks {
   text-align: left;
 }
 div.survey_question{
+  margin-top: 10px;
   padding: 20px;
   width: 850px;
   text-align: left;
@@ -133,10 +136,19 @@ p.q_text {
   height: 70px;
   margin-top: 25px;
 }
+span.required, div.error-message {
+  font-style: italic;
+  color: #0082c8;
+  font-weight: bold;
+}
+div.error-message {
+  color: maroon;
+}
 div.pop_button {
   padding-top: 50px;
   text-align: center;
   margin: auto;
+  clear: both;
 }
 ul.question, ul.survey_question {
   list-style: none;
@@ -161,6 +173,9 @@ ul.question li label {
 }
 
 /** Page Two **/
+div.give_away {
+  width: 325px;
+}
 div.gift_card {
   float: right;
 }
@@ -172,4 +187,17 @@ div.text input[type=text] {
   height: 35px;
   font-size: 1.5em;
   border: 1px solid #ccc; /* grey */
+}
+
+/* give_away page  */
+div.give_away_input {
+  width: 450px;
+  float: left;
+  margin: 0px 20px 20px 0px;
+}
+div.checkbox {
+  padding-bottom: 20px;
+}
+div.checkbox label {
+  padding-left: 5px;
 }

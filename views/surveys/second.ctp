@@ -6,7 +6,8 @@
     
     <div id="pop_body">
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
-      <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'))); ?>
+      <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second', $contact['SurveyContact']['token']))); ?>
+      <?php echo $this->Form->input('SurveyContact.id', array('type' => 'hidden', 'value' => $contact['SurveyContact']['id'])); ?>
       <h2>Here is your follow-up survey!</h2>
       <p class="pop_text">
         Please respond to the following questions based on your recent experience.
@@ -18,7 +19,7 @@
           <p class="q_text">
             Did you visit a clinic that you found in the Healthy Hearing directory?
           </p>
-          <?php echo $this->Form->input('SurveyAnswer.0.question', array('type' => 'hidden', 'value' => '1_age')) ?>
+          <?php echo $this->Form->input('SurveyAnswer.0.question', array('type' => 'hidden', 'value' => '3_visit_clinic')) ?>
           <?php echo $this->Form->input('SurveyAnswer.0.answer', array(
             'type' => 'radio',
             'before' => '<ul class="survey_question"><li>',
@@ -41,7 +42,7 @@
           <p class="q_text">
             Did you purchase a hearing aid as a result of that visit?
           </p>
-          <?php echo $this->Form->input('SurveyAnswer.1.question', array('type' => 'hidden', 'value' => '1_age')) ?>
+          <?php echo $this->Form->input('SurveyAnswer.1.question', array('type' => 'hidden', 'value' => '4_purchase_hearing_aid')) ?>
           <?php echo $this->Form->input('SurveyAnswer.1.answer', array(
             'type' => 'radio',
             'before' => '<ul class="survey_question"><li>',
@@ -63,7 +64,7 @@
           <p class="q_text">
             Which brand of hearing aid did you purchase?
           </p>
-          <?php echo $this->Form->input('SurveyAnswer.2.question', array('type' => 'hidden', 'value' => '1_age')) ?>
+          <?php echo $this->Form->input('SurveyAnswer.2.question', array('type' => 'hidden', 'value' => '5_what_brand')) ?>
           <?php echo $this->Form->input('SurveyAnswer.2.answer', array(
             'type' => 'radio',
             'before' => '<ul class="survey_question"><li>',
@@ -97,7 +98,7 @@
       
       <div id="thanks" style="display:none;">
         <div class="white_box survey_question center">
-          <h3 class="green">That's all.</h3>
+          <h3 class="green">That's all. Click Submit Survey to finish.</h3>
           <p class="q_text">
             Thanks, that's all the questions we have. You can enter your drawing<br />
             information on the next screen.  Thanks again for participating.
