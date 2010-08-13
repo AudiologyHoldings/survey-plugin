@@ -7,9 +7,11 @@ class SurveyContact extends SurveyAppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
+				'message' => 'Must be a valid email.'
 			),
 			'unique' => array(
-			  'rule' => array('isUnique')
+			  'rule' => array('isUnique'),
+			  'message' => 'Email already taken'
 			)
 		),
 		'token' => array(
@@ -17,7 +19,7 @@ class SurveyContact extends SurveyAppModel {
 				'rule' => array('notempty'),				
 			),
 			'unique' => array(
-			  'rule' => array('isUnique')
+			  'rule' => array('isUnique'),
 			)
 		),
 		'first_name' => array(
@@ -230,6 +232,15 @@ class SurveyContact extends SurveyAppModel {
 	  }
 	  
 	  return true;
+	}
+	
+	/**
+	  * Find all the contacts in which to send a final survey email
+	  *
+	  * @return mixed result of find
+	  */
+	function findAllToNotify(){
+	  
 	}
 
 }

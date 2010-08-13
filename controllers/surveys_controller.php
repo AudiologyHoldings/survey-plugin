@@ -23,6 +23,7 @@ class SurveysController extends SurveyAppController {
     * 2 questions + email contact
     */
   function first(){
+    $start_page = 'one';
     if(!empty($this->data)){
       if($this->SurveyContact->saveFirst($this->data)){
         $this->goodFlash('Thank you message');
@@ -31,8 +32,10 @@ class SurveysController extends SurveyAppController {
       }
       else {
         $this->badFlash('Email not valid, please try again.');
+        $start_page = 'two';
       }
-    }    
+    }
+    $this->set('start_page', $start_page);
   }
   
   /**
@@ -78,13 +81,13 @@ class SurveysController extends SurveyAppController {
     }
     elseif(!empty($this->data)){
       if($this->SurveyContact->enterGiveAway($this->data)){
-        $this->goodFlash('Thank you.');
+        //$this->goodFlash('Thank you.');
         $this->redirect('/');
       }
       else {
         //Unset the id so the form helper doesn't append it to the form action
         unset($this->data['SurveyContact']['id']);
-        $this->badFlash('Please fill out every field.');
+        //$this->badFlash('Please fill out every field.');
       }
     }
     
@@ -95,7 +98,6 @@ class SurveysController extends SurveyAppController {
     * Show thanks page
     */ 
   function thanks(){
-    //TODO
   }
   
   /**

@@ -1,10 +1,24 @@
 var SurveyPopup = Class.create({
-  initialize: function(){
+  initialize: function(start_page){
     //globals
     this.pageIds = ['one','two'];
-    this.btn_continue = $('btn_continue');
+    this.popupId = 'popup';
     
-    this.btn_continue.observe('click', this.page.bind(this, 'two'));
+    $('btn_continue').observe('click', this.page.bind(this, 'two'));
+    $$('.btn_close').each(function(elem){
+      elem.observe('click', this.close.bind(this));
+    }.bind(this));
+    
+    if(start_page != undefined){
+      this.page(start_page);
+    }
+  },
+  
+  /**
+    * Close the popup
+    */
+  close: function(){
+    $(this.popupId).hide();
   },
   
   /**

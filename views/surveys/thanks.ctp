@@ -1,8 +1,9 @@
+<?php echo $this->Html->script('/survey/js/survey_close.js', array('inline' => false)); ?>
 <div id="popup">
   <div class="wrapper">
     <div id="pop_top">
       <span>
-        <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false)); ?>
+        <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false, 'class' => 'btn_close')); ?>
       </span>
     </div>
     
@@ -24,10 +25,11 @@
         </div>
         
         <div class="pop_button">
-          <?php echo $this->Html->image('/survey/img/btn_close.png', array('class' => 'hand', 'id' => 'btn_continue')) ?>
+          <?php echo $this->Html->image('/survey/img/btn_close.png', array('class' => 'hand', 'class' => 'btn_close hand')) ?>
         </div>
       </div>
       
     </div>
   </div>
 </div>
+<?php echo $this->Html->scriptBlock("SP = new SurveyClose();"); ?>

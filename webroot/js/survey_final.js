@@ -2,6 +2,8 @@ var SurveyFinal = Class.create({
   initialize: function(){
     //globals
     this.pageIds = ['one','two','three','resend','thanks'];
+    this.popupId = 'final_survey';
+    
     this.decisionTree = new Hash({
       question_1: new Hash({
         Yes: 'two',

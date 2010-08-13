@@ -3,7 +3,7 @@
   <div class="wrapper wrapper-popup">
     <div id="pop_top">
       <span>
-      <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false)); ?>
+      <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false, 'class' => 'btn_close')); ?>
       </span>
     </div>
     <div id="pop_body">
@@ -97,4 +97,4 @@
     </div>
   </div>
 </div>
-<?php echo $this->Html->scriptBlock('SP = new SurveyPopup();'); ?>
+<?php echo $this->Html->scriptBlock("SP = new SurveyPopup('$start_page');"); ?>
