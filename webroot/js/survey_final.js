@@ -1,9 +1,18 @@
+/**
+  * SurveyFinal is a Prototype JS object that will handle the final survey
+  * page, navigating a user through the questions and submitting the form
+  * upon completion.
+  */
 var SurveyFinal = Class.create({
-  initialize: function(){
+  /**
+    * Constructor, setup globals and observe all the radio inputs
+    * @param email of the contact needed for any ajax calls
+    */
+  initialize: function(email){
     //globals
-    this.pageIds = ['one','two','three','resend','thanks'];
-    this.popupId = 'final_survey';
-    
+    this.email = email;
+    this.form = 'final_form';
+    this.pageIds = ['one','two','three','resend','thanks'];    
     this.decisionTree = new Hash({
       question_1: new Hash({
         Yes: 'two',
@@ -31,8 +40,6 @@ var SurveyFinal = Class.create({
   /**
     * Decide the next step based on the question and answer
     * this is decided by the decisiontree defined in the init
-    * if the page_id is resend, run an ajax save to mark the contact
-    * as a resend in 30 days.
     *
     * @param event
     * @return void
@@ -41,7 +48,27 @@ var SurveyFinal = Class.create({
     this.elem = Event.element(event);
     var question = this.elem.readAttribute('class');
     var page_id = this.decisionTree.get(question).get(this.elem.value);
+    this.pageCall(page_id);
     this.showPageFromDecision(question, page_id);
+  },
+  
+  /**
+    * Make any ajax calls, or form submits depending 
+    * on page_id we're viewing
+    *
+    * @param page_id to show next
+    * @return void
+    */
+  pageCall: function(page_id){
+    if(page_id == 'resend'){
+      var url = '/resend_survey/' + this.email
+      new Ajax.Request(url, {
+          method: 'get'
+      });
+    }
+    else if(page_id == 'thanks'){
+      $('final_form').submit();
+    }
   },
   
   /**

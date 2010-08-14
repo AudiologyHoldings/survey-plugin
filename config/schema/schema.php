@@ -29,6 +29,7 @@ class TestAppSchema extends CakeSchema {
 		'is_18' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'entered_give_away' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'finished_survey' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
+		'final_email_sent_date' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')

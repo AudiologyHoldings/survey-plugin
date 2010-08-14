@@ -7,9 +7,9 @@ class SurveysController extends SurveyAppController {
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
-  var $uses = array('Survey.SurveyAnswer', 'Survey.SurveyContact');
+  var $uses = array('Survey.SurveyContact');
   
-  var $components = array('Session','Security','Email');
+  var $components = array('RequestHandler','Session','Security','Email');
   
   /**
     * Load any custom settings here
@@ -92,6 +92,18 @@ class SurveysController extends SurveyAppController {
     }
     
     $this->set('contact', $contact);
+  }
+  
+  /**
+    * Set the contact's resend email date to 30 days from now
+    * This is meant to be called via ajax
+    * @param email of contact
+    */
+  function resend($email = null){
+    if($id = $this->SurveyContact->idByEmail($email)){
+      return $this->SurveyContact->setFinalEmailDate($id);
+    }
+    return false;
   }
   
   /**

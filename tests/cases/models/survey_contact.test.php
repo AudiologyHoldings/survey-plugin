@@ -9,6 +9,14 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testSetFinalEmailDate(){
+	  $id = 1;
+	  $this->SurveyContact->id = $id;
+	  $this->assertEqual('0000-00-00 00:00:00', $this->SurveyContact->field('final_email_sent_date'));
+	  $this->assertTrue($this->SurveyContact->setFinalEmailDate($id));
+	  $this->assertNotEqual('0000-00-00 00:00:00', $this->SurveyContact->field('final_email_sent_date'));
+	}
+	
 	function testFindByEmailForSecond(){
 	  $this->assertFalse($this->SurveyContact->findByEmailForSecond('example@example.com'));
 	  $this->assertTrue($this->SurveyContact->findByEmailForSecond('nick@example.com'));
@@ -67,10 +75,10 @@ class SurveyContactTestCase extends CakeTestCase {
 	  $this->assertEqual('test@example.com', $contact['SurveyContact']['email']);
 	  $this->assertFalse(empty($contact['SurveyContact']['email']));
 	  $this->assertEqual(2, count($contact['SurveyAnswer']));
+	  $this->assertTrue($contact['SurveyContact']['final_email_sent_date']);
 	  foreach($contact['SurveyAnswer'] as $answer){
 	    $this->assertEqual($contact['SurveyContact']['id'], $answer['survey_contact_id']);
 	  }
-	  $this->assertEqual(2, count($contact['SurveyAnswer']));
 	}
 	
 	function testSaveFirstShouldSaveAnswerButNotContact(){
@@ -153,6 +161,16 @@ class SurveyContactTestCase extends CakeTestCase {
 	function testHasRequiredFields(){
 	  $this->assertTrue($this->SurveyContact->__hasRequiredFields());
 	}
+	
+	function testFindAllToNotify(){
+	  $date = $this->SurveyContact->str2datetime('today');
+	  $this->SurveyContact->id = 2;
+	  $this->SurveyContact->saveField('final_email_send_date', $date);
+	  
+	  $results = $this->SurveyContact->findAllToNotify();
+	  $this->assertEqual(1, count($results));
+	}
+	
 
 	function endTest() {
 		unset($this->SurveyContact);

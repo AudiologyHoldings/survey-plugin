@@ -12,6 +12,7 @@ class SurveyContactFixture extends CakeTestFixture {
 		'is_18' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'entered_give_away' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'finished_survey' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
+		'final_email_sent_date' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
@@ -27,17 +28,19 @@ class SurveyContactFixture extends CakeTestFixture {
 			'is_18' => 1,
 			'entered_give_away' => 0,
 			'finished_survey' => 1,
+			'final_email_sent_date' => '',
 			'created' => '2010-07-27 22:54:48'
 		),
 		array(
 			'id' => 2,
-			'first_name' => 'Nick',
-			'last_name' => 'Baker',
+			'first_name' => '',
+			'last_name' => '',
 			'email' => 'nick@example.com',
-			'phone' => 'Lorem ipsum dolor ',
+			'phone' => '',
 			'is_18' => 0,
 			'entered_give_away' => 0,
 			'finished_survey' => 0,
+			'final_email_sent_date' => '2010-08-13 00:00:00',
 			'created' => '2010-07-27 22:54:48'
 		),
 	);

@@ -20,6 +20,24 @@ class SurveyAppModel extends AppModel {
         return parent::find($type, $options);
     }
   }
+  
+  /**
+     * String to datetime stamp
+     * @param string that is parsable by str2time
+     * @return date time string for MYSQL
+     */
+   function str2datetime($str){
+     return date("Y-m-d H:i:s", strtotime($str));
+   }
+   
+   /**
+     * time to datetime stamp
+     * @param int timestamp
+     * @return date time string for MYSQL
+     */
+   function time2datetime($time){
+     return date("Y-m-d H:i:s", $time);
+   }
 }
 
 ?>

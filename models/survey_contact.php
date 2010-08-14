@@ -91,6 +91,7 @@ class SurveyContact extends SurveyAppModel {
 	  * Save the first survey, no answer is truely required, unless we have
 	  * an email address associated with it.  
 	  * If we have an email address, be sure to save contact.
+	  *
 	  * @param array of data to save, contact and answers
 	  * @return mixed result of saveAll
 	  */
@@ -99,7 +100,13 @@ class SurveyContact extends SurveyAppModel {
 	  if(isset($data[$this->alias]['email']) && empty($data[$this->alias]['email'])){
 	    return $this->SurveyAnswer->saveAll($data['SurveyAnswer']);
 	  }
-	  return $this->saveAll($data, array('validate' => 'first'));
+	  
+	  //Aftersave method specific for the first survey save.
+	  $retval = $this->saveAll($data, array('validate' => 'first'));
+	  if($retval){
+	    $this->setFinalEmailDate();
+	  }
+	  return $retval;
 	}
 	
 	/**
@@ -221,6 +228,8 @@ class SurveyContact extends SurveyAppModel {
 	    'is_18',
 	    'entered_give_away',
 	    'finished_survey',
+	    'final_email_sent_date',
+	    'created',
 	  );
 	  
 	  foreach($fields as $field){
@@ -233,12 +242,38 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
+	  * Set the final_email_send_date of a spacific contact
+	  * to days from now (default 30)
+	  * @param int id of contact to alter
+	  * @param int days from now (default 30)
+	  * @return boolean success
+	  */
+	function setFinalEmailDate($id = null, $days_from_now = 30){
+	  if($id) $this->id = $id;
+	  $datetime = $this->time2datetime(mktime(0, 0, 0, date("m")  , date("d")+$days_from_now, date("Y")));
+	  return $this->saveField('final_email_sent_date', $datetime);
+	}
+	
+	/**
 	  * Find all the contacts in which to send a final survey email
 	  *
 	  * @return mixed result of find
 	  */
 	function findAllToNotify(){
+	  $start = $this->str2datetime('yesterday');
+	  $end = $this->str2datetime('today');
 	  
+	  return $this->find('all', array(
+	    'fields' => array(
+	      "{$this->alias}.email"
+	    ),
+	    'conditions' => array(
+	      "{$this->alias}.finished_survey" => false,
+	      "{$this->alias}.final_email_sent_date >=" => $start,
+	      "{$this->alias}.final_email_sent_date <=" => $end,
+	    ),
+	    'recursive' => -1
+	  ));
 	}
 
 }

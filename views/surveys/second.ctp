@@ -6,7 +6,10 @@
     
     <div id="pop_body">
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
-      <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second', $contact['SurveyContact']['email']))); ?>
+      <?php echo $this->Form->create('SurveyContact', array(
+        'url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second', $contact['SurveyContact']['email']),
+        'id' => 'final_form'
+      )); ?>
       <?php echo $this->Form->input('SurveyContact.id', array('type' => 'hidden', 'value' => $contact['SurveyContact']['id'])); ?>
       <h2>Here is your follow-up survey!</h2>
       <p class="pop_text">
@@ -88,11 +91,8 @@
           <h3 class="green">Thanks.</h3>
           <p class="q_text">
             We'll send you a follow-up in about 30 days.<br />
-            You will be able to enter the drawing at that time.
+            You will be able to enter the drawing at that time.<br />
           </p>
-          <div class="pop_button">
-            <?php echo $this->Form->submit('/survey/img/btn_submit_survey.png', array('class' => 'hand', 'id' => 'btn_submit')) ?>
-          </div>
         </div>
       </div>
       
@@ -117,4 +117,4 @@
     <?php echo $this->Html->image('/survey/img/popup_bottom.gif') ?>
   </div>
 </div>
-<?php echo $this->Html->scriptBlock('SF = new SurveyFinal();'); ?>
+<?php echo $this->Html->scriptBlock("SF = new SurveyFinal('{$contact['SurveyContact']['email']}');"); ?>
