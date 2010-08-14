@@ -25,7 +25,6 @@ class TestAppSchema extends CakeSchema {
 		'first_name' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'last_name' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'email' => array('type' => 'string', 'null' => false, 'default' => NULL),
-		'token' => array('type' => 'string', 'null' => false, 'default' => NULL),
 		'phone' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 20),
 		'is_18' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'entered_give_away' => array('type' => 'boolean', 'null' => false, 'default' => '0'),

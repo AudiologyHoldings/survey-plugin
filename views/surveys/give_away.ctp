@@ -5,7 +5,7 @@
     
     <div id="pop_body">
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
-      <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'give_away', $contact['SurveyContact']['token']))); ?>
+      <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'give_away', $contact['SurveyContact']['email']))); ?>
       <?php echo $this->Form->input('SurveyContact.id', array('type' => 'hidden', 'value' => $contact['SurveyContact']['id'])); ?>
       <div class="gift_card give_away">
         <?php echo $this->Html->image('/survey/img/gift_card.png') ?>

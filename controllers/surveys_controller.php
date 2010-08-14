@@ -40,24 +40,24 @@ class SurveysController extends SurveyAppController {
   
   /**
     * The second survey
-    * Needs a contact token
+    * Needs a contact email
     *
-    * @param string token of survey_contact (required)
+    * @param string email of survey_contact (required)
     */
-  function second($token = null){
-    $contact = $this->SurveyContact->findByToken($token);
+  function second($email = null){
+    $contact = $this->SurveyContact->findByEmailForSecond($email);
     
-    if(!$token){
-      $this->badFlash('Token required.');
+    if(!$email){
+      $this->badFlash('Email required.');
       $this->redirect('/');
     }
     elseif(empty($contact)){
-      $this->badFlash('Invalid Token.');
+      $this->badFlash('Invalid Email.');
       $this->redirect('/');
     }
     elseif(!empty($this->data)){
       $this->SurveyContact->saveSecond($this->data);
-      $this->redirect(array('action' => 'give_away', $token));
+      $this->redirect(array('action' => 'give_away', $email));
     }
     
     $this->set('contact', $contact);
@@ -65,29 +65,29 @@ class SurveysController extends SurveyAppController {
   
   /**
     * Give Away page, coolect name, and phone number
-    * Only show this page if contact by token is finished_survey
+    * Only show this page if contact by email is finished_survey
     *
-    * @paran string token (required)
+    * @paran string email (required)
     */
-  function give_away($token = null){
-    $contact = $this->SurveyContact->findByTokenForGiveAway($token);
-    if(!$token){
-      $this->badFlash('Token required.');
+  function give_away($email = null){
+    $contact = $this->SurveyContact->findByEmailForGiveAway($email);
+    if(!$email){
+      $this->badFlash('Email required.');
       $this->redirect('/');
     }
     elseif(empty($contact)){
-      $this->badFlash('Invalid Token.');
+      $this->badFlash('Invalid Email.');
       $this->redirect('/');
     }
     elseif(!empty($this->data)){
       if($this->SurveyContact->enterGiveAway($this->data)){
-        //$this->goodFlash('Thank you.');
+        $this->goodFlash('Thank you.');
         $this->redirect('/');
       }
       else {
         //Unset the id so the form helper doesn't append it to the form action
         unset($this->data['SurveyContact']['id']);
-        //$this->badFlash('Please fill out every field.');
+        $this->badFlash('Please fill out every field.');
       }
     }
     

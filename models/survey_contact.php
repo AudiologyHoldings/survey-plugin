@@ -14,14 +14,6 @@ class SurveyContact extends SurveyAppModel {
 			  'message' => 'Email already taken'
 			)
 		),
-		'token' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),				
-			),
-			'unique' => array(
-			  'rule' => array('isUnique'),
-			)
-		),
 		'first_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
@@ -76,20 +68,10 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
-	  * Build the token if we need to.
-	  */
-	function beforeSave(){
-	  if(!isset($this->data[$this->alias]['token']) || empty($this->data[$this->alias]['token'])){
-	    $this->data[$this->alias]['token'] = $this->__generateToken();
-	  }
-	  return true;
-	}
-	
-	/**
 	  * Generate the token from an or if no email supplied, try $this->data[$this->alias]['email']
 	  *
 	  * @param string email to generate hash from (optional)
-	  * @return mixed token if successful, false if unable to determin string to generate token from
+	  * @return mixed token if successful, false if unable to determin string to generate email from
 	  */
 	function __generateToken($email = null){
 	  $base = null;
@@ -154,26 +136,26 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
-	  * Get the id of a contact by its token
-	  * @param string token
-	  * @return mixed id of contact with matching token or null
+	  * Get the id of a contact by its email
+	  * @param string email
+	  * @return mixed id of contact with matching email or null
 	  */
-	function idByToken($token = null){
-	  return $this->field('id', array("{$this->alias}.token" => $token));
+	function idByEmail($email = null){
+	  return $this->field('id', array("{$this->alias}.email" => $email));
 	}
 	
 	/**
-	  * @param mixed id or token of contact
+	  * @param mixed id or email of contact
 	  * @return boolean true if contact has finished the entire survey
 	  */
-	function isFinished($id_or_token = null){
-	  if($id_or_token) $this->id = $id_or_token;
+	function isFinished($id_or_email = null){
+	  if($id_or_email) $this->id = $id_or_email;
 	  $retval = $this->field('finished_survey');
 	  if($retval){
 	    return $retval;
 	  }
 	  
-	  $this->id = $this->idByToken($id_or_token);
+	  $this->id = $this->idByEmail($id_or_email);
 	  if($this->id){
 	    return $this->field('finished_survey');
 	  }
@@ -192,17 +174,34 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
-	  * Find a giveaway contact by their token
+	  * Find a giveaway contact by their email
 	  * a contact that qualifies for the give_away
 	  * is a contact that has finished their survey
-	  * @param token of contact
+	  * @param email of contact
 	  * @return mixed result of find
 	  */
-	function findByTokenForGiveAway($token){
+	function findByEmailForGiveAway($email){
 	  return $this->find('first', array(
 	    'conditions' => array(
 	      "{$this->alias}.finished_survey" => true,
-	      "{$this->alias}.token" => $token,
+	      "{$this->alias}.email" => $email,
+	    ),
+	    'recursive' => -1
+	  ));
+	}
+	
+	/**
+	  * Find a second survey contact by their email
+	  * a contact that qualifies for the second survey
+	  * is a contact that has not finished their survey
+	  * @param email of contact
+	  * @return mixed result of find
+	  */
+	function findByEmailForSecond($email){
+	  return $this->find('first', array(
+	    'conditions' => array(
+	      "{$this->alias}.finished_survey" => false,
+	      "{$this->alias}.email" => $email,
 	    ),
 	    'recursive' => -1
 	  ));
@@ -218,7 +217,6 @@ class SurveyContact extends SurveyAppModel {
 	    'first_name',
 	    'last_name',
 	    'email',
-	    'token',
 	    'phone',
 	    'is_18',
 	    'entered_give_away',

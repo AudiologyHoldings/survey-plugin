@@ -9,7 +9,7 @@ class SurveyAppController extends AppController {
     * @param string message to flash
     */
   function goodFlash($message = null){
-    $this->Session->setFlash($message, 'goodFlash');
+    //$this->Session->setFlash($message, 'goodFlash');
   }
   
   /**
@@ -17,7 +17,7 @@ class SurveyAppController extends AppController {
     * @param string message to flash
     */
   function badFlash($message = null){
-    $this->Session->setFlash($message, 'badFlash');
+    //$this->Session->setFlash($message, 'badFlash');
   }
 }
 

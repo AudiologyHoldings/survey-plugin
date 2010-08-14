@@ -9,23 +9,28 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
-	function testGenerateToken(){
+	function testFindByEmailForSecond(){
+	  $this->assertFalse($this->SurveyContact->findByEmailForSecond('example@example.com'));
+	  $this->assertTrue($this->SurveyContact->findByEmailForSecond('nick@example.com'));
+	}
+	
+	function testGenerateEmail(){
 	  $this->assertEqual('108dc0e4a4973926f890206ee5bb46db', $this->SurveyContact->__generateToken('nurvzy@gmail.com'));
 	  
 	  $this->SurveyContact->data = array('SurveyContact' => array('email' => 'nurvzy@gmail.com'));
 	  $this->assertEqual('108dc0e4a4973926f890206ee5bb46db', $this->SurveyContact->__generateToken());
 	}
 	
-	function testFindByTokenForGiveAaway(){
-	  $this->assertTrue($this->SurveyContact->findByTokenForGiveAway('token'));
-	  $this->assertFalse($this->SurveyContact->findByTokenForGiveAway('token2'));
+	function testFindByEmailForGiveAaway(){
+	  $this->assertTrue($this->SurveyContact->findByEmailForGiveAway('example@example.com'));
+	  $this->assertFalse($this->SurveyContact->findByEmailForGiveAway('nick@example.com'));
 	}
 	
 	function testIsFinished(){
 	  $this->assertTrue($this->SurveyContact->isFinished(1));
-	  $this->assertTrue($this->SurveyContact->isFinished('token'));
+	  $this->assertTrue($this->SurveyContact->isFinished('example@example.com'));
 	  $this->assertFalse($this->SurveyContact->isFinished(2));
-	  $this->assertFalse($this->SurveyContact->isFinished('token2'));
+	  $this->assertFalse($this->SurveyContact->isFinished('nick@example.com'));
 	}
 	
 	function testFinishSurvey(){
@@ -34,10 +39,10 @@ class SurveyContactTestCase extends CakeTestCase {
 	  $this->assertTrue($this->SurveyContact->isFinished(2));
 	}
 	
-	function testIdByToken(){
-	  $this->assertEqual(1, $this->SurveyContact->idByToken('token'));
-	  $this->assertEqual(2, $this->SurveyContact->idByToken('token2'));
-	  $this->assertEqual(0, $this->SurveyContact->idByToken('not_exist'));
+	function testIdByEmail(){
+	  $this->assertEqual(1, $this->SurveyContact->idByEmail('example@example.com'));
+	  $this->assertEqual(2, $this->SurveyContact->idByEmail('nick@example.com'));
+	  $this->assertEqual(0, $this->SurveyContact->idByEmail('not_exist'));
 	}	
 	
 	function testSaveFirstShouldSaveWithContact(){
@@ -60,7 +65,7 @@ class SurveyContactTestCase extends CakeTestCase {
 	  $this->assertTrue($this->SurveyContact->saveFirst($data));
 	  $contact = $this->SurveyContact->find('last');
 	  $this->assertEqual('test@example.com', $contact['SurveyContact']['email']);
-	  $this->assertFalse(empty($contact['SurveyContact']['token']));
+	  $this->assertFalse(empty($contact['SurveyContact']['email']));
 	  $this->assertEqual(2, count($contact['SurveyAnswer']));
 	  foreach($contact['SurveyAnswer'] as $answer){
 	    $this->assertEqual($contact['SurveyContact']['id'], $answer['survey_contact_id']);
@@ -143,19 +148,6 @@ class SurveyContactTestCase extends CakeTestCase {
 	  
 	  $this->assertTrue($this->SurveyContact->enterGiveAway($data));
 	  $this->assertTrue($this->SurveyContact->field('entered_give_away'));
-	}
-	
-	function testBeforeSave(){
-	  $data = array(
-	    'SurveyContact' => array(
-	      'email' => 'new_email@example.com'
-	    )
-	  );
-	  
-	  $this->SurveyContact->save($data);
-	  $contact = $this->SurveyContact->find('last');
-	  $this->assertEqual('new_email@example.com', $contact['SurveyContact']['email']);
-	  $this->assertTrue(!empty($contact['SurveyContact']['token']));
 	}
 	
 	function testHasRequiredFields(){

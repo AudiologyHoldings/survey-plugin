@@ -46,24 +46,24 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  //TODO
 	}
 	
-	function testSecondShouldRedirectIfNoToken(){
-	  $this->Surveys->Session->expectOnce('setFlash', array('Token required.', 'badFlash'));
+	function testSecondShouldRedirectIfNoEmail(){
+	  //$this->Surveys->Session->expectOnce('setFlash', array('Token required.', 'badFlash'));
 	  $this->Surveys->second();
 	  $this->assertEqual('/', $this->Surveys->redirectUrl);
 	}
 	
-	function testSecondShouldRedirectIfContactByToken(){
-	  $this->Surveys->Session->expectOnce('setFlash', array('Invalid Token.', 'badFlash'));
-	  $this->Surveys->second('no_exist_token');
+	function testSecondShouldRedirectIfContactByEmail(){
+	  //$this->Surveys->Session->expectOnce('setFlash', array('Invalid Token.', 'badFlash'));
+	  $this->Surveys->second('no_exist_email');
 	  $this->assertEqual('/', $this->Surveys->redirectUrl);
 	}
 	
-	function testSecondShouldShowSecondSurveyIfValidToken(){
-	  $token = 'token';
+	function testSecondShouldShowSecondSurveyIfValidEmail(){
+	  $email = 'nick@example.com';
 	  $this->Surveys->Session->expectNever('setFlash');
-	  $this->Surveys->second($token);
+	  $this->Surveys->second($email);
 	  $this->assertFalse($this->Surveys->redirectUrl);
-	  $this->assertEqual($token, $this->Surveys->viewVars['contact']['SurveyContact']['token']);
+	  $this->assertEqual($email, $this->Surveys->viewVars['contact']['SurveyContact']['email']);
 	}
 	
 	function testSecondShouldRedirecToGiveAway(){
@@ -92,10 +92,10 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  $contact = $this->Surveys->SurveyContact->findById($contact_id);
 	  $this->assertFalse($contact['SurveyContact']['finished_survey']);
 	  
-	  $this->Surveys->second('token2');
+	  $this->Surveys->second('nick@example.com');
 	  
 	  
-	  $this->assertEqual(array('action' => 'give_away', 'token2'), $this->Surveys->redirectUrl);
+	  $this->assertEqual(array('action' => 'give_away', 'nick@example.com'), $this->Surveys->redirectUrl);
 	  $this->assertEqual($answer_count + 3, $this->Surveys->SurveyAnswer->find('count'));
 	  $lastanswer = $this->Surveys->SurveyAnswer->find('last');
 	  $this->assertEqual($contact_id, $lastanswer['SurveyAnswer']['survey_contact_id']);
@@ -122,7 +122,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  
 	  $this->Surveys->Email->expectOnce('send');
-	  $this->Surveys->Session->expectOnce('setFlash', array('Thank you message', 'goodFlash'));
+	  //$this->Surveys->Session->expectOnce('setFlash', array('Thank you message', 'goodFlash'));
 	  $this->Surveys->first();
 	  $this->assertEqual(array('action' => 'thanks'), $this->Surveys->redirectUrl);
 	  $this->assertEqual('test@example.com', $this->Surveys->Email->to);
@@ -147,7 +147,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  
 	  $this->Surveys->Email->expectNever('send');
-	  $this->Surveys->Session->expectOnce('setFlash', array('Thank you message', 'goodFlash'));
+	  //$this->Surveys->Session->expectOnce('setFlash', array('Thank you message', 'goodFlash'));
 	  $this->Surveys->first();
 	  $this->assertEqual(array('action' => 'thanks'), $this->Surveys->redirectUrl);
 	  $this->assertFalse($this->Surveys->Email->to);
