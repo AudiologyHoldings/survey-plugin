@@ -1,6 +1,8 @@
 <?php
 
 class SurveyAppModel extends AppModel {
+  
+  var $actsAs = array('Containable');
 
   /**
     * Overwrite find so I can do some nice things with it.
