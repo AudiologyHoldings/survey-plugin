@@ -110,7 +110,6 @@ class SurveysController extends SurveyAppController {
     * Show thanks page
     */ 
   function thanks(){
-    debug($_SERVER);
   }
   
   /**

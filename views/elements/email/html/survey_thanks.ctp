@@ -1,7 +1,7 @@
 <?php
   $base_path = "http://{$_SERVER['HTTP_HOST']}";
 ?>
-<table width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff">
+<table width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="margin: auto;">
   <tr>
     <td colspan="2"><?php echo $this->Html->image($base_path . '/survey/img/email_top.png') ?></td>
   </tr>
