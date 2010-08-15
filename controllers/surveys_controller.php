@@ -129,6 +129,7 @@ class SurveysController extends SurveyAppController {
       ),
       $options
     );
+    $this->SurveyContact->contain();
     $contact = $this->SurveyContact->findById($id);
     if($contact && isset($contact['SurveyContact']['email'])){
       $this->log("Sending {$options['template']} to {$contact['SurveyContact']['email']}", 'email');
@@ -141,6 +142,22 @@ class SurveysController extends SurveyAppController {
       $this->set('contact', $contact);
       return $this->Email->send();
     }
+  }
+  
+  /**
+    * Go through the databse and send the follow up email if needed.
+    */
+  function send_follow(){
+    $contacts = $this->SurveyContact->findAllToNotify();
+    if(!empty($contacts)){
+      foreach($contacts as $contact){
+        $this->__sendEmail($contact['SurveyContact']['id'], array(
+          'subject' => 'Healthy Hearing Follow up survey',
+          'template' => 'survey_follow_up'
+        ));
+      }
+    }
+    $this->redirect('/');
   }
   
   /**

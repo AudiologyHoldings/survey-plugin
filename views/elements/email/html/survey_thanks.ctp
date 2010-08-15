@@ -35,6 +35,6 @@
     </td>
   </tr>
   <tr>
-    <td colspan="2"><?php echo $this->Html->image($base_path . '/survey/img/email_top.png') ?></td>
+    <td colspan="2"><?php echo $this->Html->image($base_path . '/survey/img/email_bottom.png') ?></td>
   </tr>
 </table>
