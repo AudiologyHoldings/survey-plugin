@@ -110,6 +110,7 @@ class SurveysController extends SurveyAppController {
     * Show thanks page
     */ 
   function thanks(){
+    debug($_SERVER);
   }
   
   /**
@@ -131,7 +132,7 @@ class SurveysController extends SurveyAppController {
     );
     $contact = $this->SurveyContact->findById($id);
     if($contact && isset($contact['SurveyContact']['email'])){
-      $this->log("Sending {$options['template']} to {$contact['SurveyContact']['email']}");
+      $this->log("Sending {$options['template']} to {$contact['SurveyContact']['email']}", 'email');
       $this->Email->reset();
       $this->Email->to = $contact['SurveyContact']['email'];
       $this->Email->subject = $options['subject'];
