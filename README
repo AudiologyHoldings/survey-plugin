@@ -1,1 +1,30 @@
-This is a survey plugin
+INSTALL:
+1) Copy plugin into app/plugins/survey
+2) Run: $ cake schema create -plugin survey
+3) Add the following to your config/routes.php
+
+Router::connect('/survey', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'));
+Router::connect('/final_survey/:email', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second'), array('pass' => array('email')));
+Router::connect('/resend_survey/:email', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'resend'), array('pass' => array('email')));
+	
+4) Copy app/plugins/survey/config/survey.php.example to config/survey.php
+
+CONFIGURE:
+There are two configurations you can set on the survey
+------------------------
+1) table: custom table. 
+   
+   If you have a contact table you'd like to use instead of the default survey_contacts you may
+   configure the plugin to use an already defined table.  If you do so, you will need to make
+   sure you have the required fields:
+   
+   - first_name (STRING)
+	 - last_name (STRING)
+	 - email (STRING)
+	 - phone (STRING)
+	 - is_18 (BOOLEAN)
+	 - entered_give_away (BOOLEAN)
+	 - finished_survey (BOOLEAN)
+	 - final_email_sent_date (DATETIME)
+	 
+2) email: from email address when sending out survey thanks and survey final prompt 
