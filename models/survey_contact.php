@@ -265,7 +265,8 @@ class SurveyContact extends SurveyAppModel {
 	  
 	  return $this->find('all', array(
 	    'fields' => array(
-	      "{$this->alias}.email"
+	      "{$this->alias}.id",
+	      "{$this->alias}.email",
 	    ),
 	    'conditions' => array(
 	      "{$this->alias}.finished_survey" => false,

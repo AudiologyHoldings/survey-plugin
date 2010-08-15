@@ -23,7 +23,7 @@
       your information with any third party, nor will we send future surveys or
       unsolicited mail as a result of your participation<br /><br />
       
-      <?php echo $this->Html->image($base_path . '/survey/img/btn_follow_up_survey.png', array('url' => "$base_path/finish_survey/{$contact['SurveyContact']['email']}")); ?>
+      <?php echo $this->Html->image($base_path . '/survey/img/btn_take_follow_up_survey.png', array('url' => "$base_path/finish_survey/{$contact['SurveyContact']['email']}")); ?>
       <br /><br />
       
       If nothing happens when clicking on the link above, you can copy and paste
