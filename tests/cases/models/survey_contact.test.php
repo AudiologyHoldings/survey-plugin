@@ -163,9 +163,7 @@ class SurveyContactTestCase extends CakeTestCase {
 	}
 	
 	function testFindAllToNotify(){
-	  $date = $this->SurveyContact->str2datetime('today');
-	  $this->SurveyContact->id = 2;
-	  $this->SurveyContact->saveField('final_email_send_date', $date);
+	  $this->SurveyContact->setFinalEmailDate(2, 0);
 	  
 	  $results = $this->SurveyContact->findAllToNotify();
 	  $this->assertEqual(1, count($results));
