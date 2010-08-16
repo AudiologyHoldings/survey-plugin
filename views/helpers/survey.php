@@ -7,13 +7,15 @@ class SurveyHelper extends AppHelper {
     */
   function __construct($settings = array()){
     $this->View = ClassRegistry::getObject('view');
+    $this->__setupCookie();
   }
   
   /**
     * Setup the cookie component to work in a helper.
     * we need this so we can write a cookie if we show the popup.
+    * @access private
     */
-  function setupCookie(){
+  function __setupCookie(){
     $this->Cookie = new CookieComponent();
     $this->Cookie->initialize(new Object()/* ignored */, array(
       'time' => '1 Month'
