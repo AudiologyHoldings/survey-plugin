@@ -1,5 +1,4 @@
 <?php
-App::import('Component', 'Cookie');
 class SurveyHelper extends AppHelper {
   /**
     * Load the view object so we can dynamically load an element into it
@@ -7,7 +6,12 @@ class SurveyHelper extends AppHelper {
     */
   function __construct($settings = array()){
     $this->View = ClassRegistry::getObject('view');
-    $this->__setupCookie();
+    if(isset($settings['Cookie'])){
+      $this->Cookie = $settings['Cookie'];
+    }
+    else {
+      $this->__setupCookie();
+    }
   }
   
   /**
@@ -16,6 +20,7 @@ class SurveyHelper extends AppHelper {
     * @access private
     */
   function __setupCookie(){
+    App::import('Component', 'Cookie');
     $this->Cookie = new CookieComponent();
     $this->Cookie->initialize(new Object()/* ignored */, array(
       'time' => '1 Month'
