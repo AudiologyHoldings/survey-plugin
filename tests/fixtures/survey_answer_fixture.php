@@ -16,9 +16,65 @@ class SurveyAnswerFixture extends CakeTestFixture {
 	var $records = array(
 		array(
 			'id' => 1,
-			'question' => 'Lorem ipsum dolor sit amet',
-			'answer' => 'Lorem ipsum dolor sit amet',
+			'question' => '1_age',
+			'answer' => '80plus',
 			'survey_contact_id' => 1,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 2,
+			'question' => '2_likely_to_schedule',
+			'answer' => '6',
+			'survey_contact_id' => 1,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 3,
+			'question' => '3_visit_clinic',
+			'answer' => 'Yes',
+			'survey_contact_id' => 1,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 4,
+			'question' => '4_purchase_hearing_aid',
+			'answer' => 'Yes',
+			'survey_contact_id' => 1,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 5,
+			'question' => '5_what_brand',
+			'answer' => 'Oticon',
+			'survey_contact_id' => 1,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 6,
+			'question' => '1_age',
+			'answer' => '80plus',
+			'survey_contact_id' => 0,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 7,
+			'question' => '2_likely_to_schedule',
+			'answer' => '6',
+			'survey_contact_id' => 0,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 8,
+			'question' => '1_age',
+			'answer' => '80plus',
+			'survey_contact_id' => 2,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 9,
+			'question' => '2_likely_to_schedule',
+			'answer' => '3',
+			'survey_contact_id' => 2,
 			'created' => '2010-07-27 22:52:40'
 		),
 	);

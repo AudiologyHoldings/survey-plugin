@@ -164,7 +164,10 @@ class SurveysController extends SurveyAppController {
     * Show reports based on survey
     */
   function admin_report(){
-    //TODO
+    if(!empty($this->data)){
+      $results = ClassRegistry::init('SurveyAnswer')->findReport($this->data);
+      $this->set('results', $results);
+    }
   }
 }
 ?>
