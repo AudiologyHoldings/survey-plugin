@@ -4,16 +4,16 @@
     </div>
     
     <div id="pop_body">
-      <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
+      <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1><br /><br />
       <?php echo $this->Form->create('SurveyAnswer', array(
         'url' => array('plugin' => 'survey', 'admin' => true, 'controller' => 'surveys', 'action' => 'report'),
         'id' => 'final_form'
       )); ?>
-      <?php echo $this->Form->input('start_month');?>
-      <?php echo $this->Form->input('end_month');?>
-      <?php echo $this->Form->input('page_views');?>
+      <?php echo $this->Form->input('start_month', array('label' => 'Start Month (eg Aug 2010, 2010-08-01, etc..)'));?>
+      <?php echo $this->Form->input('end_month', array('label' => 'End Month (eg Sep 2010, 2010-09-01, etc..)'));?>
+      <?php echo $this->Form->input('page_views', array('label' => 'Page Views Within Above Timeline'));?>
       
-      <?php echo $this->Form->end('Submit Report'); ?>
+      <?php echo $this->Form->end('Get Report'); ?>
       
       <?php if(isset($results)): ?>
         <h1 class="report"><?php echo $this->data['SurveyAnswer']['start_month'] ?> to <?php echo $this->data['SurveyAnswer']['end_month'] ?></h1> 
