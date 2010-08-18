@@ -118,7 +118,14 @@ class SurveyContact extends SurveyAppModel {
 	  * @return mixed result of saveAll
 	  */
 	function saveSecond($data){
-	  $retval = $this->saveAll($data);
+	  //Clean out blank answers
+	  foreach($data['SurveyAnswer'] as $key => $answer){
+	    if(!$answer['answer']){
+	      unset($data['SurveyAnswer'][$key]);
+	    }
+	  }
+	  
+	  $retval = $this->saveAll($data, array('validate' => 'first'));
 	  if($retval){
 	    $this->finishSurvey();
 	  }

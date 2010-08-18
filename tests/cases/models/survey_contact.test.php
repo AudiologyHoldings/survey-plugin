@@ -106,6 +106,36 @@ class SurveyContactTestCase extends CakeTestCase {
 	  $this->assertFalse($answer['SurveyAnswer']['survey_contact_id']);
 	}
 	
+	function testSaveSecondShouldOnlySaveAnswers(){
+	  $this->assertFalse($this->SurveyContact->isFinished(2));
+	  
+	  $data = array(
+	    'SurveyContact' => array(
+	      'id' => 2
+	    ),
+	    'SurveyAnswer' => array(
+	      array(
+	        'question' => '3_visit_clinic',
+	        'answer' => 'No'
+	      ),
+	      array(
+	        'question' => '4_purchase_hearing_id',
+	        'answer' => ''
+	      ),
+	      array(
+	        'question' => '5_what_brand',
+	        'answer' => ''
+	      ),
+	    )
+	  );
+	  $answer_count = $this->SurveyContact->SurveyAnswer->find('count');
+	  
+	  $this->SurveyContact->saveSecond($data);
+	  
+	  $this->assertTrue($this->SurveyContact->isFinished(2));
+	  $this->assertEqual($answer_count + 1, $this->SurveyContact->SurveyAnswer->find('count'));
+	}
+	
 	function testSaveSecondShouldSetSurveyToFinished(){
 	  $this->assertFalse($this->SurveyContact->isFinished(2));
 	  
@@ -128,10 +158,12 @@ class SurveyContactTestCase extends CakeTestCase {
 	      ),
 	    )
 	  );
-	  
+	  $answer_count = $this->SurveyContact->SurveyAnswer->find('count');
 	  $this->SurveyContact->saveSecond($data);
 	  
 	  $this->assertTrue($this->SurveyContact->isFinished(2));
+	  $this->assertEqual($answer_count + 3, $this->SurveyContact->SurveyAnswer->find('count'));
+	  
 	}
 	
 	function testGiveAwayShouldNotSaveIfNot18(){
