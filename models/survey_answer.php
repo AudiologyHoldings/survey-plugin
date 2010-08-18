@@ -95,8 +95,14 @@ class SurveyAnswer extends SurveyAppModel {
 	  return $retval;
 	}
 	
-	function __calculatePercent($num, $denom){
-	  return round($num / $denom, 4) * 100 . '%';
+	/**
+	  * Calculate the percentage of two numbers to the 2nd degree
+	  * @param int numerator
+	  * @param int denominator
+	  * @return string percentage
+	  */
+	function __calculatePercent($num, $denom = 100){
+	  return (!$denom) ? "0%" : round($num / $denom, 4) * 100 . '%';
 	}
 }
 ?>
