@@ -1,6 +1,6 @@
 INSTALL:
 1) Copy plugin into app/plugins/survey
-2) Run: $ cake schema create -plugin survey
+2) Run: $ cake schema create -plugin survey -name survey
 3) Add the following to your config/routes.php
 
 Router::connect('/survey', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'));
