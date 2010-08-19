@@ -57,14 +57,14 @@ class SurveyContact extends SurveyAppModel {
 	  * Load custom table.  Defaults to survey_contacts
 	  */
 	function __construct($id = false, $table = null, $ds = null){
-	  parent::__construct($id, $table, $ds);
-	  $this->useTable = SurveyUtil::getConfig('table');
+	  $this->table = $this->useTable = SurveyUtil::getConfig('table');
 	  if(!$this->useTable){
-	    $this->useTable = 'survey_contacts';
+	    $this->table = $this->useTable = 'survey_contacts';
 	  }
 	  if(!$this->__hasRequiredFields()){
 	    trigger_error("Required fields not present in {$this->useTable}.");
 	  }
+	  parent::__construct($id, $table, $ds);
 	}
 	
 	/**
