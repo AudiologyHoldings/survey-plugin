@@ -136,6 +136,9 @@ p.q_text {
   height: 70px;
   margin-top: 25px;
 }
+span.vcard img {
+  vertical-align: middle;
+}
 span.required, div.error-message {
   font-style: italic;
   color: #0082c8;

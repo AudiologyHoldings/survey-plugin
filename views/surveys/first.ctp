@@ -82,7 +82,10 @@
             <?php echo $this->Html->image('/survey/img/gift_card.png') ?>
           </div>
           <div class="email">
-            <?php echo $this->Html->image('/survey/img/popup_contact.png'); ?>
+            <span class="vcard">
+              <?php echo $this->Html->image('/survey/img/popup_contact.png'); ?>
+              &nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Click here to add us to your address book.', array('action' => 'reply_email', 'ext' => 'vcf')) ?>
+            </span>
             <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:')); ?>
           </div>
           <h4>This survey is for research purposes only</h4>
