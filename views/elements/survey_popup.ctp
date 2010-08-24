@@ -5,7 +5,7 @@
     <div id="dragable_popup" class="popup_block">
       <div class="popup">
         <div id="popup-content">
-          <p class="header">
+          <p class="popup-header">
             Help Us Cure<br />
             Hearing Loss.
           </p>
@@ -17,7 +17,8 @@
           <p><?php echo $this->Html->image('/survey/img/btn_i_want_to_help.png', array(
             'url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first')
           )) ?></p>
-          <p><?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?></p>
+          <p class="popup-small"><?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?></p>
+          <p class="popup-small popup-policy"><?php echo $this->Html->link('Privacy Policy', '/privacy-policy'); ?></p>
         </div>
       </div>
     </div>
