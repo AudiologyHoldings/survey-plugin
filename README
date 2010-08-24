@@ -3,6 +3,7 @@ INSTALL:
 2) Run: $ cake schema create -plugin survey -name survey
 3) Add the following to your config/routes.php
 
+Router::parseExtensions('vcf');
 Router::connect('/survey', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'));
 Router::connect('/final_survey/:email', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second'), array('pass' => array('email')));
 Router::connect('/resend_survey/:email', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'resend'), array('pass' => array('email')));
@@ -10,7 +11,7 @@ Router::connect('/resend_survey/:email', array('plugin' => 'survey', 'controller
 4) Copy app/plugins/survey/config/survey.php.example to config/survey.php
 
 CONFIGURE:
-There are two configurations you can set on the survey
+There are three configurations you can set on the survey
 ------------------------
 1) table: custom table. 
    
@@ -26,5 +27,18 @@ There are two configurations you can set on the survey
 	 - entered_give_away (BOOLEAN)
 	 - finished_survey (BOOLEAN)
 	 - final_email_sent_date (DATETIME)
+	 - created (DATETIME)
 	 
-2) email: from email address when sending out survey thanks and survey final prompt 
+2) email: from email address when sending out survey thanks and survey final prompt
+
+3) name: full name to be used in the generated vcard
+
+USAGE:
+To prompt the popup, use the helper.  The popup will only show once, after that a cookie is
+written and the popup will no longer appear.
+
+//app_controller.php
+var $helpers = array('Survey.Survey');
+
+//some_view.ctp
+<?= $survey->showPopup(); ?>

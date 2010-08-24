@@ -161,6 +161,19 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
+	  * Vcard for the user to add to their address book.
+	  */
+	function reply_email(){
+	  $this->helpers[] = 'Survey.Vcf';
+	  $this->layout = 'vcf';
+	  //If we don't have the extension vcf, force it
+	  //this is needed for some browsers to prompt the download
+	  if($this->RequestHandler->ext != 'vcf'){
+	    $this->redirect(array('action' => 'reply_email', 'ext' => 'vcf'));
+	  }
+	}
+  
+  /**
     * Show reports based on survey
     */
   function admin_report(){

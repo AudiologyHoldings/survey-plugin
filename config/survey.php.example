@@ -6,6 +6,7 @@ $config = array(
   'Survey' => array(
     'table' => 'survey_contacts',
     'email' => 'no_reply@webtechnick.com',
+    'name' => 'Healthy Hearing'
   )
 );
 ?>
