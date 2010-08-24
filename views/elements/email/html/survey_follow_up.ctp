@@ -36,6 +36,17 @@
       
       Kindest regards,<br />
       The Healthy Hearing Team
+      </p><br />
+      <p style="font-size: small">
+        Ensure our messages always go straight to your inbox.
+        Add [<?php echo Configure::read('Survey.email') ?>] to your Address Book or Safe List.<br /><br />
+        
+        <b>HealthyHearing</b><br />
+        5282 Medical Drive, Suite 150<br />
+        San Antonio, TX 78229<br />
+        800-567-1692<br /><br />
+        
+        Copyright <?php echo date('Y') ?> HealthyHearing.com All rights reserved.
       </p>
     </td>
   </tr>
