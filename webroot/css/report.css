@@ -1,0 +1,26 @@
+/* report */
+table.report {
+  width: 70%;
+  margin: 20px auto;
+  border-spacing: 0px;
+}
+table.report td {
+  border-bottom: 1px solid black;
+  padding: 3px 0px 3px 0px;
+}
+table.report td.spacer {
+  border-bottom: none;
+}
+td.right, th.right {
+  text-align: right;
+}
+td.left, th.left {
+  text-align: left;
+}
+td.center, th.center {
+  text-align: center;
+}
+h1.report {
+  margin: 10px;
+  text-align: center;
+}
