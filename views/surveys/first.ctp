@@ -1,4 +1,5 @@
-<?php echo $this->Html->script('/survey/js/survey_popup.js', array('inline' => false)); ?>
+<?php echo $this->Html->script('/survey/js/Class-0.0.2.min.js', array('inline' => false)); ?>
+<?php echo $this->Html->script('/survey/js/jq_survey_popup.js', array('inline' => false)); ?>
 <div id="popup">
   <div class="wrapper wrapper-popup">
     <div id="pop_top">
