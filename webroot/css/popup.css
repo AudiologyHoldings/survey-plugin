@@ -28,6 +28,13 @@
 	margin: 0 0 0 -300px;
 	z-index: 100;
 }
+.popup_block_full {
+  top: 5%;
+	left: 50%;
+	position: fixed;
+	z-index: 100;
+	margin: 0 0 0 -500px;
+}
 .popup_block .popup {
 	float: left;
 	width: 100%;

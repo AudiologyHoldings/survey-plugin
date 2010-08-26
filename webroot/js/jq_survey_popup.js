@@ -2,7 +2,7 @@ var SurveyPopup = Class.create({
   init: function(start_page){
     //globals
     this.pageIds = ['one','two'];
-    this.popupId = '#popup';
+    this.popupId = '#survey_popup_wrapper';
     
     jQuery('.btn_close').click(jQuery.proxy(this.close, this));
     jQuery('#btn_continue').click(jQuery.proxy(this.nextPage, this));
