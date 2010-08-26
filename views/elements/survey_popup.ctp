@@ -28,8 +28,7 @@
               'url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first')
             )) */?>
           </p>
-          <p class="popup-small"><?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?></p>
-          <p class="popup-small popup-policy"><?php echo $this->Html->link('Privacy Policy', '/privacy-policy'); ?></p>
+          <p class="popup-small"><?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Privacy Policy', '/privacy-policy'); ?></p>
         </div>
       </div>
     </div>
