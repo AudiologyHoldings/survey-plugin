@@ -97,7 +97,7 @@ div.wrapper-spiral {
 #pop_top span{
   float: right;
 }
-#pop_body {
+div.pop_body, div#pop_body {
   padding: 10px;
 }
 
@@ -146,6 +146,8 @@ span.required, div.error-message {
 }
 div.error-message {
   color: maroon;
+  background-color: transparent;
+  border: none;
 }
 div.pop_button {
   padding-top: 20px;

@@ -6,10 +6,53 @@ var SurveyPopup = Class.create({
     
     jQuery('.btn_close').click(jQuery.proxy(this.close, this));
     jQuery('#btn_continue').click(jQuery.proxy(this.nextPage, this));
+    jQuery('#btn_submit').click(jQuery.proxy(this.submitForm, this));
     
     if(start_page != undefined){
       this.page(start_page);
     }
+  },
+  
+  /**
+    * Submit the form via Ajax
+    */
+  submitForm: function(){
+    jQuery.ajax({
+        data:jQuery("#btn_submit").closest("form").serialize(), 
+        dataType:"text", 
+        success: jQuery.proxy(this.handleRequest, this), 
+        type:"post", 
+        url:"\/survey"
+      });
+    return false;
+  },
+  
+  /**
+    * Handle the form submit return
+    *
+    * @param mixed data returned by ajax call
+    * @param textStatus the success/failure of request
+    * @return void
+    */
+  handleRequest: function(data, textStatus){
+    if(data == 1){
+      this.thanksPage();
+    }
+    else {
+      this.showError(data);
+    }
+  },
+  
+  /**
+    * show the error
+    * @param string error string to show
+    * @return void
+    */
+  showError: function(error){
+    jQuery('#EmailError')
+      .empty()
+      .append(error)
+      .show();
   },
   
   /**
@@ -24,6 +67,14 @@ var SurveyPopup = Class.create({
     */
   nextPage: function(){
     this.page('two');
+  },
+  
+  /**
+    * Show thanks page.
+    */
+  thanksPage: function(){
+    jQuery('#survey').hide();
+    jQuery('#thanks').show();
   },
   
   /**

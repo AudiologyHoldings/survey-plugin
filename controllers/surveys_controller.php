@@ -28,9 +28,17 @@ class SurveysController extends SurveyAppController {
       if($this->SurveyContact->saveFirst($this->data)){
         $this->goodFlash('Thank you message');
         $this->__sendEmail($this->SurveyContact->id);
+        if($this->RequestHandler->isAjax()){
+          $this->autoRender = false;
+          return true;
+        }
         $this->redirect(array('action' => 'thanks'));
       }
       else {
+        if($this->RequestHandler->isAjax()){
+          $this->autoRender = false;
+          return array_shift(array_values($this->SurveyContact->validationErrors));
+        }
         $this->badFlash('Email not valid, please try again.');
         $start_page = 'two';
       }

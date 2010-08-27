@@ -9,7 +9,29 @@
         <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false, 'class' => 'btn_close')); ?>
         </span>
       </div>
-      <div id="pop_body">
+      
+      <div class="pop_body" id="thanks" style="display:none;">
+        <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
+        <h2>Thank you for your help!</h2>
+        <p class="pop_text">
+          <strong>$1 has been donated to the House Ear Institute on your behalf.</strong>
+        </p>  
+        <div class="white_box pop_thanks center">
+          <h3>Who is the House Ear Institute?</h3>
+          <div class="float_right"><?php echo $this->Html->image('/survey/img/house_ear_institute.png'); ?></div>
+          <p class="q_text">
+            The House Ear Institute is a non-profit organization<br />
+            dedicated to advancing hearing science through<br />
+            research and education to improve quality of life.
+          </p>
+        </div>
+        
+        <div class="pop_button">
+          <?php echo $this->Html->image('/survey/img/btn_close.png', array('class' => 'hand', 'class' => 'btn_close hand')) ?>
+        </div>
+      </div>
+    
+      <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'))); ?>
         <div id="one">
@@ -90,17 +112,19 @@
                 &nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Click here to add us to your address book.', array('action' => 'reply_email', 'ext' => 'vcf')) ?>
               </span>
               <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:')); ?>
+              <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>
             <h4>This survey is for research purposes only</h4>
             <h4>We will not share your information or send unsolicited emails.</h4>
           </div>
           
           <div class="pop_button">
-            <?php echo $this->Form->submit('/survey/img/btn_submit_survey.png', array('class' => 'hand', 'id' => 'btn_submit')) ?>
+            <?php echo $this->Form->submit('/survey/img/btn_submit_survey.png', array('class' => 'hand', 'id' => 'btn_submit')); ?>
           </div>
         </div>
         <?php echo $this->Form->end(); ?>
       </div>
+      
     </div>
   </div>
 </div>

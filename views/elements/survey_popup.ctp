@@ -24,11 +24,10 @@
               array('update' => '#survey_popup_wrapper', 'escape' => false)
             ); 
             ?>
-            <?php /*echo $this->Html->image('/survey/img/btn_i_want_to_help.png', array(
-              'url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first')
-            )) */?>
           </p>
-          <p class="popup-small"><?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Privacy Policy', '/privacy-policy'); ?></p>
+          <p class="popup-small">
+            <?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?><br />
+            <?php echo $this->Html->link('Privacy Policy', '/privacy-policy', array('target' => '_blank')); ?></p>
         </div>
       </div>
     </div>
