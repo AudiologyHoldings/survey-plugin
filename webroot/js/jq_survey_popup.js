@@ -1,5 +1,5 @@
-var SurveyPopup = Class.create({
-  init: function(start_page){
+var SurveyPopup = jQuery.Class.create({
+  initialize: function(start_page){
     //globals
     this.pageIds = ['one','two'];
     this.popupId = '#survey_popup_wrapper';

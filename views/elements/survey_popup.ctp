@@ -1,6 +1,6 @@
 <?php echo $this->Html->css('/survey/css/popup.css'); ?>
 <?php echo $this->Html->css('/survey/css/style.css'); ?>
-<?php echo $this->Html->script('/survey/js/Class-0.0.2.min.js'); ?>
+<?php echo $this->Html->script('/survey/js/jquery.class.js'); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js'); ?>
 <div id="survey_popup_wrapper">
   <div class="hideshow">
