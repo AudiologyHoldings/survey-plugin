@@ -35,6 +35,9 @@ h3.green{
 a img {
   border: none;
 }
+.clear_left {
+  clear:left;
+}
 
 /* flash */
 div#flash-message img {
@@ -130,7 +133,7 @@ div.survey_question{
   text-align: left;
 }
 p.pop_text {
-  margin: 25px 0px 50px 0px;
+  margin: 25px 0px 35px 0px;
 }
 p.q_text {
   height: 70px;
@@ -138,6 +141,12 @@ p.q_text {
 }
 span.vcard img {
   vertical-align: middle;
+}
+#img_roledex{
+  float: left;
+}
+span.vcard p {
+  padding: 18px;
 }
 span.required, div.error-message {
   font-style: italic;

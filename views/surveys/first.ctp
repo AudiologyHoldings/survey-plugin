@@ -99,9 +99,9 @@
         <div id="two" style="display:none;">
           <h2>You're almost done!</h2>
           <p class="pop_text">
-            Enter your email address below and we'll send you an email confirming<br />
-            the donation. As a thank you, we'll also give you the opportunity to register<br />
-            to win $500* by answering a three question follow-up survey in about 30 days
+            <b>Enter your email</b> address below and we'll send you an email <b>confirming<br />
+            the donation.</b> As a thank you, we'll also give you the opportunity to register<br />
+            to <b>win $500*</b> by answering a three question follow-up survey in about 30 days
           </p>
           <div class="pop_questions">
             <div class="gift_card">
@@ -109,10 +109,15 @@
             </div>
             <div class="email">
               <span class="vcard">
-                <?php echo $this->Html->image('/survey/img/popup_contact.png'); ?>
-                &nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Click here to add us to your address book.', array('action' => 'reply_email', 'ext' => 'vcf')) ?>
+                <?php echo $this->Html->image('/survey/img/popup_contact.png', array('id' => 'img_roledex')); ?>
+                <p>
+                  &nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Click here to add us to your address book.', array('action' => 'reply_email', 'ext' => 'vcf')) ?><br />
+                  &nbsp;&nbsp;&nbsp;Our email is <?php echo Configure::read('Survey.email'); ?>
+                </p>
               </span>
-              <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:')); ?>
+              <div class="clear_left">
+                <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:')); ?>
+              </div>
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>
             <h4>This survey is for research purposes only</h4>
