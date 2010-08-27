@@ -38,8 +38,8 @@
         <div id="one">
           <h2>Thanks for helping!</h2>
           <p class="pop_text">
-            Answer the following questions and we'll<br />
-            donate $1 to the House Ear Institute on your behalf.
+            <b>Complete our short three question survey and<br />
+            we'll donate $1 to the House Ear Institute on your behalf.</b>
           </p>  
           <table class="pop_questions">
             <tr>

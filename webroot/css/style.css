@@ -175,15 +175,20 @@ ul.survey_question li label{
   margin-left: 15px;
 }
 ul.question li {
+  height: 48px;
+  padding-top: 5px;
   float: left;
-  width: 54px;
+  width: 57px;
   text-align: center;
   font-size: .7em;
+  background-color: #f4f4f4;
 }
 ul.question li label {
   float: left;
-  width: 54px;
+  width: 100%;
   display: block;
+  font-weight: bold;
+  font-size: 95%;
 }
 
 /** Page Two **/
