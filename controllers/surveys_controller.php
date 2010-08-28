@@ -130,6 +130,7 @@ class SurveysController extends SurveyAppController {
     * @return mixed result of send, or void
     */  
   private function __sendEmail($id = null, $options = array()){
+    $this->autoRender = true;
     $options = array_merge(
       array(
         'template' => 'survey_thanks',
