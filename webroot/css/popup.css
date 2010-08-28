@@ -1,33 +1,34 @@
-.fade {
-	background: #000;
-	position: fixed;
-	width: 100%;
-	height: 100%;
-	filter:alpha(opacity=80);
-	opacity: .80;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /*--IE 8 Transparency--*/
-	left: 0;
-	top: 0;
-	z-index: 10;
+.black_overlay{
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index:1001;
+  -moz-opacity: 0.8;
+  opacity:.80;
+  filter: alpha(opacity=80);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /*--IE 8 Transparency--*/
 }
-.hideshow {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
+.white_content {
+  display: block;
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  /*width: 50%;
+  height: 50%;*/
+  background-color: white;
+  z-index:1002;
+  overflow: auto;
 }
-.popup_block {
-	background: url('../img/popup_background.jpg') #fff no-repeat;
-	float: left;
-	width: 586px;
-	height: 312px;
-	position: fixed;
-	top: 15%;
-	left: 50%;
-	margin: 0 0 0 -300px;
-	z-index: 100;
+.popup_background {
+  background: url('../img/popup_background.jpg') #fff no-repeat;
+  width: 586px;
+  height: 312px;
 }
+
 .popup_block_full {
   top: 5%;
 	left: 50%;
@@ -35,12 +36,7 @@
 	z-index: 100;
 	margin: 0 0 0 -500px;
 }
-.popup_block .popup {
-	float: left;
-	width: 100%;
-	height: 100%;
-	padding: 20px;
-}
+
 .popup h3 {
 	margin: 0 0 20px;
 	padding: 5px 10px;
@@ -50,7 +46,7 @@
 }
 .popup p {
 	padding: 5px 10px;
-	margin: 5px 0;
+	/*margin: 5px 0;*/
 }
 .popup p.popup-header {
   font-weight: bold;

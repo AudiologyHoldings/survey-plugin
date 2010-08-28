@@ -1,8 +1,8 @@
 <?php/* echo $this->Html->script('/survey/js/Class-0.0.2.min.js', array('inline' => false)); */?>
 <?php echo $this->Html->script('/survey/js/jquery.class.js', array('inline' => false)); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js', array('inline' => false)); ?>
-<div class="hideshow">
-  <div class="fade"></div>
+
+<div class="white_content">
   <div id="popup" class="popup popup_block_full">
     <div class="wrapper wrapper-popup">
       <div id="pop_top">
@@ -134,4 +134,7 @@
     </div>
   </div>
 </div>
+
+<div class="black_overlay"></div>
+
 <?php echo $this->Html->scriptBlock("SP = new SurveyPopup('$start_page');"); ?>
