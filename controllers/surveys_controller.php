@@ -134,7 +134,7 @@ class SurveysController extends SurveyAppController {
     $options = array_merge(
       array(
         'template' => 'survey_thanks',
-        'subject' => 'Thanks for participating in the survey!'
+        'subject' => 'Healthy Hearing - Thank You and Confirmation'
       ),
       $options
     );
@@ -161,7 +161,7 @@ class SurveysController extends SurveyAppController {
     if(!empty($contacts)){
       foreach($contacts as $contact){
         $this->__sendEmail($contact['SurveyContact']['id'], array(
-          'subject' => 'Healthy Hearing Follow up survey',
+          'subject' => 'Healthy Hearing Follow Up Survey',
           'template' => 'survey_follow_up'
         ));
       }

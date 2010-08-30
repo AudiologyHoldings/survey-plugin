@@ -17,8 +17,8 @@
       The donation we sent on your behalf to the House Ear Institute will truly make
       a difference in the fight to end hearing loss.<br /><br />
       
-      In 30 days we will send you a follow-up survey (don't worry it's only three short
-      questions).  This survey is for research purposes only and we will not share your
+      <b>In 30 days we will send you a follow-up survey (don't worry it's only three short
+      questions).</b>  This survey is for research purposes only and we will not share your
       information with any third party, nor will we send future surveys or unsolicited
       mail as a result of your participation.<br /><br />
       
