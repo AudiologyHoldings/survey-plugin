@@ -12,7 +12,7 @@
       )); ?>
       <?php echo $this->Form->input('start_month', array('label' => 'Start Month (eg Aug 2010, 2010-08-01, etc..)'));?>
       <?php echo $this->Form->input('end_month', array('label' => 'End Month (eg Sep 2010, 2010-09-01, etc..)'));?>
-      <?php echo $this->Form->input('page_views', array('label' => 'Page Views Within Above Timeline'));?>
+      <?php echo $this->Form->input('page_views', array('label' => 'FAP Unique User Sessions Within Above Timeline'));?>
       
       <?php echo $this->Form->end('Get Report'); ?>
       
