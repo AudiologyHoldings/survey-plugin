@@ -11,12 +11,16 @@
         </span>
       </div>
       
-      <div class="pop_body" id="thanks" style="display:none;">
+      <div class="pop_body" id="thanks">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <h2>Thank you for your help!</h2>
         <p class="pop_text">
           <strong>$1 has been donated to the House Ear Institute on your behalf.</strong>
-        </p>  
+          <br /><br />
+          <strong>Be sure to check your inbox.</strong> You will get confirmation of your donation<br />
+          and it will also tell you how you can enter to <strong>win $500</strong> by participating<br />
+          in a short 3 question follow-up survey
+        </p>
         <div class="white_box pop_thanks center">
           <h3>Who is the House Ear Institute?</h3>
           <div class="float_right"><?php echo $this->Html->image('/survey/img/house_ear_institute.png'); ?></div>
@@ -32,7 +36,7 @@
         </div>
       </div>
     
-      <div class="pop_body" id="survey">
+      <div class="pop_body" id="survey" style="display:none;">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'))); ?>
         <div id="one">
