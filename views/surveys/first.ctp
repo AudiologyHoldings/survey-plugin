@@ -11,7 +11,7 @@
         </span>
       </div>
       
-      <div class="pop_body" id="thanks">
+      <div class="pop_body" id="thanks" style="display:none;">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <h2>Thank you for your help!</h2>
         <p class="pop_text">
@@ -36,7 +36,7 @@
         </div>
       </div>
     
-      <div class="pop_body" id="survey" style="display:none;">
+      <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'))); ?>
         <div id="one">
