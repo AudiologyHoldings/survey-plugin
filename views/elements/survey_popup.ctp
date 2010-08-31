@@ -3,7 +3,6 @@
 <?php echo $this->Html->script('/survey/js/jquery.class.js'); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js'); ?>
 <div id="survey_popup_wrapper">
-  
   <div class="white_content">
     <div class="popup popup_background">
       <div id="popup-content">

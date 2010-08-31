@@ -2,7 +2,7 @@
 <?php echo $this->Html->script('/survey/js/jquery.class.js', array('inline' => false)); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js', array('inline' => false)); ?>
 
-<div class="white_content">
+<div class="white_content white_content_full">
   <div id="popup" class="popup popup_block_full">
     <div class="wrapper wrapper-popup">
       <div id="pop_top">

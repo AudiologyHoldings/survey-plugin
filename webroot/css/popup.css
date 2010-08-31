@@ -23,18 +23,23 @@
   z-index:1002;
   overflow: auto;
 }
+.white_content_full {
+  left: 10%;
+  top: 10%;
+}
 .popup_background {
   background: url('../img/popup_background.jpg') #fff no-repeat;
   width: 586px;
   height: 312px;
 }
-
 .popup_block_full {
   top: 5%;
-	left: 50%;
-	position: fixed;
-	z-index: 100;
-	margin: 0 0 0 -500px;
+	left: 10%;
+	/*position: fixed;*/
+	z-index: 10003;
+	/*margin: 0 0 0 -500px;*/
+	width: 1000px;
+  height:572px;
 }
 
 .popup h3 {
