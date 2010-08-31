@@ -21,7 +21,7 @@
   height: 50%;*/
   background-color: white;
   z-index:1002;
-  overflow: auto;
+  overflow: none;
 }
 .white_content_full {
   left: 10%;
@@ -35,9 +35,7 @@
 .popup_block_full {
   top: 5%;
 	left: 10%;
-	/*position: fixed;*/
 	z-index: 10003;
-	/*margin: 0 0 0 -500px;*/
 	width: 1000px;
   height:572px;
 }

@@ -1,9 +1,13 @@
 <?php echo $this->Html->css('/survey/css/popup.css'); ?>
 <?php echo $this->Html->css('/survey/css/style.css'); ?>
+<!--[if IE 6]>
+<?php echo $this->Html->css('/survey/css/ie6.css'); ?>
+<![endif]-->
 <?php echo $this->Html->script('/survey/js/jquery.class.js'); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js'); ?>
 <div id="survey_popup_wrapper">
-  <div class="white_content">
+
+  <div class="white_content" style="display: none;">
     <div class="popup popup_background">
       <div id="popup-content">
         <p class="popup-header">

@@ -7,7 +7,7 @@
     <div class="wrapper wrapper-popup">
       <div id="pop_top">
         <span>
-        <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.png'), '#', array('escape' => false, 'class' => 'btn_close')); ?>
+        <?php echo $this->Html->link($this->Html->image('/survey/img/link_close.gif'), '#', array('escape' => false, 'class' => 'btn_close')); ?>
         </span>
       </div>
       
