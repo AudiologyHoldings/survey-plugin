@@ -104,7 +104,7 @@
           <p class="pop_text">
             <b>Enter your email</b> address below and we'll send you an email <b>confirming<br />
             the donation.</b> As a thank you, we'll also give you the opportunity to register<br />
-            to <b>win $500*</b> by answering a three question follow-up survey in about 30 days
+            to <b>win $500* in our monthly drawing</b> by answering a three question follow-up survey in about 30 days.
           </p>
           <div class="pop_questions">
             <div class="gift_card">
@@ -124,7 +124,8 @@
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>
             <h4>This survey is for research purposes only</h4>
-            <h4>We will not share your information or send unsolicited emails.</h4>
+            <h4>We will not share your information or send unsolicited emails.</h4><br />
+            <span class="small">*You must be 18 years or older to enter $500 monthly drawing</span>
           </div>
           
           <div class="pop_button pop_submit">
