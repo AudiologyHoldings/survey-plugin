@@ -19,7 +19,7 @@
           <br /><br />
           <strong>Be sure to check your inbox.</strong> You will get confirmation of your donation<br />
           and it will also tell you how you can enter to <strong>win $500</strong> by participating<br />
-          in a short 3 question follow-up survey
+          in a short 3 question follow-up survey.
         </p>
         <div class="white_box pop_thanks center">
           <h3>Who is the House Ear Institute?</h3>
