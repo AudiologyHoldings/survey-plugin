@@ -4,6 +4,7 @@ App::import('Helper', 'Survey.Survey');
 App::import('Core', 'View');
 Mock::generate('CookieComponent');
 Mock::generate('View');
+App::import('Lib','Survey.SurveyUtil');
 class SurveyHelperTest extends CakeTestCase {
   var $Survey = null;
 
@@ -12,7 +13,7 @@ class SurveyHelperTest extends CakeTestCase {
       'Cookie' => new MockCookieComponent()
     ));
     $this->Survey->View = new MockView();
-    Configure::write('Survey.debug', false);
+    SurveyUtil::writeConfig('debug', false);
   }
   
   function testpopupDisplayed(){
@@ -24,6 +25,13 @@ class SurveyHelperTest extends CakeTestCase {
     $this->Survey->Cookie->setReturnValue('read', true);
     $this->assertTrue($this->Survey->popupDisplayed());
   }
+  
+  /*function testpopupDisplayedIfDebug(){
+    $this->Survey->Cookie->setReturnValue('read', false);
+    $this->assertFalse($this->Survey->popupDisplayed());
+    SurveyUtil::writeConfig('debug', true);
+    $this->assertTrue($this->Survey->popupDisplayed());
+  }*/
   
   function testShowPopupShouldShowPopup(){
     $this->Survey->View->expectOnce('element', array('survey_popup', array('plugin' => 'survey')));

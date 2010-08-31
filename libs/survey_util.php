@@ -32,6 +32,18 @@ class SurveyUtil {
   }
   
   /**
+    * Writes to this static class the key and value
+    * @param string key
+    * @param string value
+    * @return void
+    */
+  static function writeConfig($key = null, $value){
+    if($key){
+      self::$configs[$key] = $value;
+    }
+  }
+  
+  /**
     * Loads the configuration if needed.
     * @return void
     */

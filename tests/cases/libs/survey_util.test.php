@@ -22,6 +22,11 @@ class SurveyUtilTestCase extends CakeTestCase {
     $this->assertEqual($expected, $this->SurveyUtil->getConfig('table'));
   }
   
+  function testWriteConfig(){
+    $this->SurveyUtil->writeConfig('foo', 'bar');
+    $this->assertEqual('bar', $this->SurveyUtil->getConfig('foo'));
+  }
+  
   function endTest(){
     unset($this->SurveyUtil);
   }

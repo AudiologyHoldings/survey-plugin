@@ -1,4 +1,5 @@
 <?php
+App::import('Lib','Survey.SurveyUtil');
 class SurveyHelper extends AppHelper {
   /**
     * Load the view object so we can dynamically load an element into it
@@ -34,7 +35,7 @@ class SurveyHelper extends AppHelper {
     * @return boolean
     */
   function popupDisplayed(){
-    return Configure::read('Survey.debug') ? false : !!$this->Cookie->read('Survey.token');  
+    return SurveyUtil::getConfig('debug') ? false : !!$this->Cookie->read('Survey.token');  
   }
   
   /**
