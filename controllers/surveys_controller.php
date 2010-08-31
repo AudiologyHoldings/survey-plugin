@@ -166,6 +166,7 @@ class SurveysController extends SurveyAppController {
         ));
       }
     }
+    $this->redirect('/');
   }
   
   /**
