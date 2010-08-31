@@ -19,9 +19,6 @@
     <div id="header">
     </div>
     <div id="content">
-      <div id="flash-message">
-        <?php echo $this->Session->flash(); ?>
-      </div>
       <div id="content_for_layout">
         <?php echo $content_for_layout ?>
       </div>

@@ -89,7 +89,7 @@ class SurveysController extends SurveyAppController {
     }
     elseif(!empty($this->data)){
       if($this->SurveyContact->enterGiveAway($this->data)){
-        $this->goodFlash('Thank you.');
+        $this->goodflash('Thank you. You have been entered for the drawing.');
         $this->redirect('/');
       }
       else {

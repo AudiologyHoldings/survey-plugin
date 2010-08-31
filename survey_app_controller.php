@@ -9,7 +9,7 @@ class SurveyAppController extends AppController {
     * @param string message to flash
     */
   function goodFlash($message = null){
-    //$this->Session->setFlash($message, 'goodFlash');
+    $this->flashNote($message, 'note', 3);
   }
   
   /**
