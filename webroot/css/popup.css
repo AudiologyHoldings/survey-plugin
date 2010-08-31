@@ -30,7 +30,7 @@
 .popup_background {
   background: url('../img/popup_background.jpg') #fff no-repeat;
   width: 586px;
-  height: 312px;
+  height: 369px;
 }
 .popup_block_full {
   top: 5%;
@@ -48,8 +48,7 @@
 	font-weight: normal;
 }
 .popup p {
-	padding: 5px 10px;
-	/*margin: 5px 0;*/
+	padding: 11px 10px;
 }
 .popup p.popup-header {
   font-weight: bold;
@@ -64,7 +63,7 @@
 }
 .popup p.popup-policy {
   float: right;
-  padding: 21px 40px 0px 0px;
+  padding: 18px 20px 0px 0px;
 }
 .popup img.cntrl {
 	position: absolute;

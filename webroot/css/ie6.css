@@ -7,3 +7,9 @@ ul.question {
 #pop_top {
   padding: 6px 0px 0px 0px;
 }
+.popup p {
+  padding: 12px 10px;
+}
+.popup p.popup-policy {
+  padding: 13px 20px 0px 0px;
+}

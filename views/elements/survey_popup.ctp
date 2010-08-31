@@ -28,8 +28,11 @@
           ?>
         </p>
         <p class="popup-small">
-          <?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?><br /><br />
-          <?php echo $this->Html->link('Privacy Policy', '/privacy-policy', array('target' => '_blank')); ?></p>
+          <?php echo $this->Html->link('No Thanks','#', array('id' => 'close_popup')); ?>
+        </p>
+        <p class="popup-small popup-policy">
+          <?php echo $this->Html->link('Terms of Use - Privacy Policy', '/privacy-policy', array('target' => '_blank')); ?>
+        </p>
       </div>
     </div>
   </div>
