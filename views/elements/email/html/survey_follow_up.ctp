@@ -17,8 +17,8 @@
       You, and others like you, are helping the House Ear Institute in their goal of
       advancing hearing science.<br /><br />
       
-      The link below will take you to our three question follow-up survey. After
-      completing the survey you will be given a chance to <b>enter a $500 drawing</b>.
+      <b>The link below will take you to our three question follow-up survey. After
+      completing the survey you will be given a chance to enter a $500 drawing</b>.
       Just like before, the survey is for research purposes only.  We will not share
       your information with any third party, nor will we send future surveys or
       unsolicited mail as a result of your participation<br /><br />
@@ -31,7 +31,7 @@
       
       Thank you again for your support and participation<br /><br />
       
-      <b>Don't forget to enter the drawing!</b><br /><br /><br />
+      <b>Don't forget to enter the $500 monthly drawing!</b><br /><br /><br />
       
       
       Kindest regards,<br />
