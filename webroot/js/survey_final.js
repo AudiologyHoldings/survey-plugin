@@ -67,7 +67,7 @@ var SurveyFinal = Class.create({
       });
     }
     else if(page_id == 'thanks'){
-      $('final_form').submit();
+      //$('final_form').submit(); //Disable autosubmit by BC ticket.
     }
   },
   
