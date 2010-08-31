@@ -1,4 +1,3 @@
-<?php/* echo $this->Html->script('/survey/js/Class-0.0.2.min.js', array('inline' => false)); */?>
 <?php echo $this->Html->script('/survey/js/jquery.class.js', array('inline' => false)); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js', array('inline' => false)); ?>
 
@@ -128,7 +127,7 @@
             <h4>We will not share your information or send unsolicited emails.</h4>
           </div>
           
-          <div class="pop_button">
+          <div class="pop_button pop_submit">
             <?php echo $this->Form->submit('/survey/img/btn_submit_survey.png', array('class' => 'hand', 'id' => 'btn_submit')); ?>
           </div>
         </div>

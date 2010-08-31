@@ -14,6 +14,7 @@ class SurveyUtilTestCase extends CakeTestCase {
       'table',// => 'survey_contacts',
       'email',// => 'no_reply@webtechnick.com',
       'name',//  => 'Healthy Hearing'
+      'debug',//  => false
     );
     $this->assertEqual($expected, array_keys($this->SurveyUtil->getConfig()));
     

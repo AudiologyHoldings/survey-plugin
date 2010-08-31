@@ -3,6 +3,9 @@
 <!--[if IE 6]>
 <?php echo $this->Html->css('/survey/css/ie6.css'); ?>
 <![endif]-->
+<!--[if gte IE 6]>
+<?php echo $this->Html->css('/survey/css/ie.css'); ?>
+<![endif]-->
 <?php echo $this->Html->script('/survey/js/jquery.class.js'); ?>
 <?php echo $this->Html->script('/survey/js/jq_survey_popup.js'); ?>
 <div id="survey_popup_wrapper">

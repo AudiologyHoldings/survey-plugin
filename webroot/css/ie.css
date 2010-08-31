@@ -1,0 +1,7 @@
+/* center the submit button */
+.pop_submit {
+  width: 204px;
+  height: 33px;
+  border: none;
+  padding-left: 300px;
+}

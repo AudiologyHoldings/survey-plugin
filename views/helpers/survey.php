@@ -30,10 +30,11 @@ class SurveyHelper extends AppHelper {
   
   /**
     * Decides if the popup should be shown or not
+    * If we're in debug mode, always show the popup.
     * @return boolean
     */
   function popupDisplayed(){
-    return !!$this->Cookie->read('Survey.token');
+    return Configure::read('Survey.debug') ? false : !!$this->Cookie->read('Survey.token');  
   }
   
   /**

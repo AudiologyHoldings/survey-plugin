@@ -12,6 +12,7 @@ class SurveyHelperTest extends CakeTestCase {
       'Cookie' => new MockCookieComponent()
     ));
     $this->Survey->View = new MockView();
+    Configure::write('Survey.debug', false);
   }
   
   function testpopupDisplayed(){
