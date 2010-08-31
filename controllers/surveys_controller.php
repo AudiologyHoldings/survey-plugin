@@ -154,16 +154,34 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
+    * Send a test follow up email, this will be disabled in production
+    */
+  function send_test_follow($email = null){
+    if(Configure::read() > 0){
+      $contact_id = $this->SurveyContact->field('id', array('email' => $email));
+      if($contact_id){
+        $this->__sendEmail($contact_id, array(
+          'subject' => 'Healthy Hearing Follow Up Survey',
+          'template' => 'survey_follow_up'
+        ));
+      }
+    }
+  }
+  
+  /**
     * Go through the databse and send the follow up email if needed.
     */
   function send_follow(){
     $contacts = $this->SurveyContact->findAllToNotify();
     if(!empty($contacts)){
       foreach($contacts as $contact){
-        $this->__sendEmail($contact['SurveyContact']['id'], array(
+        $sent = $this->__sendEmail($contact['SurveyContact']['id'], array(
           'subject' => 'Healthy Hearing Follow Up Survey',
           'template' => 'survey_follow_up'
         ));
+        if($sent){
+          $this->SurveyContact->finalEmailSent($contact['SurveyContact']['id']);
+        }
       }
     }
     $this->redirect('/');

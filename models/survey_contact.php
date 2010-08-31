@@ -236,6 +236,7 @@ class SurveyContact extends SurveyAppModel {
 	    'entered_give_away',
 	    'finished_survey',
 	    'final_email_sent_date',
+	    'final_email_sent',
 	    'created',
 	  );
 	  
@@ -251,6 +252,7 @@ class SurveyContact extends SurveyAppModel {
 	/**
 	  * Set the final_email_send_date of a spacific contact
 	  * to days from now (default 30)
+	  * This will also set the final_email_sent token to false
 	  * @param int id of contact to alter
 	  * @param int days from now (default 30)
 	  * @return boolean success
@@ -258,7 +260,22 @@ class SurveyContact extends SurveyAppModel {
 	function setFinalEmailDate($id = null, $days_from_now = 30){
 	  if($id) $this->id = $id;
 	  $datetime = $this->time2datetime(mktime(0, 0, 0, date("m")  , date("d")+$days_from_now, date("Y")));
-	  return $this->saveField('final_email_sent_date', $datetime);
+	  $retval = $this->saveField('final_email_sent_date', $datetime);
+	  if($retval){
+	    $this->saveField('final_email_sent', false);
+	  }
+	  return $retval;
+	}
+	
+	/**
+	  * Set the final_email_send of a spacific contact to true
+	  *
+	  * @param int id of contact to alter
+	  * @return boolean success
+	  */
+	function finalEmailSent($id = null){
+	  if($id) $this->id = $id;
+	  return $this->saveField('final_email_sent', true);
 	}
 	
 	/**
@@ -277,6 +294,7 @@ class SurveyContact extends SurveyAppModel {
 	    ),
 	    'conditions' => array(
 	      "{$this->alias}.finished_survey" => false,
+	      "{$this->alias}.final_email_sent" => false,
 	      "{$this->alias}.final_email_sent_date >=" => $start,
 	      "{$this->alias}.final_email_sent_date <=" => $end,
 	    ),

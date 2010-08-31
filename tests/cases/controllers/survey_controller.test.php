@@ -4,6 +4,7 @@ App::import('Controller', 'Survey.Surveys');
 App::import('Component', 'Auth');
 App::import('Component', 'Email');
 App::import('Component', 'Session');
+App::import('Component', 'RequestHandler');
 App::import('Model', 'User');
 class TestSurveysController extends SurveysController {
 	var $autoRender = false;
@@ -27,6 +28,7 @@ class TestSurveysController extends SurveysController {
 Mock::generate('AuthComponent');
 Mock::generate('EmailComponent');
 Mock::generate('SessionComponent');
+Mock::generate('RequestHandlerComponent');
 class SurveysControllerTestCase extends CakeTestCase {
   var $fixtures = array(
     'plugin.survey.survey_contact',
@@ -40,6 +42,29 @@ class SurveysControllerTestCase extends CakeTestCase {
 		$this->Surveys->Auth = new MockAuthComponent();
 		$this->Surveys->Email = new MockEmailComponent();
 		$this->Surveys->Session = new MockSessionComponent();
+		$this->Surveys->RequestHandler = new MockRequestHandlerComponent();
+	}
+	
+	function testSendTestFollow(){
+	  if(Configure::read() > 0){
+	    $this->Surveys->Email->expectOnce('send');
+	    $this->Surveys->send_test_follow('nick@example.com');
+	    $this->assertEqual('nick@example.com', $this->Surveys->Email->to);
+	    $this->assertEqual('survey_follow_up', $this->Surveys->Email->template);
+	  }
+	}
+	
+	function testSendFollow(){
+	  $this->Surveys->SurveyContact->setFinalEmailDate(1, 0);
+	  $this->Surveys->SurveyContact->setFinalEmailDate(2, 0);
+	  $this->Surveys->Email->setReturnValue('send', true);
+	  $this->Surveys->Email->expectOnce('send');
+	  
+	  $this->assertFalse($this->Surveys->SurveyContact->field('final_email_sent', array('SurveyContact.id' => 2)));
+	  
+	  $this->Surveys->send_follow();
+
+	  $this->assertTrue($this->Surveys->SurveyContact->field('final_email_sent', array('SurveyContact.id' => 2)));
 	}
 	
 	function testGiveAway(){
@@ -104,6 +129,52 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  $this->assertTrue($contact['SurveyContact']['finished_survey']);
 	}
 	
+	function testShouldReturnTrueIfAjax(){
+	  $this->Surveys->data = array(
+	    'SurveyContact' => array(
+	      'email' => 'test@example.com'
+	    ),
+	    'SurveyAnswer' => array(
+	      array(
+	        'question' => '1_age',
+	        'answer' => '80plus'
+	      ),
+	      array(
+	        'question' => '2_likely',
+	        'answer' => '7'
+	      ),
+	    )
+	  );
+	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
+	  $this->Surveys->Email->expectOnce('send');
+	  $this->assertTrue($this->Surveys->first());
+	  $this->assertFalse($this->Surveys->redirectUrl);
+	  $this->assertEqual('test@example.com', $this->Surveys->Email->to);
+	  $this->assertEqual('survey_thanks', $this->Surveys->Email->template);
+	}
+	
+	function testShouldReturnValidationErrorIfAjaxAndNotValid(){
+	  $this->Surveys->data = array(
+	    'SurveyContact' => array(
+	      'email' => 'asdasd'
+	    ),
+	    'SurveyAnswer' => array(
+	      array(
+	        'question' => '1_age',
+	        'answer' => '80plus'
+	      ),
+	      array(
+	        'question' => '2_likely',
+	        'answer' => '7'
+	      ),
+	    )
+	  );
+	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
+	  $this->Surveys->Email->expectNever('send');
+	  $this->assertEqual('Must be a valid email.', $this->Surveys->first());
+	  $this->assertFalse($this->Surveys->redirectUrl);
+	}
+	
 	function testFirstShouldEmailWithValidEmail(){
 	  $this->Surveys->data = array(
 	    'SurveyContact' => array(
@@ -122,7 +193,6 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  
 	  $this->Surveys->Email->expectOnce('send');
-	  //$this->Surveys->Session->expectOnce('setFlash', array('Thank you message', 'goodFlash'));
 	  $this->Surveys->first();
 	  $this->assertEqual(array('action' => 'thanks'), $this->Surveys->redirectUrl);
 	  $this->assertEqual('test@example.com', $this->Surveys->Email->to);
@@ -147,7 +217,6 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  
 	  $this->Surveys->Email->expectNever('send');
-	  //$this->Surveys->Session->expectOnce('setFlash', array('Thank you message', 'goodFlash'));
 	  $this->Surveys->first();
 	  $this->assertEqual(array('action' => 'thanks'), $this->Surveys->redirectUrl);
 	  $this->assertFalse($this->Surveys->Email->to);

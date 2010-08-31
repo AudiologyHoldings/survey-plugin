@@ -9,12 +9,22 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testfinalEmailSent(){
+	  $this->SurveyContact->id = 1;
+	  $this->assertFalse($this->SurveyContact->field('final_email_sent'));
+	  $this->assertTrue($this->SurveyContact->finalEmailSent(1));
+	  $this->assertTrue($this->SurveyContact->field('final_email_sent'));
+	}
+	
 	function testSetFinalEmailDate(){
 	  $id = 1;
 	  $this->SurveyContact->id = $id;
 	  $this->assertEqual('0000-00-00 00:00:00', $this->SurveyContact->field('final_email_sent_date'));
+	  $this->SurveyContact->saveField('final_email_sent', true);
+	  $this->assertTrue($this->SurveyContact->field('final_email_sent'));
 	  $this->assertTrue($this->SurveyContact->setFinalEmailDate($id));
 	  $this->assertNotEqual('0000-00-00 00:00:00', $this->SurveyContact->field('final_email_sent_date'));
+	  $this->assertFalse($this->SurveyContact->field('final_email_sent'));
 	}
 	
 	function testFindByEmailForSecond(){
