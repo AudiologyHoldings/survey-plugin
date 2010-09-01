@@ -37,7 +37,7 @@
     
       <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
-        <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'))); ?>
+        <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'), 'onsubmit' => 'SP.submitForm(); return false;')); ?>
         <div id="one">
           <h2>Thanks for helping!</h2>
           <p class="pop_text">
