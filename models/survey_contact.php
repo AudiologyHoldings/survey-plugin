@@ -68,6 +68,63 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
+	  * Take in a value and strip the quotes
+	  */
+	function clearQuotes($value){
+	  return str_replace('"','', $value);
+	}
+	
+	/**
+	  * Import from csv files that have been converted to csv files and stored in 
+	  * survey/vendors/
+	  * @param boolean verbose, if true echo out . to show progress
+	  */
+	function import($verbose = false){
+	  App::import('Vendor','Survey.Csv');
+	  $ExportAnswers = new Csv('plugins/survey/vendors/export_answers.csv');
+	  $answers = $ExportAnswers->readAllToArrayWithHeader();
+	  
+	  $ExportContacts = new Csv('plugins/survey/vendors/export_contacts.csv');
+	  $contacts = $ExportContacts->readAllToArrayWithHeader();
+	  
+	  $count = 0;
+	  for($i=0; $i<count($answers); $i++){
+	    $import = array_merge($answers[$i], $contacts[$i]);
+	    
+	    $save_data = array();
+      //Contact import
+	    if(!empty($import['"Email"'])){
+	      $save_data['SurveyContact'] = array('email' => $this->clearQuotes($import['"Email"']));
+	    }
+	    
+	    //Answer import
+	    if(!empty($import['"age_range"'])){
+	      $save_data['SurveyAnswer'][] = array('question' => '1_age', 'answer' => $this->clearQuotes($import['"age_range"']));
+	    }
+	    if(!empty($import['"Likely"'])){
+	      $save_data['SurveyAnswer'][] = array('question' => '2_likely_to_schedule', 'answer' => $this->clearQuotes($import['"Likely"']));
+	    }
+	    if(!empty($import['"VisitClinic"'])){
+	      $save_data['SurveyAnswer'][] = array('question' => '3_visit_clinic', 'answer' => $this->clearQuotes($import['"VisitClinic"']));
+	    }
+	    if(!empty($import['"FollowUpPurchase"'])){
+	      $save_data['SurveyAnswer'][] = array('question' => '4_purchase_hearing_aid', 'answer' => $this->clearQuotes($import['"FollowUpPurchase"']));
+	    }
+	    if(!empty($import['"Brand"'])){
+	      $save_data['SurveyAnswer'][] = array('question' => '5_what_brand', 'answer' => $this->clearQuotes($import['"Brand"']));
+	    }
+	    
+	    if($this->saveFirst($save_data)){
+	      $count++;
+	      if($verbose){
+	        echo '.';
+	      }
+	    }
+	  }
+	  return $count;
+	}
+	
+	/**
 	  * Generate the token from an or if no email supplied, try $this->data[$this->alias]['email']
 	  *
 	  * @param string email to generate hash from (optional)
