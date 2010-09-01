@@ -26,7 +26,7 @@
           <?php echo $this->Js->link(
             $this->Html->image('/survey/img/btn_i_want_to_help.png'),
             array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'),
-            array('update' => '#survey_popup_wrapper', 'escape' => false, 'buffer' => false)
+            array('update' => '#survey_popup_wrapper', 'escape' => false)
           ); 
           ?>
         </p>
@@ -51,5 +51,5 @@ $hideIt = $js->effect('hide');
 $js->get('#close_popup');
 $js->event('click', $hideIt);
 
-echo $js->writeBuffer();
+echo $js->writeBuffer(array('safe' => false));
 ?>
