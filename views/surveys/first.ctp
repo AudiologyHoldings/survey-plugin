@@ -119,7 +119,7 @@
                 </p>
               </span>
               <div class="clear_left">
-                <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:')); ?>
+                <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:', 'id' => 'SurveyContactEmail')); ?>
               </div>
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>

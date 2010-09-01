@@ -7,6 +7,7 @@ var SurveyPopup = jQuery.Class.create({
     jQuery('.btn_close').click(jQuery.proxy(this.close, this));
     jQuery('#btn_continue').click(jQuery.proxy(this.nextPage, this));
     jQuery('#btn_submit').click(jQuery.proxy(this.submitForm, this));
+    jQuery('#SurveyContactEmail').keypress(jQuery.proxy(this.checkForEnter, this));
     
     if(start_page != undefined){
       this.page(start_page);
@@ -40,6 +41,16 @@ var SurveyPopup = jQuery.Class.create({
     }
     else {
       this.showError(data);
+    }
+  },
+  
+  /**
+    * Handle the keypress, check for enter, if enter is found submit the form
+    * @param event
+    */
+  checkForEnter: function(event){
+    if(event.keyCode == '13'){
+      this.submitForm();
     }
   },
   
