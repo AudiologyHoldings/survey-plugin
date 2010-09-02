@@ -94,7 +94,10 @@ class SurveyContact extends SurveyAppModel {
 	    $save_data = array();
       //Contact import
 	    if(!empty($import['"Email"'])){
-	      $save_data['SurveyContact'] = array('email' => $this->clearQuotes($import['"Email"']));
+	      $save_data['SurveyContact'] = array(
+	        'email' => $this->clearQuotes($import['"Email"']),
+	        'created' => $this->clearQuotes($import['"Start"']),
+	      );
 	    }
 	    
 	    //Answer import
@@ -106,6 +109,9 @@ class SurveyContact extends SurveyAppModel {
 	    }
 	    if(!empty($import['"VisitClinic"'])){
 	      $save_data['SurveyAnswer'][] = array('question' => '3_visit_clinic', 'answer' => $this->clearQuotes($import['"VisitClinic"']));
+	      //If we got this far this import has completed the survey
+	      $save_data['SurveyContact']['finished_survey'] = true;
+	      $save_data['SurveyContact']['final_email_sent'] = true;
 	    }
 	    if(!empty($import['"FollowUpPurchase"'])){
 	      $save_data['SurveyAnswer'][] = array('question' => '4_purchase_hearing_aid', 'answer' => $this->clearQuotes($import['"FollowUpPurchase"']));
