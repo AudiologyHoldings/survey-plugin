@@ -16,21 +16,73 @@ class SurveyHelperTest extends CakeTestCase {
     SurveyUtil::writeConfig('debug', false);
   }
   
-  function testpopupDisplayed(){
+  function testshouldDisplayPopupIfNoCookie(){
     $this->Survey->Cookie->setReturnValue('read', false);
-    $this->assertFalse($this->Survey->popupDisplayed());
+    $this->assertTrue($this->Survey->shouldDisplayPopup());
   }
   
-  function testpopupDisplayedTrue(){
+  function testshouldDisplayPopupIfFirstCookieButNextDay(){
+    $this->Survey->Cookie->setReturnValue('read',
+      array(
+        'number' => 1,
+        'time' => time()
+      )
+    );
+    $this->assertTrue($this->Survey->shouldDisplayPopup());
+  }
+  
+  function testshouldDisplayPopupIfFirstCookieButNotNextDay(){
+    $this->Survey->Cookie->setReturnValue('read',
+      array(
+        'number' => 1,
+        'time' => time() + 1000 //do not display
+      )
+    );
+    $this->assertFalse($this->Survey->shouldDisplayPopup());
+  }
+  
+  function testshouldDisplayPopupIfSecondCookie(){
+    $this->Survey->Cookie->setReturnValue('read',
+      array(
+        'number' => 2,
+        'time' => time()
+      )
+    );
+    $this->assertFalse($this->Survey->shouldDisplayPopup());
+  }
+  
+  function testshouldDisplayPopupTrue(){
     $this->Survey->Cookie->setReturnValue('read', true);
-    $this->assertTrue($this->Survey->popupDisplayed());
+    $this->assertFalse($this->Survey->shouldDisplayPopup());
   }
   
-  /*function testpopupDisplayedIfDebug(){
+  function testWriteSecondCookie(){
+    $this->Survey->Cookie->expectOnce('write', array(
+      'Survey',
+      array(
+        'number' => 2,
+        'time' => time()
+      )
+    ));
+    $this->Survey->__writeCookie(2);
+  }
+  
+  function testWriteFirstCookie(){
+    $this->Survey->Cookie->expectOnce('write', array(
+      'Survey',
+      array(
+        'number' => 1,
+        'time' => time() + $this->Survey->firstCookieLength
+      )
+    ));
+    $this->Survey->__writeCookie(1);
+  }
+  
+  /*function testshouldDisplayPopupIfDebug(){
     $this->Survey->Cookie->setReturnValue('read', false);
-    $this->assertFalse($this->Survey->popupDisplayed());
+    $this->assertFalse($this->Survey->shouldDisplayPopup());
     SurveyUtil::writeConfig('debug', true);
-    $this->assertTrue($this->Survey->popupDisplayed());
+    $this->assertTrue($this->Survey->shouldDisplayPopup());
   }*/
   
   function testShowPopupShouldShowPopup(){

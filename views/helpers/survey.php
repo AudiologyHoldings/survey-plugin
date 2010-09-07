@@ -2,6 +2,12 @@
 App::import('Lib','Survey.SurveyUtil');
 class SurveyHelper extends AppHelper {
   /**
+    * Time (in seconds) from when the first survey is show,
+    * to the time the second and final one should be shown.
+    */
+  var $firstCookieLength = 86400; //One day
+  
+  /**
     * Load the view object so we can dynamically load an element into it
     * Load the Cookie Component so we can read from the cookie the CakePHP way
     */
@@ -30,12 +36,42 @@ class SurveyHelper extends AppHelper {
   }
   
   /**
+    * Write the cookie, first or second one depending on certain conditions
+    * @param int number (default 1)
+    * @return void
+    */
+  function __writeCookie($number = 1){
+    $time = $number == 1 ? time() + $this->firstCookieLength : time();
+    $this->Cookie->write('Survey', array(
+      'number' => $number,
+      'time' => $time
+    ));
+  }
+  
+  /**
     * Decides if the popup should be shown or not
     * If we're in debug mode, always show the popup.
     * @return boolean
     */
-  function popupDisplayed(){
-    return SurveyUtil::getConfig('debug') ? false : !!$this->Cookie->read('Survey.token');  
+  function shouldDisplayPopup(){
+    //always show popup if 
+    if(SurveyUtil::getConfig('debug')){
+      return true;
+    }
+    
+    $cookie = $this->Cookie->read('Survey');
+    if($cookie){
+      if($cookie['number'] == 1 && $cookie['time'] <= time()){
+        $this->__writeCookie(2);
+        return true;
+      }
+    }
+    else {
+      $this->__writeCookie(1);
+      return true;
+    }
+    
+    return false;
   }
   
   /**
@@ -43,8 +79,7 @@ class SurveyHelper extends AppHelper {
     * @return mixed popup element or null
     */
   function showPopup(){
-    if(!$this->popupDisplayed()){
-      $this->Cookie->write('Survey.token', md5(date('Y-m-d H:i:s')));
+    if($this->shouldDisplayPopup()){
       return $this->View->element('survey_popup', array('plugin' => 'survey')); 
     }
     return null;
