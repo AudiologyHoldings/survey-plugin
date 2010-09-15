@@ -3,7 +3,11 @@
 App::import('Model', 'survey.SurveyAnswer');
 
 class SurveyAnswerTestCase extends CakeTestCase {
-	var $fixtures = array('plugin.survey.survey_contact', 'plugin.survey.survey_answer');
+	var $fixtures = array(
+	  'plugin.survey.survey_contact', 
+	  'plugin.survey.survey_answer',
+	  'plugin.survey.survey_opt_in',
+	);
 
 	function startTest() {
 		$this->SurveyAnswer =& ClassRegistry::init('SurveyAnswer');
@@ -18,7 +22,8 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	    )
 	  );
 	  $results = $this->SurveyAnswer->findReport($data);
-
+	  
+	  $this->assertEqual(9, $results['total']['opt_in']);
 	  $this->assertEqual(3, $results['total']['participation']);
 	  $this->assertEqual(1, $results['total']['without_email']);
 	  $this->assertEqual(2, $results['total']['with_email']);
@@ -26,6 +31,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $this->assertEqual(0, $results['total']['entered_give_away']);
 	  $this->assertEqual(1, $results['total']['purchases']);
 	  $this->assertEqual(1, $results['total']['oticon_purchases']);
+	  $this->assertEqual('33.33%', $results['percent']['opt_in']);
 	  $this->assertEqual('30%', $results['percent']['participation']);
 	  $this->assertEqual('66.67%', $results['percent']['with_email']);
 	  $this->assertEqual('33.33%', $results['percent']['completed_survey']);

@@ -33,16 +33,32 @@ class SurveysControllerTestCase extends CakeTestCase {
   var $fixtures = array(
     'plugin.survey.survey_contact',
     'plugin.survey.survey_answer',
+    'plugin.survey.survey_opt_in',
   );
   
 	function startTest() {
 		$this->Surveys = new TestSurveysController();
 		$this->Surveys->SurveyContact = ClassRegistry::init('Survey.SurveyContact');
 		$this->Surveys->SurveyAnswer = ClassRegistry::init('Survey.SurveyAnswer');
+		$this->Surveys->SurveyOptIn = ClassRegistry::init('Survey.SurveyOptIn');
 		$this->Surveys->Auth = new MockAuthComponent();
 		$this->Surveys->Email = new MockEmailComponent();
 		$this->Surveys->Session = new MockSessionComponent();
 		$this->Surveys->RequestHandler = new MockRequestHandlerComponent();
+	}
+	
+	function testSaveOptIn(){
+	  $count = $this->Surveys->SurveyOptIn->find('count');
+	  $this->Surveys->__saveOptIn();
+	  $this->assertEqual($count + 1, $this->Surveys->SurveyOptIn->find('count'));
+	}
+	
+	function testFirstShouldSaveOptIfClicked(){
+	  $count = $this->Surveys->SurveyOptIn->find('count');
+	  $this->Surveys->data = array();
+	  $this->Surveys->first();
+	  $this->assertEqual($count + 1, $this->Surveys->SurveyOptIn->find('count'));
+	  $this->assertEqual('one', $this->Surveys->viewVars['start_page']);
 	}
 	
 	function testSendTestFollow(){
@@ -176,6 +192,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	}
 	
 	function testFirstShouldEmailWithValidEmail(){
+	  $count = $this->Surveys->SurveyOptIn->find('count');
 	  $this->Surveys->data = array(
 	    'SurveyContact' => array(
 	      'email' => 'test@example.com'
@@ -197,6 +214,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  $this->assertEqual(array('action' => 'thanks'), $this->Surveys->redirectUrl);
 	  $this->assertEqual('test@example.com', $this->Surveys->Email->to);
 	  $this->assertEqual('survey_thanks', $this->Surveys->Email->template);
+	  $this->assertEqual($count, $this->Surveys->SurveyOptIn->find('count'));
 	}
 	
 	function testFirstShouldNotEmail(){

@@ -43,6 +43,9 @@ class SurveysController extends SurveyAppController {
         $start_page = 'two';
       }
     }
+    else {
+      $this->__saveOptIn(); //we're showing the form, save opt_in
+    }
     $this->set('start_page', $start_page);
   }
   
@@ -200,6 +203,15 @@ class SurveysController extends SurveyAppController {
 	  if($this->RequestHandler->ext != 'vcf'){
 	    $this->redirect(array('action' => 'reply_email', 'ext' => 'vcf'));
 	  }
+	}
+	
+	/**
+	  * This will create a new record of the day/time the "I WILL HELP" button was clicked
+	  * @return void
+	  * @access private
+	  */
+	function __saveOptIn(){
+	  ClassRegistry::init('Survey.SurveyOptIn')->add();
 	}
   
   /**

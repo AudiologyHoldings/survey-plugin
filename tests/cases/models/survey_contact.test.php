@@ -3,7 +3,11 @@
 App::import('Model', 'survey.SurveyContact');
 
 class SurveyContactTestCase extends CakeTestCase {
-	var $fixtures = array('plugin.survey.survey_contact', 'plugin.survey.survey_answer');
+	var $fixtures = array(
+	  'plugin.survey.survey_contact', 
+	  'plugin.survey.survey_answer',
+	  'plugin.survey.survey_opt_in',
+	);
 
 	function startTest() {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
