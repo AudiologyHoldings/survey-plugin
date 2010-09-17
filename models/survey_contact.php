@@ -110,7 +110,7 @@ class SurveyContact extends SurveyAppModel {
 	    $this->save($import);
 	  }
 
-	  $Export = new Csv('plugins/survey/vendors/export_survey.csv');
+	  $Export = new Csv(dirname(__FILE__) . DS . '../vendors/export_survey.csv');
 	  $contacts = $Export->readAllToArrayWithHeader();
 	  
 	  //------------------
