@@ -13,6 +13,14 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testImport(){
+	  if(env('RUN_SURVEY_IMPORT')){
+	    $count = $this->SurveyContact->find('count');
+      $this->SurveyContact->import(true, '2010-07-27');
+      $this->assertEqual($count + 673, $this->SurveyContact->find('count'));
+	  }
+	}
+	
 	function testfinalEmailSent(){
 	  $this->SurveyContact->id = 1;
 	  $this->assertFalse($this->SurveyContact->field('final_email_sent'));

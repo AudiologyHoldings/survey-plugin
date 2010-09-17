@@ -15,7 +15,7 @@ class SurveyAppModel extends AppModel {
       case 'last':
         $options = array_merge(
           $options,
-          array('order' => "{$this->alias}.created DESC")
+          array('order' => "{$this->alias}.id DESC")
         );
         return parent::find('first', $options);    
       default: 

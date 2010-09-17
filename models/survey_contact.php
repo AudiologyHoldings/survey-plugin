@@ -79,45 +79,94 @@ class SurveyContact extends SurveyAppModel {
 	  * survey/vendors/
 	  * @param boolean verbose, if true echo out . to show progress
 	  */
-	function import($verbose = false){
+	function import($verbose = false, $savefrom = 'now'){
 	  App::import('Vendor','Survey.Csv');
-	  $ExportAnswers = new Csv('plugins/survey/vendors/export_answers.csv');
-	  $answers = $ExportAnswers->readAllToArrayWithHeader();
+	  $SurveyOptIn = ClassRegistry::init('Survey.SurveyOptIn');
 	  
-	  $ExportContacts = new Csv('plugins/survey/vendors/export_contacts.csv');
-	  $contacts = $ExportContacts->readAllToArrayWithHeader();
+	  $backupContacts = $this->find('all', array(
+	    'conditions' => array('SurveyContact.created >=' => $this->str2datetime($savefrom)),
+	    'contain' => 'SurveyAnswer'
+	  ));
 	  
+	  //clear everything from savefrom
+	  $SurveyOptIn->deleteAll(
+	    array('SurveyOptIn.created <' => $this->str2datetime($savefrom))
+	  );
+	  
+	  //Truncate contacts and answers
+	  $tables = array(
+	    'survey_contacts',
+	    'survey_answers'
+	  );
+	  foreach($tables as $table){
+	    $this->query("TRUNCATE TABLE $table");
+	  }
+	  	  
+	  //re-insert backup contacts and answers
+	  foreach($backupContacts as $import){
+	    foreach($import['SurveyAnswer'] as $answer){
+	      $this->SurveyAnswer->save($answer);
+	    }
+	    $this->save($import);
+	  }
+
+	  $Export = new Csv('plugins/survey/vendors/export_survey.csv');
+	  $contacts = $Export->readAllToArrayWithHeader();
+	  
+	  //------------------
+	  //Done with setup, now run the import.
+	  //Run the import.
 	  $count = 0;
-	  for($i=0; $i<count($answers); $i++){
-	    $import = array_merge($answers[$i], $contacts[$i]);
-	    
+	  foreach($contacts as $import){
 	    $save_data = array();
+	    //Set the default created for all records associated with this import
+	    $default_values = array(
+	      'created' => $this->clearQuotes($import['"Start"'])
+	    );
+	    
+	    //Add Opt In
+	    $SurveyOptIn->add($default_values['created']);
+	    
       //Contact import
 	    if(!empty($import['"Email"'])){
-	      $save_data['SurveyContact'] = array(
+	      $save_data['SurveyContact'] = array_merge(array(
 	        'email' => $this->clearQuotes($import['"Email"']),
-	        'created' => $this->clearQuotes($import['"Start"']),
-	      );
+	      ), $default_values);
 	    }
 	    
 	    //Answer import
 	    if(!empty($import['"age_range"'])){
-	      $save_data['SurveyAnswer'][] = array('question' => '1_age', 'answer' => $this->clearQuotes($import['"age_range"']));
+	      $save_data['SurveyAnswer'][] = array_merge(array(
+	        'question' => '1_age', 
+	        'answer' => $this->clearQuotes($import['"age_range"']),
+	      ), $default_values);
 	    }
 	    if(!empty($import['"Likely"'])){
-	      $save_data['SurveyAnswer'][] = array('question' => '2_likely_to_schedule', 'answer' => $this->clearQuotes($import['"Likely"']));
+	      $save_data['SurveyAnswer'][] = array_merge(array(
+	        'question' => '2_likely_to_schedule', 
+	        'answer' => $this->clearQuotes($import['"Likely"'])
+	      ), $default_values);
 	    }
 	    if(!empty($import['"VisitClinic"'])){
-	      $save_data['SurveyAnswer'][] = array('question' => '3_visit_clinic', 'answer' => $this->clearQuotes($import['"VisitClinic"']));
+	      $save_data['SurveyAnswer'][] = array_merge(array(
+	        'question' => '3_visit_clinic', 
+	        'answer' => $this->clearQuotes($import['"VisitClinic"'])
+	      ), $default_values);
 	      //If we got this far this import has completed the survey
 	      $save_data['SurveyContact']['finished_survey'] = true;
 	      $save_data['SurveyContact']['final_email_sent'] = true;
 	    }
 	    if(!empty($import['"FollowUpPurchase"'])){
-	      $save_data['SurveyAnswer'][] = array('question' => '4_purchase_hearing_aid', 'answer' => $this->clearQuotes($import['"FollowUpPurchase"']));
+	      $save_data['SurveyAnswer'][] = array_merge(array(
+	        'question' => '4_purchase_hearing_aid', 
+	        'answer' => $this->clearQuotes($import['"FollowUpPurchase"'])
+	      ), $default_values);
 	    }
 	    if(!empty($import['"Brand"'])){
-	      $save_data['SurveyAnswer'][] = array('question' => '5_what_brand', 'answer' => $this->clearQuotes($import['"Brand"']));
+	      $save_data['SurveyAnswer'][] = array_merge(array(
+	        'question' => '5_what_brand', 
+	        'answer' => $this->clearQuotes($import['"Brand"'])
+	      ), $default_values);
 	    }
 	    
 	    if($this->saveFirst($save_data)){

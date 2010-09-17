@@ -20,6 +20,15 @@ class SurveyOptInTestCase extends CakeTestCase {
 	  $result = $this->SurveyOptIn->find('last');
 	  $this->assertEqual($this->SurveyOptIn->str2datetime('now'), $result['SurveyOptIn']['created']); 
 	}
+	
+	function testAddWithDateString(){
+	  $count = $this->SurveyOptIn->find('count');
+	  $date = "2010-07-06 10:10:10";
+	  $this->assertTrue($this->SurveyOptIn->add($date));
+	  $this->assertEqual($count + 1, $this->SurveyOptIn->find('count'));
+	  $result = $this->SurveyOptIn->find('last');
+	  $this->assertEqual($date, $result['SurveyOptIn']['created']);
+	}
 
 	function endTest() {
 		unset($this->SurveyOptIn);
