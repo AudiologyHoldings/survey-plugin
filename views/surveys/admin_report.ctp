@@ -32,93 +32,59 @@
           <tr>
             <td colspan="3" class="spacer">&nbsp;</td>
           </tr>
+          <?php echo $this->element('report_key', array('title' => 'Opt-in', 'key' => 'opt_in', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Participation', 'key' => 'participation', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Provided Email', 'key' => 'with_email', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Visit Clinic', 'key' => 'visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Not Visit Clinic', 'key' => 'not_visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Completed Survey', 'key' => 'completed_survey', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Entered Give Away', 'key' => 'entered_give_away', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Purchases', 'key' => 'purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Visited Clinic But No Purchase', 'key' => 'visit_clinic_no_purchase', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Oticon Purchases', 'key' => 'oticon_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+        </table>
+        
+        <h1 class="report">Age Range</h1>
+        <table class="report">
           <tr>
-            <td>Opt-in Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['opt_in'] ?></td>
+            <th class="center">Under 18</th>
+            <th class="center">18-39</th>
+            <th class="center">40-49</th>
+            <th class="center">50-59</th>
+            <th class="center">60-69</th>
+            <th class="center">70-79</th>
+            <th class="center">80 Plus</th>
           </tr>
           <tr>
-            <td>Opt-in Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['opt_in'] ?></td>
+            <td class="center"><?php echo $results['age_range']['under-18'] ?></td>
+            <td class="center"><?php echo $results['age_range']['18-39'] ?></td>
+            <td class="center"><?php echo $results['age_range']['40-49'] ?></td>
+            <td class="center"><?php echo $results['age_range']['50-59'] ?></td>
+            <td class="center"><?php echo $results['age_range']['60-69'] ?></td>
+            <td class="center"><?php echo $results['age_range']['70-79'] ?></td>
+            <td class="center"><?php echo $results['age_range']['80plus'] ?></td>
+          </tr>
+        </table>
+        
+        <h1 class="report">Likely To Visit</h1>
+        <table class="report">
+          <tr>
+            <th class="center">Not</th>
+            <th class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th class="center">Somewhat</th>
+            <th class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th class="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+            <th class="center">Very</th>
           </tr>
           <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Participation Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['participation'] ?></td>
-          </tr>
-          <tr>
-            <td>Participation Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['participation'] ?></td>
-          </tr>
-          <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Provided Email Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['with_email'] ?></td>
-          </tr>
-          <tr>
-            <td>Provided Email Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['with_email'] ?></td>
-          </tr>
-          <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Completed Survey Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['completed_survey'] ?></td>
-          </tr>
-          <tr>
-            <td>Completed Survey Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['completed_survey'] ?></td>
-          </tr>
-          <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Entered Give Away Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['entered_give_away'] ?></td>
-          </tr>
-          <tr>
-            <td>Entered Give Away Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['entered_give_away'] ?></td>
-          </tr>
-          <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Purchases Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['purchases'] ?></td>
-          </tr>
-          <tr>
-            <td>Purchases Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['purchases'] ?></td>
-          </tr>
-          <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
-          </tr>
-          <tr>
-            <td>Oticon Purchases Percentage</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['percent']['oticon_purchases'] ?></td>
-          </tr>
-          <tr>
-            <td>Oticon Purchases Number</td>
-            <td class="right">&nbsp;</td>
-            <td class="right"><?php echo $results['total']['oticon_purchases'] ?></td>
+            <td class="center"><?php echo $results['likely']['0'] ?></td>
+            <td class="center"><?php echo $results['likely']['1'] ?></td>
+            <td class="center"><?php echo $results['likely']['2'] ?></td>
+            <td class="center"><?php echo $results['likely']['3'] ?></td>
+            <td class="center"><?php echo $results['likely']['4'] ?></td>
+            <td class="center"><?php echo $results['likely']['5'] ?></td>
+            <td class="center"><?php echo $results['likely']['6'] ?></td>
           </tr>
         </table>
       <?php endif; ?>

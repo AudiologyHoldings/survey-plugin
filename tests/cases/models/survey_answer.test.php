@@ -22,7 +22,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	    )
 	  );
 	  $results = $this->SurveyAnswer->findReport($data);
-	  
+	  	  
 	  $this->assertEqual(9, $results['total']['opt_in']);
 	  $this->assertEqual(3, $results['total']['participation']);
 	  $this->assertEqual(1, $results['total']['without_email']);
@@ -31,6 +31,9 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $this->assertEqual(0, $results['total']['entered_give_away']);
 	  $this->assertEqual(1, $results['total']['purchases']);
 	  $this->assertEqual(1, $results['total']['oticon_purchases']);
+	  $this->assertEqual(1, $results['total']['visit_clinic']);
+	  $this->assertEqual(0, $results['total']['not_visit_clinic']);
+	  $this->assertEqual(0, $results['total']['visit_clinic_no_purchase']);
 	  $this->assertEqual('33.33%', $results['percent']['opt_in']);
 	  $this->assertEqual('30%', $results['percent']['participation']);
 	  $this->assertEqual('66.67%', $results['percent']['with_email']);
@@ -38,6 +41,12 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $this->assertEqual('0%', $results['percent']['entered_give_away']);
 	  $this->assertEqual('33.33%', $results['percent']['purchases']);
 	  $this->assertEqual('33.33%', $results['percent']['oticon_purchases']);
+	  $this->assertEqual('33.33%', $results['percent']['visit_clinic']);
+	  $this->assertEqual('0%', $results['percent']['not_visit_clinic']);
+	  $this->assertEqual('0%', $results['percent']['visit_clinic_no_purchase']);
+	  $this->assertEqual('2', $results['likely']['6']);
+	  $this->assertEqual('1', $results['likely']['3']);
+	  $this->assertEqual('3', $results['age_range']['80plus']);
 	}
 
 	function endTest() {

@@ -62,21 +62,45 @@ class SurveyAnswer extends SurveyAppModel {
 	    'total' => array(
         'with_email' => 0,
         'without_email' => 0,
-        'opt_in' => 0, //TODO how to calculate that? click of I'll Help button
+        'opt_in' => 0,
         'participation' => 0,
         'completed_survey' => 0,
         'entered_give_away' => 0,
         'purchases' => 0,
         'oticon_purchases' => 0,
+        'visit_clinic' => 0,
+        'not_visit_clinic' => 0,
+        'visit_clinic_no_purchase' => 0
 	    ),
 	    'percent' => array(
 	      'with_email' => 0,
-        'opt_in' => 0, //TODO how to calculate that? click of I'll Help button
+        'opt_in' => 0,
         'participation' => 0,
         'completed_survey' => 0,
         'entered_give_away' => 0,
         'purchases' => 0,
         'oticon_purchases' => 0,
+        'visit_clinic' => 0,
+        'not_visit_clinic' => 0,
+        'visit_clinic_no_purchase' => 0,
+	    ),
+	    'age_range' => array(
+	      'under-18' => 0,
+	      '18-39' => 0,
+	      '40-49' => 0,
+	      '50-59' => 0,
+	      '60-69' => 0,
+	      '70-79' => 0,
+	      '80plus' => 0,
+	    ),
+	    'likely' => array(
+	      '0' => 0,
+	      '1' => 0,
+	      '2' => 0,
+	      '3' => 0,
+	      '4' => 0,
+	      '5' => 0,
+	      '6' => 0,
 	    )
 	  );
 	  
@@ -89,6 +113,9 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['total']['entered_give_away'] = count(Set::extract('/SurveyContact[entered_give_away=1]', $contacts));
 	  $retval['total']['oticon_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Oticon]', $answers));
 	  $retval['total']['purchases'] = count(Set::extract('/SurveyAnswer[question=4_purchase_hearing_aid][answer=Yes]', $answers));
+	  $retval['total']['visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Yes]', $answers));
+	  $retval['total']['not_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=No]', $answers));
+	  $retval['total']['visit_clinic_no_purchase'] = $retval['total']['visit_clinic'] - $retval['total']['purchases'];
 	  
 	  //Percents
 	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['participation'], $retval['total']['opt_in']);
@@ -98,6 +125,28 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['percent']['purchases'] = $this->__calculatePercent($retval['total']['purchases'], $retval['total']['participation']);
 	  $retval['percent']['oticon_purchases'] = $this->__calculatePercent($retval['total']['oticon_purchases'], $retval['total']['participation']);
 	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $data['SurveyAnswer']['page_views']);
+	  $retval['percent']['visit_clinic'] = $this->__calculatePercent($retval['total']['visit_clinic'], $retval['total']['participation']);
+	  $retval['percent']['not_visit_clinic'] = $this->__calculatePercent($retval['total']['not_visit_clinic'], $retval['total']['participation']);
+	  $retval['percent']['visit_clinic_no_purchase'] = $this->__calculatePercent($retval['total']['visit_clinic_no_purchase'], $retval['total']['participation']);
+	  
+	  
+	  //Age Range
+	  $retval['age_range']['under-18'] = count(Set::extract('/SurveyAnswer[answer=under-18]', $answers));
+	  $retval['age_range']['18-39'] = count(Set::extract('/SurveyAnswer[answer=18-39]', $answers));
+	  $retval['age_range']['40-49'] = count(Set::extract('/SurveyAnswer[answer=40-49]', $answers));
+	  $retval['age_range']['50-59'] = count(Set::extract('/SurveyAnswer[answer=50-59]', $answers));
+	  $retval['age_range']['60-69'] = count(Set::extract('/SurveyAnswer[answer=60-69]', $answers));
+	  $retval['age_range']['70-79'] = count(Set::extract('/SurveyAnswer[answer=70-79]', $answers));
+	  $retval['age_range']['80plus'] = count(Set::extract('/SurveyAnswer[answer=80plus]', $answers));
+	  
+	  //Likely
+	  $retval['likely']['0'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=0]', $answers));
+	  $retval['likely']['1'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=1]', $answers));
+	  $retval['likely']['2'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=2]', $answers));
+	  $retval['likely']['3'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=3]', $answers));
+	  $retval['likely']['4'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=4]', $answers));
+	  $retval['likely']['5'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=5]', $answers));
+	  $retval['likely']['6'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=6]', $answers));
 	  	  
 	  return $retval;
 	}
