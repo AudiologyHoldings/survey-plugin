@@ -91,7 +91,7 @@
           <h3 class="green">Thanks.</h3>
           <p class="q_text">
             We'll send you a follow-up email in about 30 days.<br />
-            You will be able to enter the drawing at that time.<br />
+            You will be able to enter the monthly drawing at that time.<br />
             Please visit our <?php echo $this->Html->link('Find A Professional', '/hearing-aids') ?> section.
           </p>
         </div>
@@ -101,7 +101,7 @@
         <div class="white_box survey_question center">
           <h3 class="green">That's all. Click Submit Survey to finish.</h3>
           <p class="q_text">
-            Thanks, that's all the questions we have. You can enter your drawing<br />
+            Thanks, that's all the questions we have. You can enter your monthly drawing<br />
             information on the next screen.  Thanks again for participating.
           </p>
           <div class="pop_button">

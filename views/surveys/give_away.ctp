@@ -13,7 +13,7 @@
       <h2>Thank you!</h2>
       <p class="pop_text">
         We appreciate your participation.<br />
-        To be entered into the $500 drawing, please complete the form below:<br /><br />
+        To be entered into the $500 monthly drawing, please complete the form below:<br /><br />
         <span class="required">All fields are required.</span>
       </p>
       
