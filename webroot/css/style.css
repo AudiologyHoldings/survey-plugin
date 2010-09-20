@@ -75,7 +75,7 @@ div#info-flash {
   clear: both;
 }
 
-div.wrapper{
+div#popup div.wrapper{
   margin: auto;
   width: 1000px;
   border: 1px solid #ccc; /* grey */
