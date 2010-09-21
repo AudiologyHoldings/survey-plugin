@@ -22,7 +22,7 @@
       information with any third party, nor will we send future surveys or unsolicited
       mail as a result of your participation.<br /><br />
       
-      <b>Don't forget, when you complete the follow-up survey we'll enter you in a drawing to
+      <b>Don't forget, when you complete the follow-up survey we'll enter you in a monthly drawing to
       win a $500 gift card.</b> To review the survey drawing rules and eligibility, just
       visit the following link: <?php echo $this->Html->link('http://www.healthyhearing.com/privacy-policy')?><br /><br />
       
