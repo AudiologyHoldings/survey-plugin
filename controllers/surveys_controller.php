@@ -175,8 +175,9 @@ class SurveysController extends SurveyAppController {
   
   /**
     * Go through the databse and send the follow up email if needed.
+    * @param frequency of call
     */
-  function send_follow(){
+  function send_follow($freq = null){
     $contacts = $this->SurveyContact->findAllToNotify();
     if(!empty($contacts)){
       foreach($contacts as $contact){
@@ -189,6 +190,7 @@ class SurveysController extends SurveyAppController {
         }
       }
     }
+    $this->__cronEnd('1',$freq);
     $this->redirect('/');
   }
   

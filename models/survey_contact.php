@@ -413,6 +413,19 @@ class SurveyContact extends SurveyAppModel {
 	    'recursive' => -1
 	  ));
 	}
+	
+	/**
+	  * Fix the import.
+	  * Go through and make minor changes to the database, this is 
+	  * used as a one time execute.
+	  */
+	function fixImport(){
+	  $this->updateAll(
+	    array('final_email_sent' => true),
+	    /* Where */
+	    array('final_email_sent' => false, 'finished_survey' => true)
+	  );
+	}
 
 }
 ?>
