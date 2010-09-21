@@ -160,5 +160,42 @@ class SurveyAnswer extends SurveyAppModel {
 	function __calculatePercent($num, $denom = 100){
 	  return (!$denom) ? "0%" : round($num / $denom, 4) * 100 . '%';
 	}
+	
+	/**
+	  * Fix the import
+	  */
+	function fixImport(){
+	  $answers = $this->find('all', array(
+	    'contain' => array(
+	      'SurveyContact' => array('fields' => array('id','email'))
+	    )
+	  ));
+	  foreach($answers as $answer){
+	    $this->id = $answer['SurveyAnswer']['id'];
+	    
+	    if(empty($answer['SurveyContact']['email']) && $answer['SurveyAnswer']['survey_contact_id']){
+        if(!empty($answer['SurveyContact']['id'])){
+          $this->SurveyContact->delete($answer['SurveyContact']['id'], false);
+        }
+        $this->saveField('survey_contact_id', false);
+	    }
+	    if($answer['SurveyAnswer']['question'] == '1_age'){
+	      switch(strtolower(substr(strip_tags($answer['SurveyAnswer']['answer']), 0, 1))){
+	        case 'u': $this->saveField('answer', 'under-18'); break;
+	        case '1': 
+	        case '2': 
+	        case '3': $this->saveField('answer', '18-39'); break;
+	        case '4': $this->saveField('answer', '40-49'); break;
+	        case '5': $this->saveField('answer', '50-59'); break;
+	        case '6': $this->saveField('answer', '60-69'); break;
+	        case '7': $this->saveField('answer', '70-79'); break;
+	        default : $this->saveField('answer', '80plus'); break;
+	      }
+	    }
+	    if($answer['SurveyAnswer']['question'] == '2_likely_to_schedule'){
+	      $this->saveField('answer', strip_tags($answer['SurveyAnswer']['answer']));
+	    }
+	  }
+	}
 }
 ?>

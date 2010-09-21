@@ -225,5 +225,9 @@ class SurveysController extends SurveyAppController {
       $this->set('results', $results);
     }
   }
+  
+  function admin_fix_import(){
+    ClassRegistry::init('SurveyAnswer')->fixImport();
+  }
 }
 ?>
