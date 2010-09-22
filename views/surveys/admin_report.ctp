@@ -60,13 +60,13 @@
             <th class="center">80+</th>
           </tr>
           <tr>
-            <td class="center"><?php echo $results['age_range']['under-18'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['under-18'] / $results['age_range']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['age_range']['18-39'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['18-39'] / $results['age_range']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['age_range']['40-49'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['40-49'] / $results['age_range']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['age_range']['50-59'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['50-59'] / $results['age_range']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['age_range']['60-69'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['60-69'] / $results['age_range']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['age_range']['70-79'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['70-79'] / $results['age_range']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['age_range']['80plus'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['80plus'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['under-18'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['under-18'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['18-39'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['18-39'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['40-49'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['40-49'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['50-59'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['50-59'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['60-69'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['60-69'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['70-79'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['70-79'] / $results['age_range']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['age_range']['80plus'] ?><br />(<?php echo $this->Number->toPercentage($results['age_range']['80plus'] / $results['age_range']['total'] * 100); ?>)</td>
           </tr>
         </table>
         
@@ -82,13 +82,13 @@
             <th class="center">Very</th>
           </tr>
           <tr>
-            <td class="center"><?php echo $results['likely']['0'] ?> (<?php echo $this->Number->toPercentage($results['likely']['0'] / $results['likely']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['likely']['1'] ?> (<?php echo $this->Number->toPercentage($results['likely']['1'] / $results['likely']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['likely']['2'] ?> (<?php echo $this->Number->toPercentage($results['likely']['2'] / $results['likely']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['likely']['3'] ?> (<?php echo $this->Number->toPercentage($results['likely']['3'] / $results['likely']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['likely']['4'] ?> (<?php echo $this->Number->toPercentage($results['likely']['4'] / $results['likely']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['likely']['5'] ?> (<?php echo $this->Number->toPercentage($results['likely']['5'] / $results['likely']['total'] * 100); ?>)</td>
-            <td class="center"><?php echo $results['likely']['6'] ?> (<?php echo $this->Number->toPercentage($results['likely']['6'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['0'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['0'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['1'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['1'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['2'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['2'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['3'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['3'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['4'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['4'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['5'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['5'] / $results['likely']['total'] * 100); ?>)</td>
+            <td class="center"><?php echo $results['likely']['6'] ?><br />(<?php echo $this->Number->toPercentage($results['likely']['6'] / $results['likely']['total'] * 100); ?>)</td>
           </tr>
         </table>
       <?php endif; ?>
