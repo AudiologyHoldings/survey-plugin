@@ -35,25 +35,29 @@
           <?php echo $this->element('report_key', array('title' => 'Opt-in', 'key' => 'opt_in', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Participation', 'key' => 'participation', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Provided Email', 'key' => 'with_email', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Visit Clinic', 'key' => 'visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Completed Final 30 Day Survey', 'key' => 'completed_survey', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Not Visit Clinic', 'key' => 'not_visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Completed Survey', 'key' => 'completed_survey', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Entered Give Away', 'key' => 'entered_give_away', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Purchases', 'key' => 'purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Visit Clinic', 'key' => 'visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Visited Clinic But No Purchase', 'key' => 'visit_clinic_no_purchase', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Purchases', 'key' => 'purchases', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Oticon Purchases', 'key' => 'oticon_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Beltone Purchases', 'key' => 'beltone_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Phonak Purchases', 'key' => 'phonak_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Miracle Ear Purchases', 'key' => 'miracle_ear_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Other Purchases', 'key' => 'other_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Entered Give Away', 'key' => 'entered_give_away', 'results' => $results, 'plugin' => 'survey')); ?>
         </table>
         
         <h1 class="report">Age Range</h1>
         <table class="report">
           <tr>
-            <th class="center">Under 18</th>
+            <th class="center">&lt;18</th>
             <th class="center">18-39</th>
             <th class="center">40-49</th>
             <th class="center">50-59</th>
             <th class="center">60-69</th>
             <th class="center">70-79</th>
-            <th class="center">80 Plus</th>
+            <th class="center">80+</th>
           </tr>
           <tr>
             <td class="center"><?php echo $results['age_range']['under-18'] ?> (<?php echo $this->Number->toPercentage($results['age_range']['under-18'] / $results['age_range']['total'] * 100); ?>)</td>

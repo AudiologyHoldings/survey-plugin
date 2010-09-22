@@ -68,6 +68,10 @@ class SurveyAnswer extends SurveyAppModel {
         'entered_give_away' => 0,
         'purchases' => 0,
         'oticon_purchases' => 0,
+        'beltone_purchases' => 0,
+        'phonak_purchases' => 0,
+        'miracle_ear_purchases' => 0,
+        'other_purchases' => 0,
         'visit_clinic' => 0,
         'not_visit_clinic' => 0,
         'visit_clinic_no_purchase' => 0
@@ -80,6 +84,10 @@ class SurveyAnswer extends SurveyAppModel {
         'entered_give_away' => 0,
         'purchases' => 0,
         'oticon_purchases' => 0,
+        'beltone_purchases' => 0,
+        'phonak_purchases' => 0,
+        'miracle_ear_purchases' => 0,
+        'other_purchases' => 0,
         'visit_clinic' => 0,
         'not_visit_clinic' => 0,
         'visit_clinic_no_purchase' => 0,
@@ -112,6 +120,10 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['total']['completed_survey'] = count(Set::extract('/SurveyContact[finished_survey=1]', $contacts));
 	  $retval['total']['entered_give_away'] = count(Set::extract('/SurveyContact[entered_give_away=1]', $contacts));
 	  $retval['total']['oticon_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Oticon]', $answers));
+	  $retval['total']['beltone_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Beltone]', $answers));
+	  $retval['total']['phonak_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Phonak]', $answers));
+	  $retval['total']['miracle_ear_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=MiracleEar]', $answers));
+	  $retval['total']['other_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Other]', $answers));
 	  $retval['total']['purchases'] = count(Set::extract('/SurveyAnswer[question=4_purchase_hearing_aid][answer=Yes]', $answers));
 	  $retval['total']['visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Yes]', $answers));
 	  $retval['total']['not_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=No]', $answers));
@@ -124,7 +136,11 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['percent']['entered_give_away'] = $this->__calculatePercent($retval['total']['entered_give_away'], $retval['total']['participation']);
 	  $retval['percent']['purchases'] = $this->__calculatePercent($retval['total']['purchases'], $retval['total']['participation']);
 	  $retval['percent']['oticon_purchases'] = $this->__calculatePercent($retval['total']['oticon_purchases'], $retval['total']['participation']);
-	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $data['SurveyAnswer']['page_views']);
+	  $retval['percent']['beltone_purchases'] = $this->__calculatePercent($retval['total']['beltone_purchases'], $retval['total']['participation']);
+	  $retval['percent']['phonak_purchases'] = $this->__calculatePercent($retval['total']['phonak_purchases'], $retval['total']['participation']);
+	  $retval['percent']['miracle_ear_purchases'] = $this->__calculatePercent($retval['total']['miracle_ear_purchases'], $retval['total']['participation']);
+	  $retval['percent']['other_purchases'] = $this->__calculatePercent($retval['total']['other_purchases'], $retval['total']['participation']);
+	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $retval['total']['opt_in']);
 	  $retval['percent']['visit_clinic'] = $this->__calculatePercent($retval['total']['visit_clinic'], $retval['total']['participation']);
 	  $retval['percent']['not_visit_clinic'] = $this->__calculatePercent($retval['total']['not_visit_clinic'], $retval['total']['participation']);
 	  $retval['percent']['visit_clinic_no_purchase'] = $this->__calculatePercent($retval['total']['visit_clinic_no_purchase'], $retval['total']['participation']);
