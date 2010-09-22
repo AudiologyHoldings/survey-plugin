@@ -138,6 +138,10 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['age_range']['60-69'] = count(Set::extract('/SurveyAnswer[answer=60-69]', $answers));
 	  $retval['age_range']['70-79'] = count(Set::extract('/SurveyAnswer[answer=70-79]', $answers));
 	  $retval['age_range']['80plus'] = count(Set::extract('/SurveyAnswer[answer=80plus]', $answers));
+	  $retval['age_range']['total'] = 0;
+	  foreach($retval['age_range'] as $key => $value){
+	    $retval['age_range']['total'] += $value;
+	  }
 	  
 	  //Likely
 	  $retval['likely']['0'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=0]', $answers));
@@ -147,6 +151,10 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['likely']['4'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=4]', $answers));
 	  $retval['likely']['5'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=5]', $answers));
 	  $retval['likely']['6'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=6]', $answers));
+	  $retval['likely']['total'] = 0;
+	  foreach($retval['likely'] as $key => $value){
+	    $retval['likely']['total'] += $value;
+	  }
 	  	  
 	  return $retval;
 	}

@@ -11,6 +11,8 @@ class SurveysController extends SurveyAppController {
   
   var $components = array('RequestHandler','Session','Security','Email');
   
+  var $helpers = array('Number');
+  
   /**
     * Load any custom settings here
     */
