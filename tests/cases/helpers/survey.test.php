@@ -46,7 +46,8 @@ class SurveyHelperTest extends CakeTestCase {
       array(
         'number' => 2,
         'time' => time()
-      )
+      ),
+      false
     );
     $this->assertFalse($this->Survey->shouldDisplayPopup());
   }
@@ -61,8 +62,9 @@ class SurveyHelperTest extends CakeTestCase {
       'Survey',
       array(
         'number' => 2,
-        'time' => time()
-      )
+        'time' => time(),
+      ),
+      false
     ));
     $this->Survey->__writeCookie(2);
   }
@@ -73,7 +75,8 @@ class SurveyHelperTest extends CakeTestCase {
       array(
         'number' => 1,
         'time' => time() + $this->Survey->firstCookieLength
-      )
+      ),
+      false
     ));
     $this->Survey->__writeCookie(1);
   }

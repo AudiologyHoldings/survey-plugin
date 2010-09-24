@@ -241,6 +241,11 @@ class SurveysController extends SurveyAppController {
 	      $data = ClassRegistry::init('Survey.SurveyOptIn')->export();
 	      $filename = 'survey_opt_ins.csv';
 	      break;
+	    case 'finals':
+	      $model = 'SurveyContact';
+	      $data = $this->SurveyContact->exportFinal();
+	      $filename = 'survey_finals.csv';
+	      break;
 	    default: $this->redirect('/');
 	  }
 	  	  

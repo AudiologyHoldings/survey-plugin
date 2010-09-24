@@ -13,6 +13,27 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testExportFinal(){
+	  $data = $this->SurveyContact->exportFinal();
+	  $keys = array(
+      'id',
+      'first_name',
+      'last_name',
+      'phone',
+      'entered_give_away',
+      'email',
+      'created',
+      '1_age',
+      '2_likely_to_schedule',
+      '3_visit_clinic',
+      '4_purchase_hearing_aid',
+      '5_what_brand',
+    );
+	  foreach($data as $record){
+	    $this->assertEqual($keys, array_keys($record['SurveyContact']));
+	  }
+	}
+	
 	function testExport(){
 	  $count = $this->SurveyContact->find('count');
 	  $data = $this->SurveyContact->export();

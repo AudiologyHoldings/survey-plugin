@@ -427,5 +427,60 @@ class SurveyContact extends SurveyAppModel {
 	  );
 	}
 
+	/**
+	  * Get the contact and answers of the final contact data organized for csv
+	  */
+	function exportFinal(){
+	  $headers = array(
+	    'SurveyContact' => array(
+	      'id' => 'id',
+	      'first_name' => 'first_name',
+	      'last_name' => 'last_name',
+	      'phone' => 'phone',
+	      'entered_give_away' => 'entered_give_away',
+	      'email' => 'email',
+	      'created' => 'created',
+	      '1_age' => '1_age',
+	      '2_likely_to_schedule' => '2_likely_to_schedule',
+	      '3_visit_clinic' => '3_visit_clinic',
+	      '4_purchase_hearing_aid' => '4_purchase_hearing_aid',
+	      '5_what_brand' => '5_what_brand',
+	    )
+	  );
+	  
+	  $contacts = $this->find('all', array(
+	    'conditions' => array(
+	      'SurveyContact.finished_survey' => true
+	    ),
+	    'contain' => array('SurveyAnswer')
+	  ));
+	  
+	  $data = array($headers);
+	  
+	  foreach($contacts as $record){
+	    $row = array(
+	      'SurveyContact' => array(
+	        'id' => $record['SurveyContact']['id'],
+	        'first_name' => $record['SurveyContact']['first_name'],
+	        'last_name' => $record['SurveyContact']['last_name'],
+	        'phone' => $record['SurveyContact']['phone'],
+	        'entered_give_away' => $record['SurveyContact']['entered_give_away'],
+	        'email' => $record['SurveyContact']['email'],
+	        'created' => $record['SurveyContact']['created'],
+	        '1_age' => '',
+	        '2_likely_to_schedule' => '',
+	        '3_visit_clinic' => '',
+	        '4_purchase_hearing_aid' => '',
+	        '5_what_brand' => '',
+	      )
+	    );
+	    foreach($record['SurveyAnswer'] as $answer){
+	      $row['SurveyContact'][$answer['question']] = $answer['answer'];
+	    }
+	    $data[] = $row;
+	  }
+	  
+	  return $data;
+	}
 }
 ?>

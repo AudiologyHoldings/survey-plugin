@@ -139,13 +139,14 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['total']['purchases'] = count(Set::extract('/SurveyAnswer[question=4_purchase_hearing_aid][answer=Yes]', $answers));
 	  $retval['total']['visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Yes]', $answers));
 	  $retval['total']['not_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=No]', $answers));
+	  $retval['total']['have_apt_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Appointment]', $answers));
 	  $retval['total']['visit_clinic_no_purchase'] = $retval['total']['visit_clinic'] - $retval['total']['purchases'];
 	  
 	  //Percents
 	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['opt_in'], $data[$this->alias]['page_views']);
 	  $retval['percent']['with_email'] = $this->__calculatePercent($retval['total']['with_email'], $retval['total']['opt_in']);
 	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $retval['total']['opt_in']);
-	  $retval['percent']['completed_survey'] = $this->__calculatePercent($retval['total']['completed_survey'], $retval['total']['participation']);
+	  $retval['percent']['completed_survey'] = $this->__calculatePercent($retval['total']['completed_survey'], $retval['total']['with_email']);
 	  $retval['percent']['entered_give_away'] = $this->__calculatePercent($retval['total']['entered_give_away'], $retval['total']['completed_survey']);
 	  $retval['percent']['purchases'] = $this->__calculatePercent($retval['total']['purchases'], $retval['total']['completed_survey']);
 	  $retval['percent']['oticon_purchases'] = $this->__calculatePercent($retval['total']['oticon_purchases'], $retval['total']['completed_survey']);
@@ -155,6 +156,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['percent']['other_purchases'] = $this->__calculatePercent($retval['total']['other_purchases'], $retval['total']['completed_survey']);
 	  $retval['percent']['visit_clinic'] = $this->__calculatePercent($retval['total']['visit_clinic'], $retval['total']['completed_survey']);
 	  $retval['percent']['not_visit_clinic'] = $this->__calculatePercent($retval['total']['not_visit_clinic'], $retval['total']['completed_survey']);
+	  $retval['percent']['have_apt_visit_clinic'] = $this->__calculatePercent($retval['total']['have_apt_visit_clinic'], $retval['total']['completed_survey']);
 	  $retval['percent']['visit_clinic_no_purchase'] = $this->__calculatePercent($retval['total']['visit_clinic_no_purchase'], $retval['total']['completed_survey']);
 	  
 	  

@@ -37,7 +37,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $this->assertEqual('90%', $results['percent']['opt_in']);
 	  $this->assertEqual('44.44%', $results['percent']['participation']);
 	  $this->assertEqual('33.33%', $results['percent']['with_email']);
-	  $this->assertEqual('50%', $results['percent']['completed_survey']);
+	  $this->assertEqual('66.67%', $results['percent']['completed_survey']);
 	  $this->assertEqual('0%', $results['percent']['entered_give_away']);
 	  $this->assertEqual('50%', $results['percent']['purchases']);
 	  $this->assertEqual('50%', $results['percent']['oticon_purchases']);

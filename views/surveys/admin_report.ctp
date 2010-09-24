@@ -21,34 +21,35 @@
         <table class="report">
           <tr>
             <th class="left">Label</th>
-            <th class="right">Model</th>
             <th class="right">Current</th>
           </tr>
           <tr>
             <td>Traffic</td>
-            <td class="right">&nbsp;</td>
             <td class="right"><?php echo $this->data['SurveyAnswer']['page_views'] ?></td>
           </tr>
           <tr>
-            <td colspan="3" class="spacer">&nbsp;</td>
+            <td colspan="2" class="spacer">&nbsp;</td>
           </tr>
-          <?php echo $this->element('report_key', array('title' => 'Opt-in', 'key' => 'opt_in', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Participation', 'key' => 'participation', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Provided Email', 'key' => 'with_email', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Completed Final 30 Day Survey', 'key' => 'completed_survey', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Not Visit Clinic', 'key' => 'not_visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Visit Clinic', 'key' => 'visit_clinic', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Visited Clinic But No Purchase', 'key' => 'visit_clinic_no_purchase', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Purchases', 'key' => 'purchases', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Oticon Purchases', 'key' => 'oticon_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Beltone Purchases', 'key' => 'beltone_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Phonak Purchases', 'key' => 'phonak_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Miracle Ear Purchases', 'key' => 'miracle_ear_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Other Purchases', 'key' => 'other_purchases', 'results' => $results, 'plugin' => 'survey')); ?>
-          <?php echo $this->element('report_key', array('title' => 'Entered Give Away', 'key' => 'entered_give_away', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Opt-in', 'key' => 'opt_in', 'suffix' => 'of Traffic', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Participation', 'key' => 'participation', 'suffix' => 'of Opt-in', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Provided Email', 'key' => 'with_email', 'suffix' => 'of Opt-in', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Completed Final 30 Day Survey', 'key' => 'completed_survey', 'suffix' => 'of Provided Email', 'results' => $results, 'plugin' => 'survey')); ?>
+          
+          <?php echo $this->element('report_key', array('title' => 'Not Visit Clinic', 'key' => 'not_visit_clinic', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Have Clinic Apointment Clinic', 'key' => 'have_apt_visit_clinic', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Visit Clinic', 'key' => 'visit_clinic', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Visited Clinic But No Purchase', 'key' => 'visit_clinic_no_purchase', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          
+          <?php echo $this->element('report_key', array('title' => 'Purchases', 'key' => 'purchases', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Oticon Purchases', 'key' => 'oticon_purchases', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Beltone Purchases', 'key' => 'beltone_purchases', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Phonak Purchases', 'key' => 'phonak_purchases', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Miracle Ear Purchases', 'key' => 'miracle_ear_purchases', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Other Purchases', 'key' => 'other_purchases', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Entered Give Away', 'key' => 'entered_give_away', 'suffix' => 'of Completed Final', 'results' => $results, 'plugin' => 'survey')); ?>
         </table>
         
-        <h1 class="report">Age Range</h1>
+        <h1 class="report">Age Range (<?php echo $results['age_range']['total'] ?>)</h1>
         <table class="report">
           <tr>
             <th class="center">&lt;18</th>
@@ -70,7 +71,7 @@
           </tr>
         </table>
         
-        <h1 class="report">Likely To Visit</h1>
+        <h1 class="report">Likely To Visit (<?php echo $results['likely']['total'] ?>)</h1>
         <table class="report">
           <tr>
             <th class="center">Not</th>
