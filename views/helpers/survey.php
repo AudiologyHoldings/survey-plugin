@@ -5,7 +5,7 @@ class SurveyHelper extends AppHelper {
     * Time (in seconds) from when the first survey is show,
     * to the time the second and final one should be shown.
     */
-  var $firstCookieLength = 86400; //One day
+  var $firstCookieLength = 21600; //6 hours
   
   /**
     * Load the view object so we can dynamically load an element into it
@@ -45,7 +45,7 @@ class SurveyHelper extends AppHelper {
     $this->Cookie->write('Survey', array(
       'number' => $number,
       'time' => $time
-    ));
+    ), false);
   }
   
   /**
