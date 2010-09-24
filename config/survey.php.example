@@ -7,7 +7,10 @@ $config = array(
     'table' => 'survey_contacts',
     'email' => 'no_reply@webtechnick.com',
     'name' => 'Healthy Hearing',
-    'debug' => false
+    'debug' => false,
+    'httpauth' => array(
+      'user' => 'pass'
+    )
   )
 );
 ?>

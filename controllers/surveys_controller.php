@@ -22,9 +22,7 @@ class SurveysController extends SurveyAppController {
       'type' => 'basic',
       'realm' => 'Survey'
     );
-    $this->Security->loginUsers = array(
-      'user' => 'pass'
-    );
+    $this->Security->loginUsers = SurveyUtil::getConfig('httpauth'); //users are set in config/survey.php
     $this->Security->requireLogin('export');
   }
   
