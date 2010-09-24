@@ -18,6 +18,14 @@ class SurveysController extends SurveyAppController {
     */
   function beforeFilter(){
     parent::beforeFilter();
+    $this->Security->loginOptions = array(
+      'type' => 'basic',
+      'realm' => 'Survey'
+    );
+    $this->Security->loginUsers = array(
+      'user' => 'pass'
+    );
+    $this->Security->requireLogin('export');
   }
   
   /**
@@ -210,6 +218,38 @@ class SurveysController extends SurveyAppController {
 	}
 	
 	/**
+    * CSV export system.
+    */
+  function export($type = 'contacts'){
+    $this->helpers[] = 'Survey.Csv';
+    $this->layout = 'csv';
+    if($this->RequestHandler->ext != 'csv'){
+	    $this->redirect(array('action' => 'export', 'ext' => 'csv', $type));
+	  }
+	  
+	  switch($type){
+	    case 'contacts':
+	      $model = 'SurveyContact';
+	      $data = $this->SurveyContact->export();
+	      $filename = 'survey_contact.csv';
+	      break;
+      case 'answers':
+        $model = 'SurveyAnswer';
+        $data = ClassRegistry::init('Survey.SurveyAnswer')->export();
+	      $filename = 'survey_answers.csv';
+	      break;
+	    case 'opt_ins':
+	      $model = 'SurveyOptIn';
+	      $data = ClassRegistry::init('Survey.SurveyOptIn')->export();
+	      $filename = 'survey_opt_ins.csv';
+	      break;
+	    default: $this->redirect('/');
+	  }
+	  	  
+	  $this->set(compact('data','filename','model'));
+  }
+	
+	/**
 	  * This will create a new record of the day/time the "I WILL HELP" button was clicked
 	  * @return void
 	  * @access private
@@ -226,10 +266,6 @@ class SurveysController extends SurveyAppController {
       $results = ClassRegistry::init('SurveyAnswer')->findReport($this->data);
       $this->set('results', $results);
     }
-  }
-  
-  function admin_fix_import(){
-    ClassRegistry::init('SurveyAnswer')->fixImport();
   }
 }
 ?>

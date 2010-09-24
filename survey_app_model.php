@@ -40,6 +40,23 @@ class SurveyAppModel extends AppModel {
    function time2datetime($time){
      return date("Y-m-d H:i:s", $time);
    }
+   
+   /**
+	  * Export the current model table into a csv file.
+	  */
+	function export(){
+	  $columns = array_keys($this->schema());
+	  $headers = array();
+	  foreach($columns as $column){
+	    $headers[$this->alias][$column] = $column;
+	  }
+	  $data = $this->find('all', array(
+	    'contain' => array()
+	  ));
+	  
+	  array_unshift($data, $headers);
+	  return $data;
+	}
 }
 
 ?>

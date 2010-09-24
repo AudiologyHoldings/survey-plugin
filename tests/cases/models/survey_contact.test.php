@@ -13,6 +13,12 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testExport(){
+	  $count = $this->SurveyContact->find('count');
+	  $data = $this->SurveyContact->export();
+	  $this->assertEqual($count + 1, count($data));
+	}
+	
 	function testImport(){
 	  if(env('RUN_SURVEY_IMPORT')){
 	    $count = $this->SurveyContact->find('count');

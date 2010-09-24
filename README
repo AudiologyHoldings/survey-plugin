@@ -3,10 +3,14 @@ INSTALL:
 2) Run: $ cake schema create -plugin survey -name survey
 3) Add the following to your config/routes.php
 
-Router::parseExtensions('vcf');
+# -- survey plugin
+Router::parseExtensions('vcf','csv');
 Router::connect('/survey', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'));
 Router::connect('/final_survey/:email', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second'), array('pass' => array('email')));
 Router::connect('/resend_survey/:email', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'resend'), array('pass' => array('email')));
+Router::connect('/admin/surveys/report', array('prefix' => 'admin', 'plugin' => 'survey', 'controller' => 'surveys', 'action' => 'report'));
+Router::connect('/survey/send_follow/*', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'send_follow'));
+Router::connect('/survey/export/*', array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'export', 'ext' => 'csv'));
 	
 4) Copy app/plugins/survey/config/survey.php.example to config/survey.php
 
