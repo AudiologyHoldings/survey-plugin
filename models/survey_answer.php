@@ -44,10 +44,22 @@ class SurveyAnswer extends SurveyAppModel {
 	  
 	  //Not all answers have a contact, so we must pull them in separately.
 	  $answers = $this->find('all', array(
-	    'conditions' => $conditions,
-	    'recursive' => -1
+	    'conditions' => array(
+	      'OR' => array(
+	        array( //notice the extra space so we don't clobber the next 'AND' clause
+	          'SurveyAnswer.created >=' => $start_date,
+	          'SurveyAnswer.created <=' => $end_date,
+	          'SurveyAnswer.survey_contact_id' => '0'
+	        ),
+	        array(
+	          'SurveyContact.created >=' => $start_date,
+	          'SurveyContact.created <=' => $end_date
+	        )
+	      )
+	    ),
+	    'contain' => array('SurveyContact.id')
 	  ));
-	  
+	  	  
 	  $contacts = $this->SurveyContact->find('all', array(
 	    'conditions' => $conditions,
 	    'recursive' => -1

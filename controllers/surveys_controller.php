@@ -28,7 +28,7 @@ class SurveysController extends SurveyAppController {
     $start_page = 'one';
     if(!empty($this->data)){
       if($this->SurveyContact->saveFirst($this->data)){
-        $this->goodFlash('Thank you message');
+        $this->goodFlash('Thank you.');
         $this->__sendEmail($this->SurveyContact->id);
         if($this->RequestHandler->isAjax()){
           $this->autoRender = false;

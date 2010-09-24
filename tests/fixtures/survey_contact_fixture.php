@@ -46,6 +46,19 @@ class SurveyContactFixture extends CakeTestFixture {
 			'final_email_sent' => 0,
 			'created' => '2010-07-27 22:54:48'
 		),
+		array(
+			'id' => 3,
+			'first_name' => '',
+			'last_name' => '',
+			'email' => 'nbaker@example.com',
+			'phone' => '',
+			'is_18' => 0,
+			'entered_give_away' => 0,
+			'finished_survey' => 1,
+			'final_email_sent_date' => '2010-08-13 00:00:00',
+			'final_email_sent' => 0,
+			'created' => '2010-07-27 22:54:48'
+		),
 	);
 }
 ?>

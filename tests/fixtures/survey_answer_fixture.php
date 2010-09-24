@@ -77,6 +77,13 @@ class SurveyAnswerFixture extends CakeTestFixture {
 			'survey_contact_id' => 2,
 			'created' => '2010-07-27 22:52:40'
 		),
+		array(
+			'id' => 10,
+			'question' => '3_visit_clinic',
+			'answer' => 'No',
+			'survey_contact_id' => 3,
+			'created' => '2010-09-27 22:52:40'
+		),
 	);
 }
 ?>

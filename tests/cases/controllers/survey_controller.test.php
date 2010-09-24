@@ -23,6 +23,10 @@ class TestSurveysController extends SurveysController {
   function _stop($status = 0) {
     $this->stopped = $status;
   }
+  
+  function __cronEnd(){
+    /* Ignore */
+  }
 }
 
 Mock::generate('AuthComponent');
