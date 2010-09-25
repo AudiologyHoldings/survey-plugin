@@ -36,6 +36,7 @@ class SurveyAnswer extends SurveyAppModel {
 	function findReport($data = array()){
 	  $start_date = $this->str2datetime($data[$this->alias]['start_month']);
 	  $end_date = $this->str2datetime($data[$this->alias]['end_month']);
+	  $page_views = str_replace(",","",$data[$this->alias]['page_views']);
 	  
 	  $conditions = array(
 	    "created >=" => $start_date,
@@ -143,7 +144,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['total']['visit_clinic_no_purchase'] = $retval['total']['visit_clinic'] - $retval['total']['purchases'];
 	  
 	  //Percents
-	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['opt_in'], $data[$this->alias]['page_views']);
+	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['opt_in'], $page_views);
 	  $retval['percent']['with_email'] = $this->__calculatePercent($retval['total']['with_email'], $retval['total']['opt_in']);
 	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $retval['total']['opt_in']);
 	  $retval['percent']['completed_survey'] = $this->__calculatePercent($retval['total']['completed_survey'], $retval['total']['with_email']);
