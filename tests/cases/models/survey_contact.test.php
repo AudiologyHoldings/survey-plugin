@@ -23,6 +23,8 @@ class SurveyContactTestCase extends CakeTestCase {
       'entered_give_away',
       'email',
       'created',
+      'final_email_sent_date',
+	    'final_questions_answered_date',
       '1_age',
       '2_likely_to_schedule',
       '3_visit_clinic',

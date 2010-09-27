@@ -440,6 +440,8 @@ class SurveyContact extends SurveyAppModel {
 	      'entered_give_away' => 'entered_give_away',
 	      'email' => 'email',
 	      'created' => 'created',
+	      'final_email_sent_date' => 'final_email_sent_date',
+	      'final_questions_answered_date' => 'final_questions_answered_date',
 	      '1_age' => '1_age',
 	      '2_likely_to_schedule' => '2_likely_to_schedule',
 	      '3_visit_clinic' => '3_visit_clinic',
@@ -467,6 +469,8 @@ class SurveyContact extends SurveyAppModel {
 	        'entered_give_away' => $record['SurveyContact']['entered_give_away'],
 	        'email' => $record['SurveyContact']['email'],
 	        'created' => $record['SurveyContact']['created'],
+	        'final_email_sent_date' => $record['SurveyContact']['final_email_sent_date'],
+	        'final_questions_answered_date' => '',
 	        '1_age' => '',
 	        '2_likely_to_schedule' => '',
 	        '3_visit_clinic' => '',
@@ -476,6 +480,7 @@ class SurveyContact extends SurveyAppModel {
 	    );
 	    foreach($record['SurveyAnswer'] as $answer){
 	      $row['SurveyContact'][$answer['question']] = $answer['answer'];
+	      $row['SurveyContact']['final_questions_answered_date'] = $answer['created'];
 	    }
 	    $data[] = $row;
 	  }
