@@ -47,18 +47,28 @@ class SurveyAnswer extends SurveyAppModel {
 	  $answers = $this->find('all', array(
 	    'conditions' => array(
 	      'OR' => array(
-	        array( //notice the extra space so we don't clobber the next 'AND' clause
+	        array( //answers that don't have an email
 	          'SurveyAnswer.created >=' => $start_date,
 	          'SurveyAnswer.created <=' => $end_date,
 	          'SurveyAnswer.survey_contact_id' => '0'
 	        ),
-	        array(
+	        array( //answers that do have an email tied to them.
 	          'SurveyContact.created >=' => $start_date,
 	          'SurveyContact.created <=' => $end_date
 	        )
 	      )
 	    ),
 	    'contain' => array('SurveyContact.id')
+	  ));
+	  
+	  //Base on age question.
+	  $without_email_count = $this->find('count', array(
+	    'conditions' => array(
+	      'SurveyAnswer.created >=' => $start_date,
+        'SurveyAnswer.created <=' => $end_date,
+        'SurveyAnswer.survey_contact_id' => '0',
+        'SurveyAnswer.question' => '1_age'
+	    )
 	  ));
 	  	  
 	  $contacts = $this->SurveyContact->find('all', array(
@@ -128,7 +138,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  //Totals
 	  $retval['total']['opt_in'] = $opt_ins;
 	  $retval['total']['with_email'] = count($contacts);
-	  $retval['total']['without_email'] = count(Set::extract('/SurveyAnswer[survey_contact_id=0]', $answers)) / 2;
+	  $retval['total']['without_email'] = $without_email_count;
 	  $retval['total']['participation'] = $retval['total']['with_email'] + $retval['total']['without_email'];
 	  $retval['total']['completed_survey'] = count(Set::extract('/SurveyContact[finished_survey=1]', $contacts));
 	  $retval['total']['entered_give_away'] = count(Set::extract('/SurveyContact[entered_give_away=1]', $contacts));
@@ -170,7 +180,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['age_range']['70-79'] = count(Set::extract('/SurveyAnswer[answer=70-79]', $answers));
 	  $retval['age_range']['80plus'] = count(Set::extract('/SurveyAnswer[answer=80plus]', $answers));
 	  $retval['age_range']['total'] = 0;
-	  foreach($retval['age_range'] as $key => $value){
+	  foreach($retval['age_range'] as $value){
 	    $retval['age_range']['total'] += $value;
 	  }
 	  
@@ -183,7 +193,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['likely']['5'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=5]', $answers));
 	  $retval['likely']['6'] = count(Set::extract('/SurveyAnswer[question=2_likely_to_schedule][answer=6]', $answers));
 	  $retval['likely']['total'] = 0;
-	  foreach($retval['likely'] as $key => $value){
+	  foreach($retval['likely'] as $value){
 	    $retval['likely']['total'] += $value;
 	  }
 	  	  
