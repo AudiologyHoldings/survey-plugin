@@ -248,7 +248,8 @@ class SurveyAnswer extends SurveyAppModel {
 	    'conditions' => array(
 	      'created <' => '2010-09-01 00:00:00',
 	      'question' => '2_likely_to_schedule'
-	    )
+	    ),
+	    'recursive' => -1
 	  ));
 	  foreach($answers as $answer){
 	    $this->id = $answer['SurveyAnswer']['id'];
