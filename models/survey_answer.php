@@ -236,5 +236,24 @@ class SurveyAnswer extends SurveyAppModel {
 	    }
 	  }
 	}
+	
+	/**
+	  * Fix the import data from before September.
+	  * This is due to the fact the likely scale was from 1-7
+	  * and now it's between 0-6.
+	  * @see https://audiologyonline.basecamphq.com/projects/4564701/todo_items/68522763/comments
+	  */
+	function fixLikelyVisit(){
+	  $answers = $this->find('all', array(
+	    'conditions' => array(
+	      'created <' => '2010-09-01 00:00:00',
+	      'question' => '2_likely_to_schedule'
+	    )
+	  ));
+	  foreach($answers as $answer){
+	    $this->id = $answer['SurveyAnswer']['id'];
+	    $this->saveField('answer', $answer['SurveyAnswer']['answer'] - 1);
+	  }
+	}
 }
 ?>

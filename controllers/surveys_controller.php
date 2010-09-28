@@ -260,6 +260,10 @@ class SurveysController extends SurveyAppController {
 	function __saveOptIn(){
 	  ClassRegistry::init('Survey.SurveyOptIn')->add();
 	}
+	
+	function fix_import(){
+	  ClassRegistry::init('Survey.SurveyAnswer')->fixLikelyVisit();
+	}
   
   /**
     * Show reports based on survey
