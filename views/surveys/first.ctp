@@ -106,6 +106,7 @@
             the donation.</b> As a thank you, we'll also give you the opportunity to register<br />
             to <b>win $500* in our monthly drawing</b> by answering a three question follow-up survey in about 30 days.
           </p>
+          <h2 class="no_margin">We will only contact you for the follow-up survey.</h2>
           <div class="pop_questions">
             <div class="gift_card">
               <?php echo $this->Html->image('/survey/img/gift_card.png') ?>

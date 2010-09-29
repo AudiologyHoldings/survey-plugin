@@ -4,7 +4,7 @@
   top: 0%;
   left: 0%;
   width: 100%;
-  height: 100%;
+  height: 3500px;
   background-color: black;
   z-index:1001;
   -moz-opacity: 0.8;
@@ -14,7 +14,7 @@
 }
 .white_content {
   display: block;
-  position: absolute;
+  position: fixed;
   top: 25%;
   left: 25%;
   background-color: white;
@@ -67,4 +67,8 @@
 	position: absolute;
 	right: -20px;
 	top: -20px;
+}
+h2.no_margin {
+  margin: -30px 0px 0px 30px;
+  padding: 0px;
 }

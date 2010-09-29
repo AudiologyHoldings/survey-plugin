@@ -24,6 +24,9 @@ class SurveysController extends SurveyAppController {
     );
     $this->Security->loginUsers = SurveyUtil::getConfig('httpauth'); //users are set in config/survey.php
     $this->Security->requireLogin('export');
+    if($this->RequestHandler->isAjax()){
+      Configure::write('debug', 0);
+    }
   }
   
   /**
