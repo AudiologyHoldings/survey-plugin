@@ -1,5 +1,4 @@
 <?php
-
 class SurveyAppModel extends AppModel {
   
   var $actsAs = array('Containable');

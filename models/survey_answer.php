@@ -34,9 +34,18 @@ class SurveyAnswer extends SurveyAppModel {
 	  * @return array of results formatted for easy viewing.
 	  */
 	function findReport($data = array()){
+	  App::import('Lib','Survey.SurveyUtil'); //load the util library
+	  
 	  $start_date = $this->str2datetime($data[$this->alias]['start_month']);
 	  $end_date = $this->str2datetime($data[$this->alias]['end_month']);
 	  $page_views = str_replace(",","",$data[$this->alias]['page_views']);
+	  
+	  $ignoreEmails = SurveyUtil::getConfig('ignore');
+	  
+	  $email_conditions = array();
+	  foreach($ignoreEmails as $email){
+	    $email_conditions[]['SurveyContact.email NOT LIKE'] = $email;
+	  }
 	  
 	  $conditions = array(
 	    "created >=" => $start_date,
@@ -54,7 +63,8 @@ class SurveyAnswer extends SurveyAppModel {
 	        ),
 	        array( //answers that do have an email tied to them.
 	          'SurveyContact.created >=' => $start_date,
-	          'SurveyContact.created <=' => $end_date
+	          'SurveyContact.created <=' => $end_date,
+	          $email_conditions
 	        )
 	      )
 	    ),
@@ -72,7 +82,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  ));
 	  	  
 	  $contacts = $this->SurveyContact->find('all', array(
-	    'conditions' => $conditions,
+	    'conditions' => array_merge($conditions,$email_conditions),
 	    'recursive' => -1
 	  ));
 	  
