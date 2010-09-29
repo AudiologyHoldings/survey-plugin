@@ -70,6 +70,12 @@ div#info-flash {
 }
 
 /* survey */
+#final_survey {
+  width: 1000px;
+}
+#final_survey label img {
+  vertical-align: middle;
+}
 .final_survey_footer{
   text-align: center;
   clear: both;

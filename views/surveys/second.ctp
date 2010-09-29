@@ -65,7 +65,8 @@
         <div class="white_box survey_question center">
           <h3>Question #3</h3>
           <p class="q_text">
-            Which brand of hearing aid did you purchase?
+            Which brand of hearing aid did you purchase?<br />
+            (Please answer this as accurately as possible)
           </p>
           <?php echo $this->Form->input('SurveyAnswer.2.question', array('type' => 'hidden', 'value' => '5_what_brand')) ?>
           <?php echo $this->Form->input('SurveyAnswer.2.answer', array(
@@ -75,10 +76,10 @@
             'after' => '</li></ul>',
             'legend' => false,
             'options' => array(
-              'Oticon' => 'Oticon',
-              'Beltone' => 'Beltone',
-              'Phonak' => 'Phonak',
-              'MiracleEar' => 'Miracle Ear',
+              'Oticon' => $this->Html->image('/survey/img/oticon-50.png'),
+              'Beltone' => $this->Html->image('/survey/img/beltone-50.png'), //'Beltone',
+              'Phonak' => $this->Html->image('/survey/img/phonak-50.png'), //'Phonak',
+              'MiracleEar' => $this->Html->image('/survey/img/miracle-ear-50.png'), //'Miracle Ear',
               'Other' => 'Other',
             ),
             'class' => 'question_3'
