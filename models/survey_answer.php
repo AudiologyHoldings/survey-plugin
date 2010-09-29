@@ -25,6 +25,23 @@ class SurveyAnswer extends SurveyAppModel {
 	);
 	
 	/**
+	  * Set the options and pass them into parent::export
+	  * @return array of data to be displayed as csv file
+	  */
+	function export(){
+	  $options = array(
+	    'contain' => array('SurveyContact.email'),
+	    'conditions' => array(
+	      'OR' => array(
+	        array('SurveyAnswer.survey_contact_id' => false),
+	        $this->getIgnoreConditions()
+	      )
+	     )
+	  );
+	  return parent::export($options);
+	}
+	
+	/**
 	  * Find the report based on data based in
 	  *
 	  * @param array of data to base report on
@@ -34,18 +51,11 @@ class SurveyAnswer extends SurveyAppModel {
 	  * @return array of results formatted for easy viewing.
 	  */
 	function findReport($data = array()){
-	  App::import('Lib','Survey.SurveyUtil'); //load the util library
-	  
 	  $start_date = $this->str2datetime($data[$this->alias]['start_month']);
 	  $end_date = $this->str2datetime($data[$this->alias]['end_month']);
 	  $page_views = str_replace(",","",$data[$this->alias]['page_views']);
 	  
-	  $ignoreEmails = SurveyUtil::getConfig('ignore');
-	  
-	  $email_conditions = array();
-	  foreach($ignoreEmails as $email){
-	    $email_conditions[]['SurveyContact.email NOT LIKE'] = $email;
-	  }
+	  $email_conditions = $this->getIgnoreConditions();
 	  
 	  $conditions = array(
 	    "created >=" => $start_date,

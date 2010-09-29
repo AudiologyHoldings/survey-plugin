@@ -39,7 +39,11 @@ class SurveyContactTestCase extends CakeTestCase {
 	function testExport(){
 	  $count = $this->SurveyContact->find('count');
 	  $data = $this->SurveyContact->export();
-	  $this->assertEqual($count + 1, count($data));
+	  foreach($data as $record){
+	    //nurvzy@gmail.com is on the ignore, and in the database, export shouldn't include it.
+	    $this->assertNotEqual('nurvzy@gmail.com', $record['SurveyContact']['email']);
+	  }
+	  $this->assertEqual($count, count($data));
 	}
 	
 	function testImport(){

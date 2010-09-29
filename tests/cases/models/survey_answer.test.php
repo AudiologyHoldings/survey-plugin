@@ -13,6 +13,17 @@ class SurveyAnswerTestCase extends CakeTestCase {
 		$this->SurveyAnswer =& ClassRegistry::init('SurveyAnswer');
 	}
 	
+	function testExport(){
+	  $result = $this->SurveyAnswer->export();
+	  foreach($result as $record){
+	    //nurvzy@gmail.com is on the ignore, and in the database, export shouldn't include it.
+	    if(isset($record['SurveyContact']['email'])){
+	      $this->assertNotEqual('nurvzy@gmail.com', $record['SurveyContact']['email']);
+	    }
+	  }
+	  $this->assertEqual(11, count($result)); //10 plus header.
+	}
+	
 	function testFindReport(){
 	  $data = array(
 	    'SurveyAnswer' => array(

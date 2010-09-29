@@ -43,18 +43,42 @@ class SurveyAppModel extends AppModel {
    /**
 	  * Export the current model table into a csv file.
 	  */
-	function export(){
+	function export($options = array()){
+	  $default_options = array(
+	    'contain' => array()
+	  );
+	  
+	  $options = array_merge($default_options, $options);
+	  
 	  $columns = array_keys($this->schema());
 	  $headers = array();
 	  foreach($columns as $column){
 	    $headers[$this->alias][$column] = $column;
 	  }
-	  $data = $this->find('all', array(
-	    'contain' => array()
-	  ));
+	  $data = $this->find('all', $options);
 	  
 	  array_unshift($data, $headers);
 	  return $data;
+	}
+	
+	/**
+	  * Helper util to retrieve the ignore list.
+	  */
+	function getIgnoreList(){
+	  App::import('Lib','Survey.SurveyUtil');
+	  return SurveyUtil::getConfig('ignore');
+	}
+	
+	/**
+	  * Get the ignore conditions for ignoreing the email setup by config
+	  * @return array of email ignore conditions.
+	  */
+	function getIgnoreConditions(){
+	  $retval = array();
+	  foreach($this->getIgnoreList() as $email){
+	    $retval[]['SurveyContact.email NOT LIKE'] = $email;
+	  }
+	  return $retval;
 	}
 }
 

@@ -426,6 +426,17 @@ class SurveyContact extends SurveyAppModel {
 	    array('final_email_sent' => false, 'finished_survey' => true)
 	  );
 	}
+	
+	/**
+	  * Set the options and pass them into parent::export
+	  * @return array of data to be displayed as csv file
+	  */
+	function export(){
+	  $options = array(
+	    'conditions' => $this->getIgnoreConditions()
+	  );
+	  return parent::export($options);
+	}
 
 	/**
 	  * Get the contact and answers of the final contact data organized for csv
@@ -486,6 +497,20 @@ class SurveyContact extends SurveyAppModel {
 	  }
 	  
 	  return $data;
+	}
+	
+	/**
+	  * Purge the ignore list from the database.
+	  * This is safe to do at anytime as we do not 
+	  * report this data to safedata 3rd party backup.
+	  */
+	function purgeIngoreList(){
+	  $count = 0;
+	  foreach($this->getIgnoreList() as $email){
+	    $this->deleteAll(array('SurveyContact.email LIKE' => $email));
+	    $count++;
+	  }
+	  return $count;
 	}
 }
 ?>
