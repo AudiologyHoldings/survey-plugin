@@ -68,6 +68,22 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
+	  * Named scope to find all contacts by an email
+	  * @param array of this->data from controller
+	  * @return array of results
+	  */
+	function findAllByEmail($data){
+	  $email = isset($data[$this->alias]['email']) ? $data[$this->alias]['email'] : '%'; 
+	  return $this->find('all', array(
+	    'conditions' => array(
+	      "{$this->alias}.email LIKE" => $email
+	    ),
+	    'contain' => array(),
+	    'order' => "{$this->alias}.email ASC"
+	  ));
+	}
+	
+	/**
 	  * Take in a value and strip the quotes
 	  */
 	function clearQuotes($value){

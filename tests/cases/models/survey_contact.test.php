@@ -13,6 +13,34 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testFindAllByEmail(){
+	  $data = array(
+	    'SurveyContact' => array(
+	      'email' => 'nick@example.com'
+	    )
+	  );
+	  $results = $this->SurveyContact->findAllByEmail($data);
+	  $this->assertTrue(!empty($results));
+	  $this->assertEqual(1, count($results));
+	  
+	  $data = array(
+	    'SurveyContact' => array(
+	      'email' => '%@example.com'
+	    )
+	  );
+	  $results = $this->SurveyContact->findAllByEmail($data);
+	  $this->assertTrue(!empty($results));
+	  $this->assertEqual(4, count($results));
+	  
+	  $data = array(
+	    'SurveyContact' => array(
+	      'email' => 'No Exist'
+	    )
+	  );
+	  $results = $this->SurveyContact->findAllByEmail($data);
+	  $this->assertTrue(empty($results));
+	}
+	
 	function testExportFinal(){
 	  $data = $this->SurveyContact->exportFinal();
 	  $keys = array(

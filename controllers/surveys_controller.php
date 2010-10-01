@@ -273,5 +273,27 @@ class SurveysController extends SurveyAppController {
       $this->set('results', $results);
     }
   }
+  
+  /**
+    * Search for contacts by their email.
+    */
+  function admin_search(){
+    if(!empty($this->data)){
+      $contacts = $this->SurveyContact->findAllByEmail($this->data);
+      $this->set('contacts', $contacts);
+    }
+  }
+  
+  /**
+    * Delete a specific contact and their answers.
+    */
+  function admin_delete($id = null){
+    $this->SurveyContact->contain();
+    if($id && $this->SurveyContact->findById($id)){
+      $this->SurveyContact->delete($id);
+    }
+    $this->redirect(array('prefix' => 'admin', 'action' => 'search'));
+  }
+  
 }
 ?>
