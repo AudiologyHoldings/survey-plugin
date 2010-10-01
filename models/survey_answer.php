@@ -52,7 +52,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  */
 	function findReport($data = array()){
 	  $start_date = $this->str2datetime($data[$this->alias]['start_month']);
-	  $end_date = $this->str2datetime($data[$this->alias]['end_month']);
+	  $end_date = $this->str2datetime($data[$this->alias]['end_month'], true);
 	  $page_views = str_replace(",","",$data[$this->alias]['page_views']);
 	  
 	  $email_conditions = $this->getIgnoreConditions();

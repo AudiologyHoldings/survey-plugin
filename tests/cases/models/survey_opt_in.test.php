@@ -13,6 +13,11 @@ class SurveyOptInTestCase extends CakeTestCase {
 		$this->SurveyOptIn =& ClassRegistry::init('SurveyOptIn');
 	}
 	
+	function testStr2Datetime(){
+	  $this->assertEqual('2010-09-30 00:00:00',$this->SurveyOptIn->str2datetime('2010-09-30'));
+	  $this->assertEqual('2010-09-30 23:59:59',$this->SurveyOptIn->str2datetime('2010-09-30', true));
+	}
+	
 	function testAdd(){
 	  $count = $this->SurveyOptIn->find('count');
 	  $this->assertTrue($this->SurveyOptIn->add());

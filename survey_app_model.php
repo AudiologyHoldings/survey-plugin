@@ -25,10 +25,12 @@ class SurveyAppModel extends AppModel {
   /**
      * String to datetime stamp
      * @param string that is parsable by str2time
+     * @param boolean entire_day, if true an additonal 86399 seconds will be appened to the day. 23:59:59
      * @return date time string for MYSQL
      */
-   function str2datetime($str){
-     return date("Y-m-d H:i:s", strtotime($str));
+   function str2datetime($str, $entire_day = false){
+     $time = $entire_day ? strtotime($str) + '86399' : strtotime($str);
+     return date("Y-m-d H:i:s", $time);
    }
    
    /**
