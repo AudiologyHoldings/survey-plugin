@@ -81,6 +81,21 @@ class SurveyAnswer extends SurveyAppModel {
 	    'contain' => array('SurveyContact.id')
 	  ));
 	  
+	  $other_brands = $this->find('all', array(
+	    'conditions' => array(
+	      'SurveyContact.created >=' => $start_date,
+	      'SurveyContact.created <=' => $end_date,
+	      array(
+	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'Oticon'),
+	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'Beltone'),
+	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'Phonak'),
+	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'MiracleEar'),
+	      ),
+	      $email_conditions,
+	    ),
+	    'contain' => array('SurveyContact.id')
+	  ));
+	  	  
 	  //Base on age question.
 	  $without_email_count = $this->find('count', array(
 	    'conditions' => array(
@@ -166,7 +181,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['total']['beltone_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Beltone]', $answers));
 	  $retval['total']['phonak_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Phonak]', $answers));
 	  $retval['total']['miracle_ear_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=MiracleEar]', $answers));
-	  $retval['total']['other_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Other]', $answers));
+	  $retval['total']['other_purchases'] = count($other_brands); //since this is user defined we have to select it from the DB
 	  $retval['total']['purchases'] = count(Set::extract('/SurveyAnswer[question=4_purchase_hearing_aid][answer=Yes]', $answers));
 	  $retval['total']['visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Yes]', $answers));
 	  $retval['total']['not_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=No]', $answers));
@@ -216,6 +231,9 @@ class SurveyAnswer extends SurveyAppModel {
 	  foreach($retval['likely'] as $value){
 	    $retval['likely']['total'] += $value;
 	  }
+	  
+	  //Other purchases
+	  $retval['other_brands'] = Set::extract('/SurveyAnswer/answer',$other_brands);
 	  	  
 	  return $retval;
 	}

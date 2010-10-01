@@ -98,6 +98,41 @@ class SurveyAnswerFixture extends CakeTestFixture {
 			'survey_contact_id' => 4, //should be ignored
 			'created' => '2010-07-27 22:52:40'
 		),
+		array(
+			'id' => 13,
+			'question' => '1_age',
+			'answer' => '50-59',
+			'survey_contact_id' => 5,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 14,
+			'question' => '2_likely_to_schedule',
+			'answer' => '6',
+			'survey_contact_id' => 5,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 15,
+			'question' => '3_visit_clinic',
+			'answer' => 'Yes',
+			'survey_contact_id' => 5,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 16,
+			'question' => '4_purchase_hearing_aid',
+			'answer' => 'Yes',
+			'survey_contact_id' => 5,
+			'created' => '2010-07-27 22:52:40'
+		),
+		array(
+			'id' => 17,
+			'question' => '5_what_brand',
+			'answer' => 'Other',
+			'survey_contact_id' => 5,
+			'created' => '2010-07-27 22:52:40'
+		),
 	);
 }
 ?>
