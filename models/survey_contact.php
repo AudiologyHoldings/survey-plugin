@@ -463,7 +463,8 @@ class SurveyContact extends SurveyAppModel {
 	  
 	  $contacts = $this->find('all', array(
 	    'conditions' => array(
-	      'SurveyContact.finished_survey' => true
+	      'SurveyContact.finished_survey' => true,
+	      $this->getIgnoreConditions()
 	    ),
 	    'contain' => array('SurveyAnswer')
 	  ));
