@@ -48,8 +48,37 @@ var SurveyFinal = Class.create({
     this.elem = Event.element(event);
     var question = this.elem.readAttribute('class');
     var page_id = this.decisionTree.get(question).get(this.elem.value);
+    
+    if(question == 'question_3'){
+      if(this.elem.value == 'Other'){
+        this.appendOtherForm()
+      }
+      else {
+        this.convertOtherFormToLabel()
+      }
+    }
+    
     this.pageCall(page_id);
     this.showPageFromDecision(question, page_id);
+  },
+  
+  /**
+    * Convert the Other label into an input field
+    */ 
+  appendOtherForm: function(){
+    var input = $('SurveyAnswer2AnswerOther');
+    var label = input.next();
+    label.replace("<input id='CustomOther' type='text' class='question_3' name='data[SurveyAnswer][2][answer]'/>");
+    $('CustomOther').select();
+  },
+  
+  /**
+    * Convert the Other Form back into a label.
+    */
+  convertOtherFormToLabel: function(){
+    var input = $('SurveyAnswer2AnswerOther');
+    var label = input.next();
+    label.replace("<label for='SurveyAnswer2AnswerOther'>Other</label>");
   },
   
   /**

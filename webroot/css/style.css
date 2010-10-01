@@ -195,6 +195,11 @@ ul.question li label {
   font-weight: bold;
   /*font-size: 95%;*/
 }
+input#CustomOther{
+  margin-left: 20px;
+  font-size: 120%;
+  width: 180px;
+}
 
 /** Page Two **/
 div.give_away {
