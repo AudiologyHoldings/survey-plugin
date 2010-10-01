@@ -68,7 +68,7 @@ var SurveyFinal = Class.create({
   appendOtherForm: function(){
     var input = $('SurveyAnswer2AnswerOther');
     var label = input.next();
-    label.replace("<input id='CustomOther' type='text' class='question_3' name='data[SurveyAnswer][2][answer]'/>");
+    label.replace("<input id='CustomOther' type='text' class='question_3' name='data[SurveyAnswer][2][answer]'/><label id='customlabel'>Please type in the brand of hearing aid.</label><span id='customerror'></span>");
     $('CustomOther').select();
   },
   
@@ -79,6 +79,12 @@ var SurveyFinal = Class.create({
     var input = $('SurveyAnswer2AnswerOther');
     var label = input.next();
     label.replace("<label for='SurveyAnswer2AnswerOther'>Other</label>");
+    if($('customerror')){
+      $('customerror').update();
+    }
+    if($('customlabel')){
+      $('customlabel').remove();
+    }
   },
   
   /**
@@ -133,5 +139,23 @@ var SurveyFinal = Class.create({
         }
     });
     $(page_id).show();
+  },
+  
+  /**
+    * Validate the customer other is entered if other is selected.
+    */
+  submitForm: function(){
+    var purchase = $('SurveyAnswer1AnswerYes');
+    //Only proceed if we have a purchase.
+    if(purchase.value == 'Yes'){
+      var input = $('CustomOther');
+      if(input && input.value.empty()){
+        var error = "<br />Please fill in this question.";
+        $('customerror').update(error);
+        return false;
+      }
+    }
+    
+    return true;
   }
 });

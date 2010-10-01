@@ -70,7 +70,7 @@ div#info-flash {
 }
 
 /* survey */
-#final_survey {
+#final_survey, #give_away {
   width: 1000px;
 }
 #final_survey label img {
@@ -199,6 +199,12 @@ input#CustomOther{
   margin-left: 20px;
   font-size: 120%;
   width: 180px;
+}
+#customerror{
+  color: maroon;
+  padding-left: 5px;
+  font-style: italic;
+  font-weight: bold;
 }
 
 /** Page Two **/

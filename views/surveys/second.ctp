@@ -8,7 +8,8 @@
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
       <?php echo $this->Form->create('SurveyContact', array(
         'url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'second', $contact['SurveyContact']['email']),
-        'id' => 'final_form'
+        'id' => 'final_form',
+        'onsubmit' => 'return SF.submitForm();'
       )); ?>
       <?php echo $this->Form->input('SurveyContact.id', array('type' => 'hidden', 'value' => $contact['SurveyContact']['id'])); ?>
       <h2>Here is your follow-up survey!</h2>
