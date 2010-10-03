@@ -520,13 +520,15 @@ class SurveyContact extends SurveyAppModel {
 	  * Purge the ignore list from the database.
 	  * This is safe to do at anytime as we do not 
 	  * report this data to safedata 3rd party backup.
+	  * @param boolean verbose
+	  * @return count of delets made.
 	  */
-	function purgeIgnoreList(){
+	function purgeIgnoreList($verbose = false){
 	  $count = 0;
 	  foreach($this->getIgnoreList() as $email){
-	    echo "Purging $email...\r\n";
+	    if($verbose) echo "Purging $email...\r\n";
 	    $this->deleteAll(array('SurveyContact.email LIKE' => $email));
-	    $count++;
+	    $count += $this->getAffectedRows();
 	  }
 	  return $count;
 	}

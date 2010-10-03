@@ -13,6 +13,16 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testPurgeIgnoreList(){
+	  $results = $this->SurveyContact->findById(4);
+	  $this->assertTrue(!empty($results));
+	  $this->assertEqual(1, $this->SurveyContact->purgeIgnoreList());
+	  $results = $this->SurveyContact->findById(4);
+	  $this->assertTrue(empty($results));
+	  $results = $this->SurveyContact->SurveyAnswer->findById(11);
+	  $this->assertTrue(empty($results));
+	}
+	
 	function testFindAllByEmail(){
 	  $data = array(
 	    'SurveyContact' => array(
