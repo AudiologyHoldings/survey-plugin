@@ -521,9 +521,10 @@ class SurveyContact extends SurveyAppModel {
 	  * This is safe to do at anytime as we do not 
 	  * report this data to safedata 3rd party backup.
 	  */
-	function purgeIngoreList(){
+	function purgeIgnoreList(){
 	  $count = 0;
 	  foreach($this->getIgnoreList() as $email){
+	    echo "Purging $email...\r\n";
 	    $this->deleteAll(array('SurveyContact.email LIKE' => $email));
 	    $count++;
 	  }
