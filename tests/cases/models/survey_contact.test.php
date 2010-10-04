@@ -13,6 +13,17 @@ class SurveyContactTestCase extends CakeTestCase {
 		$this->SurveyContact =& ClassRegistry::init('SurveyContact');
 	}
 	
+	function testResend(){
+	  $this->SurveyContact->id = 2;
+	  $this->assertFalse($this->SurveyContact->field('made_appointment'));
+	  $this->assertEqual('2010-08-13 00:00:00', $this->SurveyContact->field('final_email_sent_date'));
+	  
+	  $this->assertTrue($this->SurveyContact->resend('nick@example.com'));
+	  
+	  $this->assertTrue($this->SurveyContact->field('made_appointment'));
+	  $this->assertNotEqual('2010-08-13 00:00:00', $this->SurveyContact->field('final_email_sent_date'));
+	}
+	
 	function testPurgeIgnoreList(){
 	  $results = $this->SurveyContact->findById(4);
 	  $this->assertTrue(!empty($results));
@@ -59,6 +70,7 @@ class SurveyContactTestCase extends CakeTestCase {
       'last_name',
       'phone',
       'entered_give_away',
+      'made_appointment',
       'email',
       'created',
       'final_email_sent_date',

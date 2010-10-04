@@ -431,6 +431,21 @@ class SurveyContact extends SurveyAppModel {
 	}
 	
 	/**
+	  * Set the contact's resend email date to 30 days from now
+	  * Set the made_appointment boolean to true
+	  * @param string email of contact to do this on.
+	  */
+  function resend($email){
+    if($id = $this->idByEmail($email)){
+      $this->id = $id;
+      $this->setFinalEmailDate();
+      $this->saveField('made_appointment', true);
+      return true;
+    }
+    return false;
+  }
+	
+	/**
 	  * Fix the import.
 	  * Go through and make minor changes to the database, this is 
 	  * used as a one time execute.
@@ -465,6 +480,7 @@ class SurveyContact extends SurveyAppModel {
 	      'last_name' => 'last_name',
 	      'phone' => 'phone',
 	      'entered_give_away' => 'entered_give_away',
+	      'made_appointment' => 'made_appointment',
 	      'email' => 'email',
 	      'created' => 'created',
 	      'final_email_sent_date' => 'final_email_sent_date',
@@ -495,6 +511,7 @@ class SurveyContact extends SurveyAppModel {
 	        'last_name' => $record['SurveyContact']['last_name'],
 	        'phone' => $record['SurveyContact']['phone'],
 	        'entered_give_away' => $record['SurveyContact']['entered_give_away'],
+	        'made_appointment' => $record['SurveyContact']['made_appointment'],
 	        'email' => $record['SurveyContact']['email'],
 	        'created' => $record['SurveyContact']['created'],
 	        'final_email_sent_date' => $record['SurveyContact']['final_email_sent_date'],

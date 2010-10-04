@@ -185,7 +185,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  $retval['total']['purchases'] = count(Set::extract('/SurveyAnswer[question=4_purchase_hearing_aid][answer=Yes]', $answers));
 	  $retval['total']['visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Yes]', $answers));
 	  $retval['total']['not_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=No]', $answers));
-	  $retval['total']['have_apt_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Appointment]', $answers));
+	  $retval['total']['have_apt_visit_clinic'] = count(Set::extract('/SurveyContact[made_appointment=1]', $contacts));
 	  $retval['total']['visit_clinic_no_purchase'] = $retval['total']['visit_clinic'] - $retval['total']['purchases'];
 	  
 	  //Percents

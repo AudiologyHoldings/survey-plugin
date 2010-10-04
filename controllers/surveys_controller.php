@@ -122,10 +122,7 @@ class SurveysController extends SurveyAppController {
     * @param email of contact
     */
   function resend($email = null){
-    if($id = $this->SurveyContact->idByEmail($email)){
-      return $this->SurveyContact->setFinalEmailDate($id);
-    }
-    return false;
+    return $this->SurveyContact->resend($email);
   }
   
   /**
