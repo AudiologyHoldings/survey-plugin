@@ -8,9 +8,11 @@ $config = array(
     'email' => 'no_reply@webtechnick.com',
     'name' => 'Healthy Hearing',
     'debug' => false,
+    'cookietime' => 21600, //6 hours
     'httpauth' => array(
       'user' => 'pass'
-    )
+    ),
+    'ignore' => array() //email data to ignore % is a wildcard
   )
 );
 ?>

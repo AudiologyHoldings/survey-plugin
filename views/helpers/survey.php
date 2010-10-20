@@ -10,6 +10,7 @@ class SurveyHelper extends AppHelper {
   /**
     * Load the view object so we can dynamically load an element into it
     * Load the Cookie Component so we can read from the cookie the CakePHP way
+    * Overwrite firstCookieLength if we have a setting for it in config
     */
   function __construct($settings = array()){
     $this->View = ClassRegistry::getObject('view');
@@ -18,6 +19,10 @@ class SurveyHelper extends AppHelper {
     }
     else {
       $this->__setupCookie();
+    }
+    
+    if(SurveyUtil::getConfig('cookietime')){
+      $this->firstCookieLength = SurveyUtil::getConfig('cookietime');
     }
   }
   
@@ -76,10 +81,14 @@ class SurveyHelper extends AppHelper {
   
   /**
     * Show the popup element if we haven't displayed it to the user before
+    * @param boolean log (default true)
     * @return mixed popup element or null
     */
-  function showPopup(){
+  function showPopup($log = true){
     if($this->shouldDisplayPopup()){
+      if($log){
+        $this->log("Survey Popup shown to: {$_SERVER['REMOTE_ADDR']} ON page: {$this->View->here}", 'survey_popup');
+      }
       return $this->View->element('survey_popup', array('plugin' => 'survey')); 
     }
     return null;

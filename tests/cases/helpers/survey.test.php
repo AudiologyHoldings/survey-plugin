@@ -93,16 +93,16 @@ class SurveyHelperTest extends CakeTestCase {
     $this->Survey->Cookie->expectOnce('write');
     $this->Survey->Cookie->setReturnValue('read', false);
     $this->Survey->View->setReturnValue('element', true);
-    
-    $this->assertTrue($this->Survey->showPopup());
+    $log = false;
+    $this->assertTrue($this->Survey->showPopup($log));
   }
   
   function testShowPopupShouldNotShowPopup(){
     $this->Survey->View->expectNever('element');
     $this->Survey->Cookie->expectNever('write');
     $this->Survey->Cookie->setReturnValue('read', true);
-    
-    $this->assertFalse($this->Survey->showPopup());
+    $log = false;
+    $this->assertFalse($this->Survey->showPopup($log));
   }
   
   function endTest(){
