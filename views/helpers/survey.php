@@ -87,7 +87,7 @@ class SurveyHelper extends AppHelper {
   function showPopup($log = true){
     if($this->shouldDisplayPopup()){
       if($log){
-        $this->log("Survey Popup shown to: {$_SERVER['REMOTE_ADDR']} ON page: {$this->View->here}", 'survey_popup');
+        $this->log("Survey Popup shown to: {$_SERVER['REMOTE_ADDR']} on page: {$this->View->here}", 'survey_popup');
       }
       return $this->View->element('survey_popup', array('plugin' => 'survey')); 
     }
