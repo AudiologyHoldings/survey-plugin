@@ -214,10 +214,10 @@ div.give_away {
 div.gift_card {
   float: right;
 }
-div.text label {
+#popup div.text label, #final_survey div.text label {
   display: block;
 }
-div.text input[type=text] {
+#popup div.text input[type=text], #final_survey div.text input[type=text] {
   width: 450px;
   height: 35px;
   font-size: 1.5em;
