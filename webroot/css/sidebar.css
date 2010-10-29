@@ -1,0 +1,38 @@
+#survey_sidebar {
+  width: 340px;
+  height: 311px;
+  display: block;
+  position: fixed;
+  top: 30%;
+  left: 0px;
+  z-index: 800;
+}
+#survey_sidebar_button {
+  width: 90px;
+  height: 311px;
+}
+#survey_sidebar_button img {
+  cursor: pointer;
+}
+#survey_sidebar_body {
+  float: right;
+  width: 230px;
+  height: 311px;
+  background: transparent url('../img/sidebar_body.png') no-repeat;
+  padding: 10px 0px 0px 20px
+}
+#survey_sidebar_body h2 {
+  font-size: 1.8em;
+  margin: -15px 0px 15px 0px;
+}
+#survey_sidebar_body p {
+  font-size: .9em;
+  margin: 0px;
+  color: #0082c8 /* blue */
+}
+#survey_sidebar_body p.img {
+  margin: 0px 0px 3px 10px;
+}
+#survey_sidebar_body p.sidebar_policy {
+  margin: 30px 0px 0px 8px;
+}
