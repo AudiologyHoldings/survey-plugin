@@ -91,7 +91,7 @@ class SurveyHelper extends AppHelper {
       }
       return $this->View->element('survey_popup', array('plugin' => 'survey')); 
     }
-    return null;
+    return $this->View->element('survey_sidebar', array('plugin' => 'survey'));
   }
 }
 ?>

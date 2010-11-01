@@ -15,6 +15,7 @@ class SurveyUtilTestCase extends CakeTestCase {
       'email',// => 'no_reply@webtechnick.com',
       'name',//  => 'Healthy Hearing'
       'debug',//  => false
+      'cookietime',//  => 21600
       'httpauth', // => array('user' => 'pass')
       'ignore', // => array('nurvzy@gmail.com')
     );

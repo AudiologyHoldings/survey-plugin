@@ -98,7 +98,7 @@ class SurveyHelperTest extends CakeTestCase {
   }
   
   function testShowPopupShouldNotShowPopup(){
-    $this->Survey->View->expectNever('element');
+    $this->Survey->View->expectOnce('element', array('survey_sidebar', array('plugin' => 'survey')));
     $this->Survey->Cookie->expectNever('write');
     $this->Survey->Cookie->setReturnValue('read', true);
     $log = false;

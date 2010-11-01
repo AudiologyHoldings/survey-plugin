@@ -6,6 +6,8 @@
   top: 30%;
   left: 0px;
   z-index: 800;
+  font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+  padding: 0px;
 }
 #survey_sidebar_button {
   width: 90px;
@@ -35,4 +37,7 @@
 }
 #survey_sidebar_body p.sidebar_policy {
   margin: 30px 0px 0px 8px;
+}
+#survey_sidebar h2 {
+  color: #0082C8;
 }
