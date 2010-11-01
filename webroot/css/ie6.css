@@ -16,3 +16,9 @@ ul.question {
 .white_content {
   position: absolute;
 }
+#survey_sidebar {
+  position: absolute;
+}
+#survey_sidebar_body {
+  width: 227px;
+}

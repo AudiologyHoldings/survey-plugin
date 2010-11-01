@@ -5,6 +5,9 @@ echo $this->Html->css('/survey/css/sidebar.css');
 echo $this->Html->script('/survey/js/jquery.class.js');
 echo $this->Html->script('/survey/js/jq_survey_sidebar.js'); 
 ?>
+<!--[if IE 6]>
+<?php echo $this->Html->css('/survey/css/ie6.css'); ?>
+<![endif]-->
 
 <?php if($wrapper): ?>
 <div id="survey_popup_wrapper">
@@ -39,4 +42,7 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
   </div>
 </div>
 
-<?php echo $this->Html->scriptBlock("SB = new SurveySidebar();"); ?>
+<?php 
+echo $this->Html->scriptBlock("SB = new SurveySidebar();");
+echo $this->Js->writeBuffer(array('safe' => false));
+?>
