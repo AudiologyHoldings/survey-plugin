@@ -116,11 +116,17 @@ class SurveyAnswer extends SurveyAppModel {
 	    'recursive' => -1
 	  ));
 	  
+	  $continue_clicks = ClassRegistry::init('Survey.SurveyParticipant')->find('count', array(
+	    'conditions' => $conditions,
+	    'recursive' => -1
+	  ));
+	  
 	  $retval = array(
 	    'total' => array(
         'with_email' => 0,
         'without_email' => 0,
         'opt_in' => 0,
+        'continue' => 0,
         'participation' => 0,
         'completed_survey' => 0,
         'entered_give_away' => 0,
@@ -137,6 +143,7 @@ class SurveyAnswer extends SurveyAppModel {
 	    'percent' => array(
 	      'with_email' => 0,
         'opt_in' => 0,
+        'continue' => 0,
         'participation' => 0,
         'completed_survey' => 0,
         'entered_give_away' => 0,
@@ -172,6 +179,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  
 	  //Totals
 	  $retval['total']['opt_in'] = $opt_ins;
+	  $retval['total']['continue'] = $continue_clicks;
 	  $retval['total']['with_email'] = count($contacts);
 	  $retval['total']['without_email'] = $without_email_count;
 	  $retval['total']['participation'] = $retval['total']['with_email'] + $retval['total']['without_email'];
@@ -190,6 +198,7 @@ class SurveyAnswer extends SurveyAppModel {
 	  
 	  //Percents
 	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['opt_in'], $page_views);
+	  $retval['percent']['continue'] = $this->__calculatePercent($retval['total']['continue'], $retval['total']['opt_in']);
 	  $retval['percent']['with_email'] = $this->__calculatePercent($retval['total']['with_email'], $retval['total']['opt_in']);
 	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $retval['total']['opt_in']);
 	  $retval['percent']['completed_survey'] = $this->__calculatePercent($retval['total']['completed_survey'], $retval['total']['with_email']);

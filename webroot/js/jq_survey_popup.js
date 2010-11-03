@@ -78,6 +78,11 @@ var SurveyPopup = jQuery.Class.create({
     */
   nextPage: function(){
     this.page('two');
+    //Ajax the continue was clicked
+    jQuery.ajax({ 
+        type: 'get', 
+        url:  '/survey/surveys/save_participant'
+      });
   },
   
   /**

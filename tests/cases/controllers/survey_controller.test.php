@@ -38,6 +38,7 @@ class SurveysControllerTestCase extends CakeTestCase {
     'plugin.survey.survey_contact',
     'plugin.survey.survey_answer',
     'plugin.survey.survey_opt_in',
+    'plugin.survey.survey_participant',
   );
   
 	function startTest() {
@@ -45,10 +46,25 @@ class SurveysControllerTestCase extends CakeTestCase {
 		$this->Surveys->SurveyContact = ClassRegistry::init('Survey.SurveyContact');
 		$this->Surveys->SurveyAnswer = ClassRegistry::init('Survey.SurveyAnswer');
 		$this->Surveys->SurveyOptIn = ClassRegistry::init('Survey.SurveyOptIn');
+		$this->Surveys->SurveyParticipant = ClassRegistry::init('Survey.SurveyParticipant');
 		$this->Surveys->Auth = new MockAuthComponent();
 		$this->Surveys->Email = new MockEmailComponent();
 		$this->Surveys->Session = new MockSessionComponent();
 		$this->Surveys->RequestHandler = new MockRequestHandlerComponent();
+	}
+	
+	function testSaveParticipantShouldSaveIfAjax(){
+	  $count = $this->Surveys->SurveyParticipant->find('count');
+	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
+	  $this->Surveys->save_participant();
+	  $this->assertEqual($count + 1, $this->Surveys->SurveyParticipant->find('count'));
+	}
+	
+	function testSaveParticipantShouldNotSaveRegularRequest(){
+	  $count = $this->Surveys->SurveyParticipant->find('count');
+	  $this->Surveys->RequestHandler->setReturnValue('isAjax', false);
+	  $this->Surveys->save_participant();
+	  $this->assertEqual($count, $this->Surveys->SurveyParticipant->find('count'));
 	}
 	
 	function testSaveOptIn(){

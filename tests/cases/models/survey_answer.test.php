@@ -7,6 +7,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  'plugin.survey.survey_contact', 
 	  'plugin.survey.survey_answer',
 	  'plugin.survey.survey_opt_in',
+	  'plugin.survey.survey_participant',
 	);
 
 	function startTest() {
@@ -35,6 +36,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $results = $this->SurveyAnswer->findReport($data);
 	  	  
 	  $this->assertEqual(9, $results['total']['opt_in']);
+	  $this->assertEqual(7, $results['total']['continue']);
 	  $this->assertEqual(5, $results['total']['participation']);
 	  $this->assertEqual(1, $results['total']['without_email']);
 	  $this->assertEqual(4, $results['total']['with_email']);
@@ -47,6 +49,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $this->assertEqual(1, $results['total']['not_visit_clinic']);
 	  $this->assertEqual(0, $results['total']['visit_clinic_no_purchase']);
 	  $this->assertEqual('90%', $results['percent']['opt_in']);
+	  $this->assertEqual('77.78%', $results['percent']['continue']);
 	  $this->assertEqual('55.56%', $results['percent']['participation']);
 	  $this->assertEqual('44.44%', $results['percent']['with_email']);
 	  $this->assertEqual('75%', $results['percent']['completed_survey']);

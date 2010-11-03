@@ -7,6 +7,7 @@ class SurveyContactTestCase extends CakeTestCase {
 	  'plugin.survey.survey_contact', 
 	  'plugin.survey.survey_answer',
 	  'plugin.survey.survey_opt_in',
+	  'plugin.survey.survey_participant',
 	);
 
 	function startTest() {

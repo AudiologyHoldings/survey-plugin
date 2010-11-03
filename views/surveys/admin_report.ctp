@@ -31,6 +31,7 @@
             <td colspan="2" class="spacer">&nbsp;</td>
           </tr>
           <?php echo $this->element('report_key', array('title' => 'Opt-in', 'key' => 'opt_in', 'suffix' => 'of Traffic', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Continue Clicks', 'key' => 'continue', 'suffix' => 'of Opt-in', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Participation', 'key' => 'participation', 'suffix' => 'of Opt-in', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Provided Email', 'key' => 'with_email', 'suffix' => 'of Opt-in', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Completed Final 30 Day Survey', 'key' => 'completed_survey', 'suffix' => 'of Provided Email', 'results' => $results, 'plugin' => 'survey')); ?>

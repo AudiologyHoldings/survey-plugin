@@ -2,6 +2,21 @@
 class SurveyAppModel extends AppModel {
   
   var $actsAs = array('Containable');
+  
+  /**
+    * SurveyParticipate or SurveyOptIn Add function
+    * this is used to simply add a new created time
+    * at a particular timeframe
+    *
+    * @param string parsable by str2time to be used as created
+    * @return result of save
+    */
+  function add($date = 'now'){
+    $this->create();
+    return $this->save(array(
+	    'created' => $this->str2datetime($date)
+	  ));
+  }
 
   /**
     * Overwrite find so I can do some nice things with it.
@@ -29,8 +44,8 @@ class SurveyAppModel extends AppModel {
      * @return date time string for MYSQL
      */
    function str2datetime($str, $entire_day = false){
-     $time = $entire_day ? strtotime($str) + '86399' : strtotime($str);
-     return date("Y-m-d H:i:s", $time);
+     $time = $entire_day ? strtotime($str) + 86399 : strtotime($str);
+     return $this->time2datetime($time);
    }
    
    /**

@@ -61,6 +61,17 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
+    * Save a participant (Continue click)
+    */
+  function save_participant(){
+    if($this->RequestHandler->isAjax()){
+      ClassRegistry::init('Survey.SurveyParticipant')->add();
+      return true;
+    }
+    $this->setAction('first');
+  }
+  
+  /**
     * The second survey
     * Needs a contact email
     *
