@@ -91,7 +91,11 @@ class SurveyHelper extends AppHelper {
       }
       return $this->View->element('survey_popup', array('plugin' => 'survey')); 
     }
-    return $this->View->element('survey_sidebar', array('plugin' => 'survey'));
+    /**
+    	* Survey sidebar is no longer needed, but keeping around in case we ever want to
+    	* bring it back.
+    	*/
+    //return $this->View->element('survey_sidebar', array('plugin' => 'survey'));
   }
 }
 ?>

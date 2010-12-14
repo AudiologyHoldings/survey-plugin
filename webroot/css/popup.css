@@ -56,7 +56,7 @@
 .popup p.text {
   color: #0082c8;
 }
-.popup p.popup-small {
+.popup .popup-small {
   font-size: .85em;
 }
 .popup p.popup-policy {

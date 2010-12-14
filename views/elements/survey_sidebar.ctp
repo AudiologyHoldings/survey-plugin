@@ -43,6 +43,5 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
 </div>
 
 <?php 
-echo $this->Html->scriptBlock("SB = new SurveySidebar();");
 echo $this->Js->writeBuffer(array('safe' => false));
 ?>

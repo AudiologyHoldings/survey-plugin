@@ -7,9 +7,11 @@
 <!--[if IE]>
 <?php echo $this->Html->css('/survey/css/ie.css'); ?>
 <![endif]-->
-<?php echo $this->Html->script('/survey/js/jquery.class.js'); ?>
-<?php echo $this->Html->script('/survey/js/jq_survey_popup.js'); ?>
-<?php echo $this->Html->script('/survey/js/jq_survey_sidebar.js'); ?>
+<?php 
+echo $this->Html->script('/survey/js/jquery.class.js');
+echo $this->Html->script('/survey/js/jq_survey_popup.js');
+echo $this->Html->script('/survey/js/jq_survey_sidebar.js'); 
+?>
 <div id="survey_popup_wrapper">
 
   <div class="white_content">
@@ -32,9 +34,8 @@
             array('update' => '#survey_popup_wrapper', 'escape' => false)
           ); 
           ?>
-        </p>
-        <p class="popup-small">
-          <?php echo $this->Html->link('Maybe Later','#', array('id' => 'close_popup')); ?>
+          <br />
+          <?php echo $this->Html->link('Maybe Later','#', array('id' => 'close_popup', 'class' => 'btn_close')); ?>
         </p>
         <p class="popup-small popup-policy">
           <?php echo $this->Html->link('Terms of Use - Privacy Policy', '/privacy-policy', array('target' => '_blank')); ?>
@@ -50,6 +51,7 @@
 
 
 <?php
-echo $this->element('survey_sidebar', array('plugin' => 'survey', 'show' => false, 'wrapper' => false));
+//echo $this->element('survey_sidebar', array('plugin' => 'survey', 'show' => false, 'wrapper' => false));
+echo $this->Html->scriptBlock("SB = new SurveySidebar();");
 echo $this->Js->writeBuffer(array('safe' => false));
 ?>
