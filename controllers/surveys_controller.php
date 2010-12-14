@@ -7,7 +7,7 @@ class SurveysController extends SurveyAppController {
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
-  var $uses = array('Survey.SurveyContact');
+  var $uses = array('Survey.SurveyContact','Survey.SurveyAnswer');
   
   var $components = array('RequestHandler','Session','Security','Email');
   
@@ -32,6 +32,7 @@ class SurveysController extends SurveyAppController {
   /**
     * The first survey 
     * 2 questions + email contact
+    * @note Deprecated, second half no longer used.
     */
   function first(){
     $start_page = 'one';
@@ -60,6 +61,19 @@ class SurveysController extends SurveyAppController {
     $this->set('start_page', $start_page);
   }
   
+  /**
+  	* Save the survey 2 questions.
+  	*/
+	function save_survey(){
+		if(!empty($this->data)){
+			ClassRegistry::init('Survey.SurveyAnswer')->saveData($this->data['SurveyAnswer']);
+			if($this->RequestHandler->isAjax()){
+				$this->autoRender = false;
+				return true;
+			}
+		}
+	}
+	
   /**
     * Save a participant (Continue click)
     */

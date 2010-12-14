@@ -75,6 +75,8 @@ var SurveyPopup = jQuery.Class.create({
   
   /**
     * Goto the next page
+    * Save participation data
+    * Save suvey answers
     */
   nextPage: function(){
     this.page('two');
@@ -83,6 +85,21 @@ var SurveyPopup = jQuery.Class.create({
         type: 'get', 
         url:  '/survey/surveys/save_participant'
       });
+    jQuery.ajax({
+    		data:jQuery("#btn_continue").closest("form").serialize(), 
+    		dataType:"text", 
+    		success: jQuery.proxy(this.surveySubmitResponse, this),
+    		type:"post", 
+    		url:'/survey/surveys/save_survey'
+		});
+	 return false;
+  },
+  
+  /**
+  	* Handle the survey submit
+  	*/
+  surveySubmitResponse: function(data, textStatus){
+    alert('hi');
   },
   
   /**

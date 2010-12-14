@@ -25,6 +25,22 @@ class SurveyAnswerTestCase extends CakeTestCase {
 	  $this->assertEqual(16, count($result)); //15 plus header.
 	}
 	
+	function testSaveDataShouldIgnoreBlankData(){
+		$data = array(
+			array(
+				'question' => '1_age',
+				'answer' => '80plus'
+			),
+			array(
+				'question' => '2_likely_to_schedule',
+				'answer' => ''
+			),
+		);
+		$count = $this->SurveyAnswer->find('count');
+		$this->assertTrue($this->SurveyAnswer->saveData($data));
+		$this->assertEqual($count + 1, $this->SurveyAnswer->find('count'));
+	}
+	
 	function testFindReport(){
 	  $data = array(
 	    'SurveyAnswer' => array(

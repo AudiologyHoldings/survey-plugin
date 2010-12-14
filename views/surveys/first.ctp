@@ -37,12 +37,13 @@
     
       <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
-        <?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'), 'onsubmit' => 'SP.submitForm(); return false;')); ?>
         <div id="one">
+        	<?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_survey'), 'onsubmit' => 'SP.nextPage(); return false;')); ?>
           <h2>Thanks for helping!</h2>
           <p class="pop_text">
-            <b>Complete our short three question survey and<br />
-            we'll donate $1 to the House Ear Institute on your behalf.</b>
+            <b>Complete our short 3 question survey and we will use the results to<br />
+            help us give you better service in the future.
+            </b>
           </p>  
           <table class="pop_questions">
             <tr>
@@ -96,29 +97,30 @@
           </table>
           
           <div class="pop_button">
-            <?php echo $this->Html->image('/survey/img/btn_continue.png', array('class' => 'hand', 'id' => 'btn_continue')) ?>
+          	<?php echo $this->Form->submit('/survey/img/btn_continue.png', array('class' => 'hand', 'id' => 'btn_continue')); ?>
           </div>
+          <?php echo $this->Form->end(); ?>
         </div>
         <div id="two" style="display:none;">
+        	<?php echo $this->Form->create(); ?>
           <h2>You're almost done!</h2>
           <p class="pop_text">
-            <b>Enter your email</b> address below and we'll send you an email <b>confirming<br />
-            the donation.</b> As a thank you, we'll also give you the opportunity to register<br />
-            to <b>win $500* in our monthly drawing</b> by answering a three question follow-up survey in about 30 days.
+            <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription<br />
+            and send you a copy of our Free Comprehensive Guide to Hearing Aids and Hearing Loss.
           </p>
           <h2 class="no_margin">We will only contact you for the follow-up survey.</h2>
           <div class="pop_questions">
             <div class="gift_card">
-              <?php echo $this->Html->image('/survey/img/gift_card.png') ?>
+              <?php /*echo $this->Html->image('/survey/img/gift_card.png') */?>
             </div>
             <div class="email">
-              <span class="vcard">
-                <?php echo $this->Html->image('/survey/img/popup_contact.png', array('id' => 'img_roledex')); ?>
+              <!-- <span class="vcard">
+                <?php /*echo $this->Html->image('/survey/img/popup_contact.png', array('id' => 'img_roledex')); */?>
                 <p>
                   &nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Click here to add us to your address book.', array('action' => 'reply_email', 'ext' => 'vcf')) ?><br />
                   &nbsp;&nbsp;&nbsp;Our email is <?php echo Configure::read('Survey.email'); ?>
                 </p>
-              </span>
+              </span> -->
               <div class="clear_left">
                 <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:', 'id' => 'SurveyContactEmail')); ?>
               </div>
@@ -132,8 +134,8 @@
           <div class="pop_button pop_submit">
             <?php echo $this->Form->submit('/survey/img/btn_submit_survey.png', array('class' => 'hand', 'id' => 'btn_submit')); ?>
           </div>
+          <?php echo $this->Form->end(); ?>
         </div>
-        <?php echo $this->Form->end(); ?>
       </div>
       
     </div>

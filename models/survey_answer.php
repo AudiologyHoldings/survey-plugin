@@ -42,6 +42,22 @@ class SurveyAnswer extends SurveyAppModel {
 	}
 	
 	/**
+		* Save the data, set validation to false
+		* @param array data
+		* @param array of options
+		* @return boolean of success
+		*/
+	function saveData($data, $options = array()){
+		//Clean out blank answers
+	  foreach($data as $key => $answer){
+	    if(!$answer['answer']){
+	      unset($data[$key]);
+	    }
+	  }
+		return $this->saveAll($data, $options);
+	}
+	
+	/**
 	  * Find the report based on data based in
 	  *
 	  * @param array of data to base report on
