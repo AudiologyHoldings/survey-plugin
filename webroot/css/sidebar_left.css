@@ -1,29 +1,27 @@
 #survey_sidebar {
-  width: 327px;
-  height: 312px;
+  width: 340px;
+  height: 311px;
   display: block;
   position: fixed;
   top: 30%;
-  right: 0px;
-  background: transparent url('../img/sidebar_right_background.png') no-repeat;
+  left: 0px;
   z-index: 800;
   font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
   padding: 0px;
-}
-div#survey_sidebar.close {
-  right: -237px;
+  margin: 0px;
 }
 #survey_sidebar_button {
-  width: 105px;
-  height: 312px;
+  width: 90px;
+  height: 311px;
 }
-#survey_sidebar_button {
+#survey_sidebar_button img {
   cursor: pointer;
 }
 #survey_sidebar_body {
   float: right;
-  width: 222px;
-  height: 312px;
+  width: 230px;
+  height: 311px;
+  background: transparent url('../img/sidebar_body.png') no-repeat;
   padding: 10px 0px 0px 20px;
 }
 #survey_sidebar_body h2 {

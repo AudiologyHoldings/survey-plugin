@@ -16,14 +16,15 @@
     <div class="popup popup_background">
       <div id="popup-content">
         <p class="popup-header">
-          Help Us Cure<br />
-          Hearing Loss.
+          Help Us<br />
+          Help Others.
         </p>
         <p class="text">
-          Participate in a brief three question<br />
-          survey and we'll donate $1 to:
+          Participate in a short online survey<br />
+          to improve the services we offer.<br />
+          It will take less than a minute<br /> of your time.<br /><br />
+          Will you help us out?
         </p>
-        <p><?php echo $this->Html->image('/survey/img/popup_house_ear_institute.png') ?></p>
         <p>
           <?php echo $this->Js->link(
             $this->Html->image('/survey/img/btn_i_want_to_help.png'),

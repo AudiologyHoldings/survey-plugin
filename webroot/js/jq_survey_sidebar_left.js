@@ -15,6 +15,6 @@ var SurveySidebar = jQuery.Class.create({
   },
   
   toggleSidebar: function(){
-    jQuery(this.sidebarId).toggleClass('close');
+    jQuery(this.sidebarBodyId).toggle();
   }
 });

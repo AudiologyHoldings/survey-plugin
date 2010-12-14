@@ -14,8 +14,8 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
 </div>
 <?php endif;?>
 
-<div id="survey_sidebar" class="close" <?php if(!$show): ?>style="display:none;"<?php endif;?>>
-  <div id="survey_sidebar_body">
+<div id="survey_sidebar" <?php if(!$show): ?>style="display:none;"<?php endif;?>>
+  <div id="survey_sidebar_body" style="display:none;">
     <h2>Help Us Cure Hearing Loss.</h2>
     <p>Participate in a brief three question survey and we'll donate $1 to:</p>
     <p class="img">
@@ -38,7 +38,7 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
      </p>
   </div>
   <div id="survey_sidebar_button">
-    <!-- button to show -->
+    <?php echo $this->Html->image('/survey/img/sidebar_button.png') ?>
   </div>
 </div>
 
