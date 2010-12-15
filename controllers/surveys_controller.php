@@ -8,7 +8,7 @@ class SurveysController extends SurveyAppController {
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
-  var $uses = array('Survey.SurveyAnswer');
+  var $uses = array('Survey.SurveyAnswer','Contact');
   
   var $components = array('RequestHandler','Session','Security','Email');
   
@@ -36,9 +36,8 @@ class SurveysController extends SurveyAppController {
   	*/
   function save_email(){
   	if(!empty($this->data)){
-  		$this->Contact = ClassRegistry::init('Contact');
   		if($this->Contact->save($this->data)){
-  			//TODO SEND EMAIL
+  			$this->__sendEmail($this->Contact->id); //Send the email
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;
   				return true;
@@ -90,9 +89,9 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
-    * Send an email to the SurveyContact
+    * Send an email to the Contact
     *
-    * @param id of SurveyContact
+    * @param id of Contact
     * @param array of options
     * - template (default thanks)
     * - subject
@@ -107,18 +106,20 @@ class SurveysController extends SurveyAppController {
       ),
       $options
     );
-    $this->SurveyContact->contain();
-    $contact = $this->SurveyContact->findById($id);
-    if($contact && isset($contact['SurveyContact']['email'])){
-      $this->log("Sending {$options['template']} to {$contact['SurveyContact']['email']}", 'email');
+    $this->Contact->contain();
+    $contact = $this->Contact->findById($id);
+    if($contact && isset($contact['Contact']['email'])){
+    	$locations = $this->Contact->findLocations($id);
+      $this->log("Sending {$options['template']} to {$contact['Contact']['email']}", 'email');
       $this->Email->reset();
-      $this->Email->to = $contact['SurveyContact']['email'];
+      $this->Email->to = $contact['Contact']['email'];
       $this->Email->subject = $options['subject'];
       $this->Email->template = $options['template'];
       $this->Email->sendAs = 'html';
       $this->Email->from = SurveyUtil::getConfig('email');
       $this->Email->bcc = array('pdybala@healthyhearing.com');
-      $this->set('contact', $contact);
+      $this->Email->attachments = array(WWW_ROOT.'files/pdf/happy/healthyhearing_comprehensive_guide_get_happy_0710.pdf');
+      $this->set(compact('contact', 'locations'));
       return $this->Email->send();
     }
   }

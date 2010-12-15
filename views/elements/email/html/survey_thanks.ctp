@@ -7,27 +7,25 @@
   </tr>
   <tr>
     <td><?php echo $this->Html->image($base_path . '/survey/img/healthy_hearing.png') ?></td>
-    <td><?php echo $this->Html->image($base_path . '/survey/img/gift_card.png') ?></td>
   </tr>
   <tr>
     <td colspan="2" cellpadding="15">
       <h1>Thank you!</h1>
       <p>
-      Thank you for filling out the survey you recently took at HealthyHearing.com.
-      The donation we sent on your behalf to the House Ear Institute will truly make
-      a difference in the fight to end hearing loss.<br /><br />
-      
-      <b>In 30 days we will send you a follow-up survey (don't worry it's only three short
-      questions).</b>  This survey is for research purposes only and we will not share your
-      information with any third party, nor will we send future surveys or unsolicited
-      mail as a result of your participation.<br /><br />
-      
-      <b>Don't forget, when you complete the follow-up survey we'll enter you in a monthly drawing to
-      win a $500 gift card.</b> To review the survey drawing rules and eligibility, just
-      visit the following link: <?php echo $this->Html->link('http://www.healthyhearing.com/privacy-policy')?><br /><br />
+      Thank you for filling out the survey you recently took at HealthyHearing.com.  The information you provided will help us improve the services that we offer on the website.<br /><br />
       
       Thanks again for agreeing to help.  Your support and participation is very much appreciated.<br /><br /><br />
       
+      As promised, we are attaching our Comprehensive Guide to Hearing Loss and Hearing Aids.  For ease of viewing, the guide is in PDF format and attached to this email. If you cannot view the guide on your computer, you may need to install the free PDF Reader from http://get.adobe.com/reader/<br /><br />
+      
+      <?php if(!empty($locations)): ?>
+      	<h4>Hearing Care Professionals in your Area</h4>
+      	<p>
+      		You listed your zip code as <?php echo $contact['Contact']['zip']; ?>, below is a list of <?php echo count($locations); ?> hearing care professionals in your area.<br />
+      		<?php echo $this->element('findaprofessional/location_list',array('locations'=>$locations)); ?>
+      	</p>
+      	<br /><br />
+      <?php endif; ?>
       
       Kindest regards,<br />
       The Healthy Hearing Team
@@ -35,11 +33,6 @@
       <p style="font-size: small">
         Ensure our messages always go straight to your inbox.
         Add [<?php echo Configure::read('Survey.email') ?>] to your Address Book or Safe List.<br /><br />
-        
-        <b>HealthyHearing</b><br />
-        5282 Medical Drive, Suite 150<br />
-        San Antonio, TX 78229<br />
-        800-567-1692<br /><br />
         
         Copyright <?php echo date('Y') ?> HealthyHearing.com All rights reserved.
       </p>
