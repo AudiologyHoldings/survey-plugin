@@ -16,7 +16,7 @@
         <p class="pop_text">
           <strong>You are now signed up for our email Newsletters and we will be sending you a <br />
           copy of our Free Consumer's Guide To Hearing Aids! Please click the CLOSE<br />
-          button below to close this window and continue browsing.
+          button below to close this window and continue browsing.</strong>
         </p>
         <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         
@@ -87,7 +87,7 @@
             </tr>
           </table>
           
-          <div class="pop_button">
+          <div class="pop_button pop_submit">
           	<?php echo $this->Form->submit('/survey/img/btn_continue.png', array('class' => 'hand', 'id' => 'btn_continue')); ?>
           </div>
           <?php echo $this->Form->end(); ?>
