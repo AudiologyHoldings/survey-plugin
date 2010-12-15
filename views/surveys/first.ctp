@@ -42,7 +42,8 @@
           <h2>Thanks for helping!</h2>
           <p class="pop_text">
             <b>Complete our short 3 question survey and we will use the results to<br />
-            help us give you better service in the future.
+            help us give you better service in the future.<br /><br />
+            We apprecate your feedback!
             </b>
           </p>  
           <table class="pop_questions">
@@ -106,15 +107,16 @@
           <h2>You're almost done!</h2>
           <p class="pop_text">
             <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription<br />
-            and send you a copy of our Free Comprehensive Guide to Hearing Aids and Hearing Loss.
+            and send you a copy of our Free Comprehensive Guide to Hearing Aids and Hearing Loss.<br /><br />
+            <b>* All fields required.</b><br /><br />
           </p>
           <div class="pop_questions">
             <div class="email">
               <div class="clear_left">
-                <?php echo $this->Form->input('Contact.first_name', array('label' => 'First Name:')); ?>
-                <?php echo $this->Form->input('Contact.last_name', array('label' => 'Last Name:')); ?>
-                <?php echo $this->Form->input('Contact.email', array('label' => 'Email Address:')); ?>
-                <?php echo $this->Form->input('Contact.zip', array('label' => 'Zip Code:')); ?>
+                <?php echo $this->Form->input('Contact.first_name', array('label' => 'First Name: *')); ?>
+                <?php echo $this->Form->input('Contact.last_name', array('label' => 'Last Name: *')); ?>
+                <?php echo $this->Form->input('Contact.email', array('label' => 'Email Address: *')); ?>
+                <?php echo $this->Form->input('Contact.zip', array('label' => 'Zip Code: *')); ?>
               </div>
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>
