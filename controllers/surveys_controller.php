@@ -151,17 +151,17 @@ class SurveysController extends SurveyAppController {
 	    case 'answers':
         $model = 'SurveyAnswer';
         $data = ClassRegistry::init('Survey.SurveyAnswer')->export();
-	      $filename = 'survey_answers.csv';
+	      $filename = 'answers.csv';
 	      break;
 	    case 'participants':
         $model = 'SurveyParticpant';
         $data = ClassRegistry::init('Survey.SurveyParticpant')->export();
-	      $filename = 'survey_particpants.csv';
+	      $filename = 'particpants.csv';
 	      break;
 	    case 'opt_ins':
         $model = 'SurveyOptIn';
         $data = ClassRegistry::init('Survey.SurveyOptIn')->export();
-	      $filename = 'survey_opt_ins.csv';
+	      $filename = 'opt_ins.csv';
 	      break;
 	    default: $this->redirect('/');
 	  }
