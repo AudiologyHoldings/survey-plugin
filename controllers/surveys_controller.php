@@ -1,4 +1,5 @@
 <?php
+App::import('Lib','Survey.SurveyUtil');
 class SurveysController extends SurveyAppController {
   var $name = 'Surveys';
   var $layout = 'survey';
@@ -7,11 +8,11 @@ class SurveysController extends SurveyAppController {
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
-  var $uses = array('Survey.SurveyContact','Survey.SurveyAnswer');
+  var $uses = array('Survey.SurveyAnswer');
   
   var $components = array('RequestHandler','Session','Security','Email');
   
-  var $helpers = array('Number');
+  var $helpers = array('Survey.Survey');
   
   /**
     * Load any custom settings here
@@ -30,48 +31,44 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
-    * The first survey 
-    * 2 questions + email contact
-    * @note Deprecated, second half no longer used.
-    */
-  function first(){
-    $start_page = 'one';
-    if(!empty($this->data)){
-      if($this->SurveyContact->saveFirst($this->data)){
-        $this->goodFlash('Thank you.');
-        $this->__sendEmail($this->SurveyContact->id);
-        if($this->RequestHandler->isAjax()){
-          $this->autoRender = false;
-          return true;
-        }
-        $this->redirect(array('action' => 'thanks'));
-      }
-      else {
-        if($this->RequestHandler->isAjax()){
-          $this->autoRender = false;
-          return array_shift(array_values($this->SurveyContact->validationErrors));
-        }
-        $this->badFlash('Email not valid, please try again.');
-        $start_page = 'two';
-      }
-    }
-    else {
-      $this->__saveOptIn(); //we're showing the form, save opt_in
-    }
-    $this->set('start_page', $start_page);
+  	* Save the second half of the survey, email, name, zip, etc. and send thanks
+  	* @TODO SEND THE HAPPY EMAIL
+  	*/
+  function save_email(){
+  	if(!empty($this->data)){
+  		$this->Contact = ClassRegistry::init('Contact');
+  		if($this->Contact->save($this->data)){
+  			//TODO SEND EMAIL
+  			if($this->RequestHandler->isAjax()){
+  				$this->autoRender = false;
+  				return true;
+  			}
+  			$this->redirect(array('action' => 'thanks'));
+  		}
+  		else {
+  			if($this->RequestHandler->isAjax()){
+  				$this->autoRender = false;
+  				return array_shift(array_values($this->Contact->validationErrors));
+  			}
+  		}
+  	}
   }
   
   /**
   	* Save the survey 2 questions.
   	*/
-	function save_survey(){
+	function first(){
 		if(!empty($this->data)){
-			ClassRegistry::init('Survey.SurveyAnswer')->saveData($this->data['SurveyAnswer']);
+			$this->SurveyAnswer->saveData($this->data['SurveyAnswer']);
 			if($this->RequestHandler->isAjax()){
 				$this->autoRender = false;
 				return true;
 			}
 		}
+		else {
+			$this->__saveOptIn();
+		}
+		$this->set('start_page', 'one');
 	}
 	
   /**
@@ -85,70 +82,6 @@ class SurveysController extends SurveyAppController {
     $this->setAction('first');
   }
   
-  /**
-    * The second survey
-    * Needs a contact email
-    *
-    * @param string email of survey_contact (required)
-    */
-  function second($email = null){
-    $contact = $this->SurveyContact->findByEmailForSecond($email);
-    
-    if(!$email){
-      $this->badFlash('Email required.');
-      $this->redirect('/');
-    }
-    elseif(empty($contact)){
-      $this->badFlash('Invalid Email.');
-      $this->redirect('/');
-    }
-    elseif(!empty($this->data)){
-      $this->SurveyContact->saveSecond($this->data);
-      $this->redirect(array('action' => 'give_away', $email));
-    }
-    
-    $this->set('contact', $contact);
-  }
-  
-  /**
-    * Give Away page, coolect name, and phone number
-    * Only show this page if contact by email is finished_survey
-    *
-    * @paran string email (required)
-    */
-  function give_away($email = null){
-    $contact = $this->SurveyContact->findByEmailForGiveAway($email);
-    if(!$email){
-      $this->badFlash('Email required.');
-      $this->redirect('/');
-    }
-    elseif(empty($contact)){
-      $this->badFlash('Invalid Email.');
-      $this->redirect('/');
-    }
-    elseif(!empty($this->data)){
-      if($this->SurveyContact->enterGiveAway($this->data)){
-        $this->goodflash('Thank you. You have been entered for the drawing.');
-        $this->redirect('/');
-      }
-      else {
-        //Unset the id so the form helper doesn't append it to the form action
-        unset($this->data['SurveyContact']['id']);
-        $this->badFlash('Please fill out every field.');
-      }
-    }
-    
-    $this->set('contact', $contact);
-  }
-  
-  /**
-    * Set the contact's resend email date to 30 days from now
-    * This is meant to be called via ajax
-    * @param email of contact
-    */
-  function resend($email = null){
-    return $this->SurveyContact->resend($email);
-  }
   
   /**
     * Show thanks page
@@ -191,43 +124,6 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
-    * Send a test follow up email, this will be disabled in production
-    */
-  function send_test_follow($email = null){
-    if(Configure::read() > 0){
-      $contact_id = $this->SurveyContact->field('id', array('email' => $email));
-      if($contact_id){
-        $this->__sendEmail($contact_id, array(
-          'subject' => 'Healthy Hearing Follow Up Survey',
-          'template' => 'survey_follow_up'
-        ));
-      }
-    }
-    $this->redirect('/');
-  }
-  
-  /**
-    * Go through the databse and send the follow up email if needed.
-    * @param frequency of call
-    */
-  function send_follow($freq = null){
-    $contacts = $this->SurveyContact->findAllToNotify();
-    if(!empty($contacts)){
-      foreach($contacts as $contact){
-        $sent = $this->__sendEmail($contact['SurveyContact']['id'], array(
-          'subject' => 'Healthy Hearing Follow Up Survey',
-          'template' => 'survey_follow_up'
-        ));
-        if($sent){
-          $this->SurveyContact->finalEmailSent($contact['SurveyContact']['id']);
-        }
-      }
-    }
-    $this->__cronEnd('1',$freq);
-    $this->redirect('/');
-  }
-  
-  /**
 	  * Vcard for the user to add to their address book.
 	  */
 	function reply_email(){
@@ -243,7 +139,7 @@ class SurveysController extends SurveyAppController {
 	/**
     * CSV export system.
     */
-  function export($type = 'contacts'){
+  function export($type = 'answers'){
     $this->helpers[] = 'Survey.Csv';
     $this->layout = 'csv';
     if($this->RequestHandler->ext != 'csv'){
@@ -251,25 +147,20 @@ class SurveysController extends SurveyAppController {
 	  }
 	  
 	  switch($type){
-	    case 'contacts':
-	      $model = 'SurveyContact';
-	      $data = $this->SurveyContact->export();
-	      $filename = 'survey_contact.csv';
-	      break;
-      case 'answers':
+	    case 'answers':
         $model = 'SurveyAnswer';
         $data = ClassRegistry::init('Survey.SurveyAnswer')->export();
 	      $filename = 'survey_answers.csv';
 	      break;
-	    case 'opt_ins':
-	      $model = 'SurveyOptIn';
-	      $data = ClassRegistry::init('Survey.SurveyOptIn')->export();
-	      $filename = 'survey_opt_ins.csv';
+	    case 'participants':
+        $model = 'SurveyParticpant';
+        $data = ClassRegistry::init('Survey.SurveyParticpant')->export();
+	      $filename = 'survey_particpants.csv';
 	      break;
-	    case 'finals':
-	      $model = 'SurveyContact';
-	      $data = $this->SurveyContact->exportFinal();
-	      $filename = 'survey_finals.csv';
+	    case 'opt_ins':
+        $model = 'SurveyOptIn';
+        $data = ClassRegistry::init('Survey.SurveyOptIn')->export();
+	      $filename = 'survey_opt_ins.csv';
 	      break;
 	    default: $this->redirect('/');
 	  }
@@ -291,31 +182,9 @@ class SurveysController extends SurveyAppController {
     */
   function admin_report(){
     if(!empty($this->data)){
-      $results = ClassRegistry::init('SurveyAnswer')->findReport($this->data);
+      $results = $this->SurveyAnswer->findReport($this->data);
       $this->set('results', $results);
     }
   }
-  
-  /**
-    * Search for contacts by their email.
-    */
-  function admin_search(){
-    if(!empty($this->data)){
-      $contacts = $this->SurveyContact->findAllByEmail($this->data);
-      $this->set('contacts', $contacts);
-    }
-  }
-  
-  /**
-    * Delete a specific contact and their answers.
-    */
-  function admin_delete($id = null){
-    $this->SurveyContact->contain();
-    if($id && $this->SurveyContact->findById($id)){
-      $this->SurveyContact->delete($id);
-    }
-    $this->redirect(array('prefix' => 'admin', 'action' => 'search'));
-  }
-  
 }
 ?>

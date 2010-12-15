@@ -1,6 +1,7 @@
 <?php
 App::import('Lib','Survey.SurveyUtil');
 class SurveyHelper extends AppHelper {
+	var $helpers = array('Number');
   /**
     * Time (in seconds) from when the first survey is show,
     * to the time the second and final one should be shown.
@@ -51,6 +52,19 @@ class SurveyHelper extends AppHelper {
       'number' => $number,
       'time' => $time
     ), false);
+  }
+  
+  /**
+  	* Convert to percentage
+  	* @param float value
+  	* @param float total
+  	* @return string percent of value / total * 100
+  	*/
+  function toPercent($value, $total = 0){
+  	if($total){
+  		return $this->Number->toPercentage($value / $total * 100);
+  	}
+  	return '0%';
   }
   
   /**

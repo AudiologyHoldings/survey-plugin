@@ -17,30 +17,6 @@ class SurveyAnswer extends SurveyAppModel {
 		),
 	);
 	
-	var $belongsTo = array(
-		'SurveyContact' => array(
-			'className' => 'Survey.SurveyContact',
-			'foreignKey' => 'survey_contact_id',
-		)
-	);
-	
-	/**
-	  * Set the options and pass them into parent::export
-	  * @return array of data to be displayed as csv file
-	  */
-	function export(){
-	  $options = array(
-	    'contain' => array('SurveyContact.email'),
-	    'conditions' => array(
-	      'OR' => array(
-	        array('SurveyAnswer.survey_contact_id' => false),
-	        $this->getIgnoreConditions()
-	      )
-	     )
-	  );
-	  return parent::export($options);
-	}
-	
 	/**
 		* Save the data, set validation to false
 		* @param array data
@@ -85,46 +61,10 @@ class SurveyAnswer extends SurveyAppModel {
 	        array( //answers that don't have an email
 	          'SurveyAnswer.created >=' => $start_date,
 	          'SurveyAnswer.created <=' => $end_date,
-	          'SurveyAnswer.survey_contact_id' => '0'
-	        ),
-	        array( //answers that do have an email tied to them.
-	          'SurveyContact.created >=' => $start_date,
-	          'SurveyContact.created <=' => $end_date,
-	          $email_conditions
 	        )
 	      )
 	    ),
-	    'contain' => array('SurveyContact.id')
-	  ));
-	  
-	  $other_brands = $this->find('all', array(
-	    'conditions' => array(
-	      'SurveyContact.created >=' => $start_date,
-	      'SurveyContact.created <=' => $end_date,
-	      array(
-	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'Oticon'),
-	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'Beltone'),
-	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'Phonak'),
-	        array('SurveyAnswer.question' => '5_what_brand', 'SurveyAnswer.answer !=' => 'MiracleEar'),
-	      ),
-	      $email_conditions,
-	    ),
-	    'contain' => array('SurveyContact.id')
-	  ));
-	  	  
-	  //Base on age question.
-	  $without_email_count = $this->find('count', array(
-	    'conditions' => array(
-	      'SurveyAnswer.created >=' => $start_date,
-        'SurveyAnswer.created <=' => $end_date,
-        'SurveyAnswer.survey_contact_id' => '0',
-        'SurveyAnswer.question' => '1_age'
-	    )
-	  ));
-	  	  
-	  $contacts = $this->SurveyContact->find('all', array(
-	    'conditions' => array_merge($conditions,$email_conditions),
-	    'recursive' => -1
+	    'contain' => array()
 	  ));
 	  
 	  $opt_ins = ClassRegistry::init('Survey.SurveyOptIn')->find('count', array(
@@ -139,39 +79,12 @@ class SurveyAnswer extends SurveyAppModel {
 	  
 	  $retval = array(
 	    'total' => array(
-        'with_email' => 0,
-        'without_email' => 0,
         'opt_in' => 0,
         'continue' => 0,
-        'participation' => 0,
-        'completed_survey' => 0,
-        'entered_give_away' => 0,
-        'purchases' => 0,
-        'oticon_purchases' => 0,
-        'beltone_purchases' => 0,
-        'phonak_purchases' => 0,
-        'miracle_ear_purchases' => 0,
-        'other_purchases' => 0,
-        'visit_clinic' => 0,
-        'not_visit_clinic' => 0,
-        'visit_clinic_no_purchase' => 0
 	    ),
 	    'percent' => array(
-	      'with_email' => 0,
         'opt_in' => 0,
         'continue' => 0,
-        'participation' => 0,
-        'completed_survey' => 0,
-        'entered_give_away' => 0,
-        'purchases' => 0,
-        'oticon_purchases' => 0,
-        'beltone_purchases' => 0,
-        'phonak_purchases' => 0,
-        'miracle_ear_purchases' => 0,
-        'other_purchases' => 0,
-        'visit_clinic' => 0,
-        'not_visit_clinic' => 0,
-        'visit_clinic_no_purchase' => 0,
 	    ),
 	    'age_range' => array(
 	      'under-18' => 0,
@@ -196,41 +109,11 @@ class SurveyAnswer extends SurveyAppModel {
 	  //Totals
 	  $retval['total']['opt_in'] = $opt_ins;
 	  $retval['total']['continue'] = $continue_clicks;
-	  $retval['total']['with_email'] = count($contacts);
-	  $retval['total']['without_email'] = $without_email_count;
-	  $retval['total']['participation'] = $retval['total']['with_email'] + $retval['total']['without_email'];
-	  $retval['total']['completed_survey'] = count(Set::extract('/SurveyContact[finished_survey=1]', $contacts));
-	  $retval['total']['entered_give_away'] = count(Set::extract('/SurveyContact[entered_give_away=1]', $contacts));
-	  $retval['total']['oticon_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Oticon]', $answers));
-	  $retval['total']['beltone_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Beltone]', $answers));
-	  $retval['total']['phonak_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=Phonak]', $answers));
-	  $retval['total']['miracle_ear_purchases'] = count(Set::extract('/SurveyAnswer[question=5_what_brand][answer=MiracleEar]', $answers));
-	  $retval['total']['other_purchases'] = count($other_brands); //since this is user defined we have to select it from the DB
-	  $retval['total']['purchases'] = count(Set::extract('/SurveyAnswer[question=4_purchase_hearing_aid][answer=Yes]', $answers));
-	  $retval['total']['visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=Yes]', $answers));
-	  $retval['total']['not_visit_clinic'] = count(Set::extract('/SurveyAnswer[question=3_visit_clinic][answer=No]', $answers));
-	  $retval['total']['have_apt_visit_clinic'] = count(Set::extract('/SurveyContact[made_appointment=1]', $contacts));
-	  $retval['total']['visit_clinic_no_purchase'] = $retval['total']['visit_clinic'] - $retval['total']['purchases'];
-	  
+
 	  //Percents
 	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['opt_in'], $page_views);
 	  $retval['percent']['continue'] = $this->__calculatePercent($retval['total']['continue'], $retval['total']['opt_in']);
-	  $retval['percent']['with_email'] = $this->__calculatePercent($retval['total']['with_email'], $retval['total']['opt_in']);
-	  $retval['percent']['participation'] = $this->__calculatePercent($retval['total']['participation'], $retval['total']['opt_in']);
-	  $retval['percent']['completed_survey'] = $this->__calculatePercent($retval['total']['completed_survey'], $retval['total']['with_email']);
-	  $retval['percent']['entered_give_away'] = $this->__calculatePercent($retval['total']['entered_give_away'], $retval['total']['completed_survey']);
-	  $retval['percent']['purchases'] = $this->__calculatePercent($retval['total']['purchases'], $retval['total']['completed_survey']);
-	  $retval['percent']['oticon_purchases'] = $this->__calculatePercent($retval['total']['oticon_purchases'], $retval['total']['completed_survey']);
-	  $retval['percent']['beltone_purchases'] = $this->__calculatePercent($retval['total']['beltone_purchases'], $retval['total']['completed_survey']);
-	  $retval['percent']['phonak_purchases'] = $this->__calculatePercent($retval['total']['phonak_purchases'], $retval['total']['completed_survey']);
-	  $retval['percent']['miracle_ear_purchases'] = $this->__calculatePercent($retval['total']['miracle_ear_purchases'], $retval['total']['completed_survey']);
-	  $retval['percent']['other_purchases'] = $this->__calculatePercent($retval['total']['other_purchases'], $retval['total']['completed_survey']);
-	  $retval['percent']['visit_clinic'] = $this->__calculatePercent($retval['total']['visit_clinic'], $retval['total']['completed_survey']);
-	  $retval['percent']['not_visit_clinic'] = $this->__calculatePercent($retval['total']['not_visit_clinic'], $retval['total']['completed_survey']);
-	  $retval['percent']['have_apt_visit_clinic'] = $this->__calculatePercent($retval['total']['have_apt_visit_clinic'], $retval['total']['completed_survey']);
-	  $retval['percent']['visit_clinic_no_purchase'] = $this->__calculatePercent($retval['total']['visit_clinic_no_purchase'], $retval['total']['completed_survey']);
-	  
-	  
+
 	  //Age Range
 	  $retval['age_range']['under-18'] = count(Set::extract('/SurveyAnswer[answer=under-18]', $answers));
 	  $retval['age_range']['18-39'] = count(Set::extract('/SurveyAnswer[answer=18-39]', $answers));
@@ -256,9 +139,6 @@ class SurveyAnswer extends SurveyAppModel {
 	  foreach($retval['likely'] as $value){
 	    $retval['likely']['total'] += $value;
 	  }
-	  
-	  //Other purchases
-	  $retval['other_brands'] = Set::extract('/SurveyAnswer/answer',$other_brands);
 	  	  
 	  return $retval;
 	}

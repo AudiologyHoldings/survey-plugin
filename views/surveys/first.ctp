@@ -38,7 +38,7 @@
       <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <div id="one">
-        	<?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_survey'), 'onsubmit' => 'SP.nextPage(); return false;')); ?>
+        	<?php echo $this->Form->create('SurveyAnswer', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'), 'onsubmit' => 'SP.nextPage(); return false;')); ?>
           <h2>Thanks for helping!</h2>
           <p class="pop_text">
             <b>Complete our short 3 question survey and we will use the results to<br />
@@ -102,33 +102,23 @@
           <?php echo $this->Form->end(); ?>
         </div>
         <div id="two" style="display:none;">
-        	<?php echo $this->Form->create(); ?>
+        	<?php echo $this->Form->create('Contact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_email'))); ?>
           <h2>You're almost done!</h2>
           <p class="pop_text">
             <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription<br />
             and send you a copy of our Free Comprehensive Guide to Hearing Aids and Hearing Loss.
           </p>
-          <h2 class="no_margin">We will only contact you for the follow-up survey.</h2>
           <div class="pop_questions">
-            <div class="gift_card">
-              <?php /*echo $this->Html->image('/survey/img/gift_card.png') */?>
-            </div>
             <div class="email">
-              <!-- <span class="vcard">
-                <?php /*echo $this->Html->image('/survey/img/popup_contact.png', array('id' => 'img_roledex')); */?>
-                <p>
-                  &nbsp;&nbsp;&nbsp;<?php echo $this->Html->link('Click here to add us to your address book.', array('action' => 'reply_email', 'ext' => 'vcf')) ?><br />
-                  &nbsp;&nbsp;&nbsp;Our email is <?php echo Configure::read('Survey.email'); ?>
-                </p>
-              </span> -->
               <div class="clear_left">
-                <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address:', 'id' => 'SurveyContactEmail')); ?>
+                <?php echo $this->Form->input('Contact.first_name', array('label' => 'First Name:')); ?>
+                <?php echo $this->Form->input('Contact.last_name', array('label' => 'Last Name:')); ?>
+                <?php echo $this->Form->input('Contact.email', array('label' => 'Email Address:')); ?>
+                <?php echo $this->Form->input('Contact.zip', array('label' => 'Zip Code:')); ?>
               </div>
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>
-            <h4>This survey is for research purposes only</h4>
             <h4>We will not share your information or send unsolicited emails.</h4><br />
-            <span class="small">*You must be 18 years or older to enter $500 monthly drawing</span>
           </div>
           
           <div class="pop_button pop_submit">

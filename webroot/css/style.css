@@ -115,6 +115,11 @@ div.pop_body, div#pop_body {
   height: 210px;
   margin: auto;
 }
+#two .text {
+	float: left;
+	width: 450px;
+	margin-bottom: 10px;
+}
 div.white_box {
   background: white;
   color: black;
@@ -218,7 +223,7 @@ div.gift_card {
   display: block;
 }
 #popup div.text input[type=text], #final_survey div.text input[type=text] {
-  width: 450px;
+  width: 400px;
   height: 35px;
   font-size: 1.5em;
   border: 1px solid #ccc; /* grey */
