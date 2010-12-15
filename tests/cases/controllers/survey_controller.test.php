@@ -56,6 +56,8 @@ class SurveysControllerTestCase extends CakeTestCase {
 		'app.s_cat_subscription',
 		'app.s_corp_subscription',
 		'app.su_join',
+		'app.zipcode',
+		'app.zip',
 		/* Plugin */
     'plugin.survey.survey_answer',
     'plugin.survey.survey_opt_in',
@@ -64,6 +66,7 @@ class SurveysControllerTestCase extends CakeTestCase {
   
 	function startTest() {
 		$this->Surveys = new TestSurveysController();
+		$this->Surveys->Contact = ClassRegistry::init('Contact');
 		$this->Surveys->SurveyAnswer = ClassRegistry::init('Survey.SurveyAnswer');
 		$this->Surveys->SurveyOptIn = ClassRegistry::init('Survey.SurveyOptIn');
 		$this->Surveys->SurveyParticipant = ClassRegistry::init('Survey.SurveyParticipant');

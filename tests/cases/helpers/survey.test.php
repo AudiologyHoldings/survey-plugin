@@ -96,14 +96,14 @@ class SurveyHelperTest extends CakeTestCase {
     $log = false;
     $this->assertTrue($this->Survey->showPopup($log));
   }
-  
-  function testShowPopupShouldNotShowPopup(){
+  //Depreciated
+  /*function testShowPopupShouldNotShowPopup(){
     $this->Survey->View->expectOnce('element', array('survey_sidebar', array('plugin' => 'survey')));
     $this->Survey->Cookie->expectNever('write');
     $this->Survey->Cookie->setReturnValue('read', true);
     $log = false;
     $this->assertFalse($this->Survey->showPopup($log));
-  }
+  }*/
   
   function endTest(){
     unset($this->Survey);
