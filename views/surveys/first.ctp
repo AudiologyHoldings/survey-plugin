@@ -14,21 +14,11 @@
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <h2>Thank you for your help!</h2>
         <p class="pop_text">
-          <strong>$1 has been donated to the House Ear Institute on your behalf.</strong>
-          <br /><br />
-          <strong>Be sure to check your inbox.</strong> You will get confirmation of your donation<br />
-          and it will also tell you how you can enter to <strong>win $500</strong> by participating<br />
-          in a short 3 question follow-up survey.
+          <strong>You are now signed up for our email Newsletters and we will be sending you a <br />
+          copy of our Free Consumer's Guide To Hearing Aids! Please click the CLOSE<br />
+          button below to close this window and continue browsing.
         </p>
-        <div class="white_box pop_thanks center">
-          <h3>Who is the House Ear Institute?</h3>
-          <div class="float_right"><?php echo $this->Html->image('/survey/img/house_ear_institute.png'); ?></div>
-          <p class="q_text">
-            The House Ear Institute is a non-profit organization<br />
-            dedicated to advancing hearing science through<br />
-            research and education to improve quality of life.
-          </p>
-        </div>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         
         <div class="pop_button">
           <?php echo $this->Html->image('/survey/img/btn_close.png', array('class' => 'hand', 'class' => 'btn_close hand')) ?>
