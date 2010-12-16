@@ -31,7 +31,7 @@
       <?php if(!empty($locations)): ?>
       	<h4>Hearing Care Professionals in your Area</h4>
       	<p>
-      		You listed your zip code as <?php echo $contact['Contact']['zip']; ?>, below is a list of <?php echo count($locations); ?> hearing care professionals in your area.<br />
+      		You listed your zip code as <?php echo $contact['Contact']['zip']; ?>, below is a list of hearing care professionals in your area.<br />
       		<?php echo $this->element('findaprofessional/location_list',array('locations'=>$locations, 'host' => $host)); ?>
       	</p>
       	<br /><br />
