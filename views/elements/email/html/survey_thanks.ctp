@@ -1,5 +1,15 @@
 <?php
   $base_path = "http://{$_SERVER['HTTP_HOST']}";
+  
+  $host = '';
+  switch(Configure::read('env')){
+		case 'dev':
+			$host = 'dev.healthyhearing.com';
+			break;
+		default:
+			$host = 'www.healthyhearing.com';
+			break;
+  }
 ?>
 <table width="600" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="margin: auto;">
   <tr>
@@ -22,7 +32,7 @@
       	<h4>Hearing Care Professionals in your Area</h4>
       	<p>
       		You listed your zip code as <?php echo $contact['Contact']['zip']; ?>, below is a list of <?php echo count($locations); ?> hearing care professionals in your area.<br />
-      		<?php echo $this->element('findaprofessional/location_list',array('locations'=>$locations)); ?>
+      		<?php echo $this->element('findaprofessional/location_list',array('locations'=>$locations, 'host' => $host)); ?>
       	</p>
       	<br /><br />
       <?php endif; ?>
