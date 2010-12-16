@@ -47,7 +47,7 @@ class SurveysController extends SurveyAppController {
   		else {
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;
-  				return array_shift(array_values($this->Contact->validationErrors));
+  				return 'ERROR: ' . array_shift(array_values($this->Contact->validationErrors));
   			}
   		}
   	}
