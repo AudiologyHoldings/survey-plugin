@@ -50,6 +50,71 @@ class SurveyAnswer extends SurveyAppModel {
 	}
 	
 	/**
+	  * Get the contact and answers of the final contact data organized for csv
+	  */
+	function exportFinal(){
+	  $headers = array(
+	    'Survey' => array(
+	      'first_name' => 'first_name',
+	      'last_name' => 'last_name',
+	      'zip' => 'zip',
+	      'email' => 'email',   
+	      'created' => 'created',
+	      '1_age' => '1_age',
+	      '2_likely_to_schedule' => '2_likely_to_schedule',
+	    )
+	  );
+	  
+	  $answers = $this->find('all', array(
+	    'conditions' => array(
+	    	'OR' => array(
+	    		$this->getIgnoreConditions(),
+	    		array('SurveyAnswer.survey_contact_id' => '0')
+	    	),
+	    	'AND' => array(
+	    		'OR' => array(
+	    			array('SurveyAnswer.question' => '1_age'),
+	    			array('SurveyAnswer.question' => '2_likely_to_schedule')
+	    		)
+	    	)
+	    ),
+	    'contain' => array('SurveyContact')
+	  ));
+	  	  
+	  $data = array($headers);
+	  
+	  for($i = 0; $i<count($answers); $i += 2){
+	  	//if the answer is one of the first two, otherwise skip it entirely.
+	  	if($answers[$i]['SurveyAnswer']['question'] == '1_age' || $answers[$i]['SurveyAnswer']['question'] == '2_likely_to_shcedule'){
+				$y = $i + 1;
+				$row = array(
+					'Survey' => array(
+						'first_name' => '',
+						'last_name' => '',
+						'zip' => '',
+						'email' => '',
+						'created' => '',
+						'1_age' => '',
+						'2_likely_to_schedule' => '',
+					)
+				);
+				if(!empty($answers[$i]['SurveyContact']['first_name'])){
+					$row['Survey']['first_name'] = $answers[$i]['SurveyContact']['first_name'];
+					$row['Survey']['last_name'] = $answers[$i]['SurveyContact']['last_name'];
+					$row['Survey']['zip'] = $answers[$i]['SurveyContact']['zip'];
+					$row['Survey']['email'] = $answers[$i]['SurveyContact']['email'];
+				}
+				$row['Survey']['created'] = $answers[$i]['SurveyAnswer']['created'];
+				$row['Survey'][$answers[$i]['SurveyAnswer']['question']] = $answers[$i]['SurveyAnswer']['answer'];
+				@$row['Survey'][$answers[$y]['SurveyAnswer']['question']] = $answers[$y]['SurveyAnswer']['answer'];
+				$data[] = $row;
+	  	}
+	  }
+	  
+	  return $data;
+	}
+	
+	/**
 	  * Find the report based on data based in
 	  *
 	  * @param array of data to base report on

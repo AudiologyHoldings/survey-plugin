@@ -136,7 +136,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Session->setReturnValue('read', array(14.13));
 	  $this->Surveys->Email->expectNever('send');
-	  $this->assertEqual('ERROR: Please enter a first name', $this->Surveys->save_email());
+	  $this->assertEqual('ERROR: Please enter a first name.', $this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	}
 	

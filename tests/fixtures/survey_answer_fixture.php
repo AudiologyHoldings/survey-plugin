@@ -29,27 +29,6 @@ class SurveyAnswerFixture extends CakeTestFixture {
 			'created' => '2010-07-27 22:52:40'
 		),
 		array(
-			'id' => 3,
-			'question' => '3_visit_clinic',
-			'answer' => 'Yes',
-			'survey_contact_id' => '0',
-			'created' => '2010-07-27 22:52:40'
-		),
-		array(
-			'id' => 4,
-			'question' => '4_purchase_hearing_aid',
-			'answer' => 'Yes',
-			'survey_contact_id' => '0',
-			'created' => '2010-07-27 22:52:40'
-		),
-		array(
-			'id' => 5,
-			'question' => '5_what_brand',
-			'answer' => 'Oticon',
-			'survey_contact_id' => '0',
-			'created' => '2010-07-27 22:52:40'
-		),
-		array(
 			'id' => 6,
 			'question' => '1_age',
 			'answer' => '80plus',
@@ -79,10 +58,10 @@ class SurveyAnswerFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 10,
-			'question' => '3_visit_clinic',
+			'question' => '3_visited_clinic', //This answer should be ignored on report
 			'answer' => 'No',
 			'survey_contact_id' => '0',
-			'created' => '2010-09-27 22:52:40'
+			'created' => '2010-07-27 22:52:40'
 		),
 		array(
 			'id' => 11,
@@ -102,35 +81,14 @@ class SurveyAnswerFixture extends CakeTestFixture {
 			'id' => 13,
 			'question' => '1_age',
 			'answer' => '50-59',
-			'survey_contact_id' => '0',
+			'survey_contact_id' => '2',
 			'created' => '2010-07-27 22:52:40'
 		),
 		array(
 			'id' => 14,
 			'question' => '2_likely_to_schedule',
 			'answer' => '6',
-			'survey_contact_id' => '0',
-			'created' => '2010-07-27 22:52:40'
-		),
-		array(
-			'id' => 15,
-			'question' => '3_visit_clinic',
-			'answer' => 'Yes',
-			'survey_contact_id' => '0',
-			'created' => '2010-07-27 22:52:40'
-		),
-		array(
-			'id' => 16,
-			'question' => '4_purchase_hearing_aid',
-			'answer' => 'Yes',
-			'survey_contact_id' => '0',
-			'created' => '2010-07-27 22:52:40'
-		),
-		array(
-			'id' => 17,
-			'question' => '5_what_brand',
-			'answer' => 'Other',
-			'survey_contact_id' => '0',
+			'survey_contact_id' => '2',
 			'created' => '2010-07-27 22:52:40'
 		),
 	);

@@ -25,8 +25,8 @@ class SurveyContactFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 2,
-			'first_name' => '',
-			'last_name' => '',
+			'first_name' => 'Nick',
+			'last_name' => 'Baker',
 			'email' => 'nick@example.com',
 			'zip' => '12345',
 			'created' => '2010-07-27 22:54:48'

@@ -14,6 +14,23 @@ class SurveyAnswerTestCase extends CakeTestCase {
 		$this->SurveyAnswer =& ClassRegistry::init('SurveyAnswer');
 	}
 	
+	function testExportFinal(){
+		$results = $this->SurveyAnswer->exportFinal();
+		$this->assertEqual(5, count($results));
+		$keys = array(
+			'first_name',
+			'last_name',
+			'zip',
+			'email',
+			'created',
+			'1_age',
+			'2_likely_to_schedule',
+		);
+		foreach($results as $result){
+			$this->assertEqual($keys, array_keys($result['Survey']));
+		}
+	}
+	
 	function testSaveDataShouldReturnAllIdsCreated(){
 		$data = array(
 			array(
@@ -28,7 +45,7 @@ class SurveyAnswerTestCase extends CakeTestCase {
 		$count = $this->SurveyAnswer->find('count');
 		$this->assertTrue($this->SurveyAnswer->saveData($data));
 		
-		$expected = array(19,18);
+		$expected = array(16,15);
 		$results = $this->SurveyAnswer->getLastTwoInsertedIDs();
 		$this->assertEqual($expected, $results);
 		

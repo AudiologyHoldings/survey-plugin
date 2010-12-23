@@ -147,34 +147,39 @@ class SurveysController extends SurveyAppController {
 	/**
     * CSV export system.
     */
-  function export($type = 'answers'){
-    $this->helpers[] = 'Survey.Csv';
-    $this->layout = 'csv';
-    if($this->RequestHandler->ext != 'csv'){
-	    $this->redirect(array('action' => 'export', 'ext' => 'csv', $type));
-	  }
-	  
-	  switch($type){
-	    case 'answers':
-        $model = 'SurveyAnswer';
-        $data = ClassRegistry::init('Survey.SurveyAnswer')->export();
-	      $filename = 'answers.csv';
-	      break;
-	    case 'participants':
-        $model = 'SurveyParticpant';
-        $data = ClassRegistry::init('Survey.SurveyParticpant')->export();
-	      $filename = 'particpants.csv';
-	      break;
-	    case 'opt_ins':
-        $model = 'SurveyOptIn';
-        $data = ClassRegistry::init('Survey.SurveyOptIn')->export();
-	      $filename = 'opt_ins.csv';
-	      break;
-	    default: $this->redirect('/');
-	  }
-	  	  
-	  $this->set(compact('data','filename','model'));
-  }
+    function export($type = 'finals'){
+    	$this->helpers[] = 'Survey.Csv';
+    	$this->layout = 'csv';
+    	if($this->RequestHandler->ext != 'csv'){
+    		$this->redirect(array('action' => 'export', 'ext' => 'csv', $type));
+    	}
+    	
+    	switch($type){
+				case 'answers':
+					$model = 'SurveyAnswer';
+					$data = ClassRegistry::init('Survey.SurveyAnswer')->export();
+					$filename = 'answers.csv';
+					break;
+				case 'participants':
+					$model = 'SurveyParticpant';
+					$data = ClassRegistry::init('Survey.SurveyParticpant')->export();
+					$filename = 'particpants.csv';
+					break;
+				case 'opt_ins':
+					$model = 'SurveyOptIn';
+					$data = ClassRegistry::init('Survey.SurveyOptIn')->export();
+					$filename = 'opt_ins.csv';
+					break;
+				case 'finals':
+					$model = 'Survey';
+					$data = $this->SurveyAnswer->exportFinal();
+					$filename = 'finals.csv';
+					break;
+    		default: $this->redirect('/');
+    	}
+    	
+    	$this->set(compact('data','filename','model'));
+    }
 	
 	/**
 	  * This will create a new record of the day/time the "I WILL HELP" button was clicked
@@ -193,6 +198,27 @@ class SurveysController extends SurveyAppController {
       $results = $this->SurveyAnswer->findReport($this->data);
       $this->set('results', $results);
     }
+  }
+  
+  /**
+    * Search for contacts by their email.
+    */
+  function admin_search(){
+    if(!empty($this->data)){
+      $contacts = $this->SurveyContact->findAllByEmail($this->data);
+      $this->set('contacts', $contacts);
+    }
+  }
+  
+  /**
+    * Delete a specific contact and their answers.
+    */
+  function admin_delete($id = null){
+    $this->SurveyContact->contain();
+    if($id && $this->SurveyContact->findById($id)){
+      $this->SurveyContact->delete($id);
+    }
+    $this->redirect(array('prefix' => 'admin', 'action' => 'search'));
   }
 }
 ?>

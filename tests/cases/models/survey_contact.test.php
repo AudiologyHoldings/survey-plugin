@@ -27,7 +27,7 @@ class SurveyContactTestCase extends CakeTestCase {
 				'email' => 'nick@newemail.com'
 			)
 		);
-		$answer_ids = array(14,13);
+		$answer_ids = array(9,8);
 		
 		$answers = $this->SurveyContact->SurveyAnswer->find('all', array(
 			'conditions' => array(

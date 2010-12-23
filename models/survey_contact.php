@@ -7,13 +7,13 @@ class SurveyContact extends SurveyAppModel {
 		'first_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				'message' => 'Please enter a first name'
+				'message' => 'Please enter a first name.'
 			),
 		),
 		'last_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				'message' => 'Please enter a last name'
+				'message' => 'Please enter a last name.'
 			),
 		),
 		'email' => array(
@@ -78,7 +78,7 @@ class SurveyContact extends SurveyAppModel {
 			if(is_array($survey_answer_ids) && !empty($survey_answer_ids)){
 				foreach($survey_answer_ids as $id){
 					if($id){
-						//$this->log("saving answerId: $id with survey_contact_id: {$this->id}", 'survey_debug');
+						$this->log("saving answerId: $id with survey_contact_id: {$this->id}", 'survey_debug');
 						$this->SurveyAnswer->id = $id;
 						$retval = $this->SurveyAnswer->saveField('survey_contact_id', $this->id);
 					}
@@ -164,57 +164,6 @@ class SurveyContact extends SurveyAppModel {
 	    'conditions' => $this->getIgnoreConditions()
 	  );
 	  return parent::export($options);
-	}
-
-	/**
-	  * Get the contact and answers of the final contact data organized for csv
-	  */
-	function exportFinal(){
-	  $headers = array(
-	    'SurveyContact' => array(
-	      'id' => 'id',
-	      'first_name' => 'first_name',
-	      'last_name' => 'last_name',
-	      'email' => 'email',
-	      'zip' => 'zip',	      
-	      'created' => 'created',
-	      '1_age' => '1_age',
-	      '2_likely_to_schedule' => '2_likely_to_schedule',
-	    )
-	  );
-	  
-	  $contacts = $this->find('all', array(
-	    'conditions' => array(
-	      $this->getIgnoreConditions()
-	    ),
-	    'contain' => array('SurveyAnswer')
-	  ));
-	  
-	  $data = array($headers);
-	  
-	  foreach($contacts as $record){
-	    $row = array(
-	      'SurveyContact' => array(
-	        'id' => $record['SurveyContact']['id'],
-	        'first_name' => $record['SurveyContact']['first_name'],
-	        'last_name' => $record['SurveyContact']['last_name'],
-	        'zip' => $record['SurveyContact']['zip'],
-	        'email' => $record['SurveyContact']['email'],
-	        'created' => $record['SurveyContact']['created'],
-	        '1_age' => '',
-	        '2_likely_to_schedule' => '',
-	        '3_visit_clinic' => '',
-	        '4_purchase_hearing_aid' => '',
-	        '5_what_brand' => '',
-	      )
-	    );
-	    foreach($record['SurveyAnswer'] as $answer){
-	      $row['SurveyContact'][$answer['question']] = $answer['answer'];
-	    }
-	    $data[] = $row;
-	  }
-	  
-	  return $data;
 	}
 	
 	/**
