@@ -8,7 +8,7 @@ class SurveysController extends SurveyAppController {
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
-  var $uses = array('Survey.SurveyAnswer','Contact');
+  var $uses = array('Survey.SurveyAnswer','Survey.SurveyContact');
   
   var $components = array('RequestHandler','Session','Security','Email');
   
@@ -31,13 +31,37 @@ class SurveysController extends SurveyAppController {
   }
   
   /**
+  	* Save the survey 2 questions.
+  	*/
+	function first(){
+		if(!empty($this->data)){
+			if($this->SurveyAnswer->saveData($this->data['SurveyAnswer'])){
+				if($this->RequestHandler->isAjax()){
+					$this->autoRender = false;
+					$this->Session->write('Survey.answer_ids', $this->SurveyAnswer->getLastTwoInsertedIDs());
+					return true;
+				}
+			}
+			else {
+				if($this->RequestHandler->isAjax()){
+					$this->autoRender = false;
+					return 'ERROR: Both answers are required';
+				}
+			}
+		}
+		else {
+			$this->__saveOptIn();
+		}
+		$this->set('start_page', 'one');
+	}
+  
+  /**
   	* Save the second half of the survey, email, name, zip, etc. and send thanks
-  	* @TODO SEND THE HAPPY EMAIL
   	*/
   function save_email(){
   	if(!empty($this->data)){
-  		if($this->Contact->save($this->data)){
-  			$this->__sendEmail($this->Contact->id); //Send the email
+  		if($this->SurveyContact->saveData($this->data, $this->Session->read('Survey.answer_ids'))){
+  			$this->__sendEmail($this->SurveyContact->id); //Send the email
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;
   				return true;
@@ -47,28 +71,11 @@ class SurveysController extends SurveyAppController {
   		else {
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;
-  				return 'ERROR: ' . array_shift(array_values($this->Contact->validationErrors));
+  				return 'ERROR: ' . array_shift(array_values($this->SurveyContact->validationErrors));
   			}
   		}
   	}
   }
-  
-  /**
-  	* Save the survey 2 questions.
-  	*/
-	function first(){
-		if(!empty($this->data)){
-			$this->SurveyAnswer->saveData($this->data['SurveyAnswer']);
-			if($this->RequestHandler->isAjax()){
-				$this->autoRender = false;
-				return true;
-			}
-		}
-		else {
-			$this->__saveOptIn();
-		}
-		$this->set('start_page', 'one');
-	}
 	
   /**
     * Save a participant (Continue click)
@@ -106,13 +113,13 @@ class SurveysController extends SurveyAppController {
       ),
       $options
     );
-    $this->Contact->contain();
-    $contact = $this->Contact->findById($id);
-    if($contact && isset($contact['Contact']['email'])){
-    	$locations = $this->Contact->findLocations($id);
-      $this->log("Sending {$options['template']} to {$contact['Contact']['email']}", 'email');
+    $this->SurveyContact->contain();
+    $contact = $this->SurveyContact->findById($id);
+    if($contact && isset($contact['SurveyContact']['email'])){
+    	$locations = ClassRegistry::init('Location')->findAllByZip($contact['SurveyContact']['zip']);
+      $this->log("Sending {$options['template']} to {$contact['SurveyContact']['email']}", 'email');
       $this->Email->reset();
-      $this->Email->to = $contact['Contact']['email'];
+      $this->Email->to = $contact['SurveyContact']['email'];
       $this->Email->subject = $options['subject'];
       $this->Email->template = $options['template'];
       $this->Email->sendAs = 'html';

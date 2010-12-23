@@ -7,14 +7,23 @@ class SurveyAnswer extends SurveyAppModel {
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Question key must not be empty.',
+				'required' => true,
 			),
 		),
 		'answer' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Answer is required.',
+				'required' => true
 			),
 		),
+	);
+	
+	var $belongsTo = array(
+		'SurveyContact' => array(
+			'className' => 'Survey.SurveyContact',
+			'foreignKey' => 'survey_contact_id',
+		)
 	);
 	
 	/**
@@ -24,13 +33,20 @@ class SurveyAnswer extends SurveyAppModel {
 		* @return boolean of success
 		*/
 	function saveData($data, $options = array()){
-		//Clean out blank answers
-	  foreach($data as $key => $answer){
+	  //Because we need the ids inserted we have to itterate throught them one at a time
+		return $this->saveAll($data, $options);
+	}
+	
+	/**
+		* Clear the blank answers from the data array
+		*/
+	function clearEmpty($data){
+		foreach($data as $key => $answer){
 	    if(!$answer['answer']){
 	      unset($data[$key]);
 	    }
 	  }
-		return $this->saveAll($data, $options);
+	  return $data;
 	}
 	
 	/**

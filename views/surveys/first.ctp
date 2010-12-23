@@ -86,14 +86,15 @@
               </td>
             </tr>
           </table>
+          <div class="error-message float_left" id="QuestionError">&nbsp;<!-- Update with error messages with javascript --></div>
           
-          <div class="pop_button pop_submit">
+          <div class="pop_button_error pop_submit">
           	<?php echo $this->Form->submit('/survey/img/btn_continue.png', array('class' => 'hand', 'id' => 'btn_continue')); ?>
           </div>
           <?php echo $this->Form->end(); ?>
         </div>
         <div id="two" style="display:none;">
-        	<?php echo $this->Form->create('Contact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_email'))); ?>
+        	<?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_email'))); ?>
           <h2>You're almost done!</h2>
           <p class="pop_text">
             <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription<br />
@@ -103,10 +104,10 @@
           <div class="pop_questions">
             <div class="email">
               <div class="clear_left">
-                <?php echo $this->Form->input('Contact.first_name', array('label' => 'First Name: *')); ?>
-                <?php echo $this->Form->input('Contact.last_name', array('label' => 'Last Name: *')); ?>
-                <?php echo $this->Form->input('Contact.email', array('label' => 'Email Address: *')); ?>
-                <?php echo $this->Form->input('Contact.zip', array('label' => 'Zip Code: *')); ?>
+                <?php echo $this->Form->input('SurveyContact.first_name', array('label' => 'First Name: *')); ?>
+                <?php echo $this->Form->input('SurveyContact.last_name', array('label' => 'Last Name: *')); ?>
+                <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address: *')); ?>
+                <?php echo $this->Form->input('SurveyContact.zip', array('label' => 'Zip Code: *')); ?>
               </div>
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>

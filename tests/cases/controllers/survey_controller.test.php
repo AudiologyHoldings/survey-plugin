@@ -59,6 +59,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 		'app.zipcode',
 		'app.zip',
 		/* Plugin */
+    'plugin.survey.survey_contact',
     'plugin.survey.survey_answer',
     'plugin.survey.survey_opt_in',
     'plugin.survey.survey_participant',
@@ -68,6 +69,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 		$this->Surveys = new TestSurveysController();
 		$this->Surveys->Contact = ClassRegistry::init('Contact');
 		$this->Surveys->SurveyAnswer = ClassRegistry::init('Survey.SurveyAnswer');
+		$this->Surveys->SurveyContact = ClassRegistry::init('Survey.SurveyContact');
 		$this->Surveys->SurveyOptIn = ClassRegistry::init('Survey.SurveyOptIn');
 		$this->Surveys->SurveyParticipant = ClassRegistry::init('Survey.SurveyParticipant');
 		$this->Surveys->Auth = new MockAuthComponent();
@@ -106,24 +108,25 @@ class SurveysControllerTestCase extends CakeTestCase {
 	
 	function testShouldReturnTrueIfAjax(){
 	  $this->Surveys->data = array(
-	    'Contact' => array(
+	    'SurveyContact' => array(
 	    	'first_name' => 'Nick',
 	    	'last_name' => 'Nick',
-	    	'email' => 'nurvzy@gmail.com',
+	    	'email' => 'not@taken.com',
 	    	'zip' => '90210',
 	    )
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Email->expectOnce('send');
+	  $this->Surveys->Session->setReturnValue('read', array(14.13));
 	  $this->assertTrue($this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);
-	  $this->assertEqual('nurvzy@gmail.com', $this->Surveys->Email->to);
+	  $this->assertEqual('not@taken.com', $this->Surveys->Email->to);
 	  $this->assertEqual('survey_thanks', $this->Surveys->Email->template);
 	}
 	
 	function testShouldReturnValidationErrorIfAjaxAndNotValid(){
 	  $this->Surveys->data = array(
-	    'Contact' => array(
+	    'SurveyContact' => array(
 	    	'first_name' => '',
 	    	'last_name' => '',
 	    	'email' => '',
@@ -131,8 +134,25 @@ class SurveysControllerTestCase extends CakeTestCase {
 	    )
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
+	  $this->Surveys->Session->setReturnValue('read', array(14.13));
 	  $this->Surveys->Email->expectNever('send');
-	  $this->assertEqual('Email Must be a valid.', $this->Surveys->save_email());
+	  $this->assertEqual('ERROR: Please enter a first name', $this->Surveys->save_email());
+	  $this->assertFalse($this->Surveys->redirectUrl);
+	}
+	
+	function testShouldReturnValidationErrorIfAjaxAndNotValidEmail(){
+	  $this->Surveys->data = array(
+	    'SurveyContact' => array(
+	    	'first_name' => 'Nick',
+	    	'last_name' => 'Baker',
+	    	'email' => 'nurvzy@gmail.com',
+	    	'zip' => '90210',
+	    )
+	  );
+	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
+	  $this->Surveys->Session->setReturnValue('read', array(14.13));
+	  $this->Surveys->Email->expectNever('send');
+	  $this->assertEqual('ERROR: Unique Email must be present.', $this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	}
 	

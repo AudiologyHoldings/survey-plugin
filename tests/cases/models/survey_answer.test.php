@@ -4,6 +4,7 @@ App::import('Model', 'survey.SurveyAnswer');
 
 class SurveyAnswerTestCase extends CakeTestCase {
 	var $fixtures = array(
+	  'plugin.survey.survey_contact',
 	  'plugin.survey.survey_answer',
 	  'plugin.survey.survey_opt_in',
 	  'plugin.survey.survey_participant',
@@ -13,7 +14,28 @@ class SurveyAnswerTestCase extends CakeTestCase {
 		$this->SurveyAnswer =& ClassRegistry::init('SurveyAnswer');
 	}
 	
-	function testSaveDataShouldIgnoreBlankData(){
+	function testSaveDataShouldReturnAllIdsCreated(){
+		$data = array(
+			array(
+				'question' => '1_age',
+				'answer' => '80plus'
+			),
+			array(
+				'question' => '2_likely_to_schedule',
+				'answer' => '6'
+			),
+		);
+		$count = $this->SurveyAnswer->find('count');
+		$this->assertTrue($this->SurveyAnswer->saveData($data));
+		
+		$expected = array(19,18);
+		$results = $this->SurveyAnswer->getLastTwoInsertedIDs();
+		$this->assertEqual($expected, $results);
+		
+		$this->assertEqual($count + 2, $this->SurveyAnswer->find('count'));
+	}
+	
+	function testSaveDataShouldRequireBothData(){
 		$data = array(
 			array(
 				'question' => '1_age',
@@ -25,8 +47,8 @@ class SurveyAnswerTestCase extends CakeTestCase {
 			),
 		);
 		$count = $this->SurveyAnswer->find('count');
-		$this->assertTrue($this->SurveyAnswer->saveData($data));
-		$this->assertEqual($count + 1, $this->SurveyAnswer->find('count'));
+		$this->assertFalse($this->SurveyAnswer->saveData($data));
+		$this->assertEqual($count, $this->SurveyAnswer->find('count'));
 	}
 	
 	function testFindReport(){

@@ -45,6 +45,18 @@ var SurveyPopup = jQuery.Class.create({
   },
   
   /**
+  	* Handle the survey submit
+  	*/
+  surveySubmitResponse: function(data, textStatus){
+  	if(data == 1){
+  		this.page('two');
+  	}
+  	else {
+  		jQuery('#QuestionError').empty().append(data).show();
+    }
+  },
+  
+  /**
     * Handle the keypress, check for enter, if enter is found submit the form
     * @param event
     */
@@ -79,7 +91,6 @@ var SurveyPopup = jQuery.Class.create({
     * Save suvey answers
     */
   nextPage: function(){
-    this.page('two');
     //Ajax the continue was clicked
     jQuery.ajax({ 
         type: 'get', 
@@ -93,13 +104,6 @@ var SurveyPopup = jQuery.Class.create({
     		url:'/survey'
 		});
 	 return false;
-  },
-  
-  /**
-  	* Handle the survey submit
-  	*/
-  surveySubmitResponse: function(data, textStatus){
-    //DO NOTHING
   },
   
   /**

@@ -143,7 +143,7 @@ div.survey_question{
   text-align: left;
 }
 p.pop_text {
-  margin: 10px 0px 10px 0px;
+  margin: 0px 0px 10px 0px;
 }
 p.q_text {
   height: 70px;
@@ -171,6 +171,11 @@ div.error-message {
 div.pop_button {
   padding-top: 20px;
   text-align: center;
+  margin: auto;
+  clear: both;
+}
+div.pop_button_error{
+	text-align: center;
   margin: auto;
   clear: both;
 }

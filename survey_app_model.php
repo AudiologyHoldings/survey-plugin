@@ -29,10 +29,16 @@ class SurveyAppModel extends AppModel {
       case 'last':
         $options = array_merge(
           $options,
-          array('order' => "{$this->alias}.id DESC")
+          array('order' => "{$this->alias}.{$this->primaryKey} DESC")
         );
-        return parent::find('first', $options);    
-      default: 
+        return parent::find('first', $options);
+      case 'last_two' :
+      	$options = array_merge(
+          $options,
+          array('order' => "{$this->alias}.{$this->primaryKey} DESC",'limit' => '2')
+        );
+      	return parent::find('all', $options);
+      default:
         return parent::find($type, $options);
     }
   }
@@ -96,6 +102,17 @@ class SurveyAppModel extends AppModel {
 	    $retval[]['SurveyContact.email NOT LIKE'] = $email;
 	  }
 	  return $retval;
+	}
+	
+	/**
+		* Get the last two inserted IDs on a column,
+		*/
+	function getLastTwoInsertedIDs(){
+		$results = $this->find('last_two', array(
+			'contain' => array(), 
+			'fields' => array("{$this->alias}.{$this->primaryKey}")
+		));
+		return Set::extract("/{$this->alias}/{$this->primaryKey}", $results);
 	}
 }
 
