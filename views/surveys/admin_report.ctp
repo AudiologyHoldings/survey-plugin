@@ -32,6 +32,7 @@
           </tr>
           <?php echo $this->element('report_key', array('title' => 'Opt-in', 'key' => 'opt_in', 'suffix' => 'of Traffic', 'results' => $results, 'plugin' => 'survey')); ?>
           <?php echo $this->element('report_key', array('title' => 'Continue Clicks', 'key' => 'continue', 'suffix' => 'of Opt-in', 'results' => $results, 'plugin' => 'survey')); ?>
+          <?php echo $this->element('report_key', array('title' => 'Subscribed', 'key' => 'subscribed', 'suffix' => 'of Continued', 'results' => $results, 'plugin' => 'survey')); ?>
         </table>
         
         <h1 class="report">Age Range (<?php echo $results['age_range']['total'] ?>)</h1>

@@ -158,14 +158,25 @@ class SurveyAnswer extends SurveyAppModel {
 	    'recursive' => -1
 	  ));
 	  
+	  $subscribed_count = $this->find('count', array(
+	  	'conditions' => array(
+	  		'SurveyAnswer.created >=' => $start_date,
+	  		'SurveyAnswer.created <=' => $end_date,
+	  		'SurveyAnswer.survey_contact_id !=' => '0',
+	  		'SurveyAnswer.question' => '1_age'
+	  	)
+	  ));
+	  
 	  $retval = array(
 	    'total' => array(
         'opt_in' => 0,
         'continue' => 0,
+        'subscribed' => 0,
 	    ),
 	    'percent' => array(
         'opt_in' => 0,
         'continue' => 0,
+        'subscribed' => 0,
 	    ),
 	    'age_range' => array(
 	      'under-18' => 0,
@@ -190,10 +201,12 @@ class SurveyAnswer extends SurveyAppModel {
 	  //Totals
 	  $retval['total']['opt_in'] = $opt_ins;
 	  $retval['total']['continue'] = $continue_clicks;
+	  $retval['total']['subscribed'] = $subscribed_count;
 
 	  //Percents
 	  $retval['percent']['opt_in'] = $this->__calculatePercent($retval['total']['opt_in'], $page_views);
 	  $retval['percent']['continue'] = $this->__calculatePercent($retval['total']['continue'], $retval['total']['opt_in']);
+	  $retval['percent']['subscribed'] = $this->__calculatePercent($retval['total']['subscribed'], $retval['total']['continue']);
 
 	  //Age Range
 	  $retval['age_range']['under-18'] = count(Set::extract('/SurveyAnswer[answer=under-18]', $answers));
