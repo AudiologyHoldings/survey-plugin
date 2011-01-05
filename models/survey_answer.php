@@ -55,6 +55,7 @@ class SurveyAnswer extends SurveyAppModel {
 	function exportFinal(){
 	  $headers = array(
 	    'Survey' => array(
+	    	'id' => 'id',
 	      'first_name' => 'first_name',
 	      'last_name' => 'last_name',
 	      'zip' => 'zip',
@@ -78,7 +79,8 @@ class SurveyAnswer extends SurveyAppModel {
 	    		)
 	    	)
 	    ),
-	    'contain' => array('SurveyContact')
+	    'contain' => array('SurveyContact'),
+	    'order' => array('SurveyAnswer.created ASC')
 	  ));
 	  	  
 	  $data = array($headers);
@@ -89,6 +91,7 @@ class SurveyAnswer extends SurveyAppModel {
 				$y = $i + 1;
 				$row = array(
 					'Survey' => array(
+						'id' => '',
 						'first_name' => '',
 						'last_name' => '',
 						'zip' => '',
@@ -98,11 +101,13 @@ class SurveyAnswer extends SurveyAppModel {
 						'2_likely_to_schedule' => '',
 					)
 				);
+				@$row['Survey']['id'] = "{$answers[$i]['SurveyAnswer']['id']}-{$answers[$y]['SurveyAnswer']['id']}";
 				if(!empty($answers[$i]['SurveyContact']['first_name'])){
 					$row['Survey']['first_name'] = $answers[$i]['SurveyContact']['first_name'];
 					$row['Survey']['last_name'] = $answers[$i]['SurveyContact']['last_name'];
 					$row['Survey']['zip'] = $answers[$i]['SurveyContact']['zip'];
 					$row['Survey']['email'] = $answers[$i]['SurveyContact']['email'];
+					$row['Survey']['id'] .= "-{$answers[$i]['SurveyContact']['id']}";
 				}
 				$row['Survey']['created'] = $answers[$i]['SurveyAnswer']['created'];
 				$row['Survey'][$answers[$i]['SurveyAnswer']['question']] = $answers[$i]['SurveyAnswer']['answer'];
