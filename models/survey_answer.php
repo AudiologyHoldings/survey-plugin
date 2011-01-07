@@ -86,34 +86,31 @@ class SurveyAnswer extends SurveyAppModel {
 	  $data = array($headers);
 	  
 	  for($i = 0; $i<count($answers); $i += 2){
-	  	//if the answer is one of the first two, otherwise skip it entirely.
-	  	if($answers[$i]['SurveyAnswer']['question'] == '1_age' || $answers[$i]['SurveyAnswer']['question'] == '2_likely_to_shcedule'){
-				$y = $i + 1;
-				$row = array(
-					'Survey' => array(
-						'id' => '',
-						'first_name' => '',
-						'last_name' => '',
-						'zip' => '',
-						'email' => '',
-						'created' => '',
-						'1_age' => '',
-						'2_likely_to_schedule' => '',
-					)
-				);
-				@$row['Survey']['id'] = "{$answers[$i]['SurveyAnswer']['id']}-{$answers[$y]['SurveyAnswer']['id']}";
-				if(!empty($answers[$i]['SurveyContact']['first_name'])){
-					$row['Survey']['first_name'] = $answers[$i]['SurveyContact']['first_name'];
-					$row['Survey']['last_name'] = $answers[$i]['SurveyContact']['last_name'];
-					$row['Survey']['zip'] = $answers[$i]['SurveyContact']['zip'];
-					$row['Survey']['email'] = $answers[$i]['SurveyContact']['email'];
-					$row['Survey']['id'] .= "-{$answers[$i]['SurveyContact']['id']}";
-				}
-				$row['Survey']['created'] = $answers[$i]['SurveyAnswer']['created'];
-				$row['Survey'][$answers[$i]['SurveyAnswer']['question']] = $answers[$i]['SurveyAnswer']['answer'];
-				@$row['Survey'][$answers[$y]['SurveyAnswer']['question']] = $answers[$y]['SurveyAnswer']['answer'];
-				$data[] = $row;
-	  	}
+			$y = $i + 1;
+			$row = array(
+				'Survey' => array(
+					'id' => '',
+					'first_name' => '',
+					'last_name' => '',
+					'zip' => '',
+					'email' => '',
+					'created' => '',
+					'1_age' => '',
+					'2_likely_to_schedule' => '',
+				)
+			);
+			@$row['Survey']['id'] = "{$answers[$i]['SurveyAnswer']['id']}-{$answers[$y]['SurveyAnswer']['id']}";
+			if(!empty($answers[$i]['SurveyContact']['first_name'])){
+				$row['Survey']['first_name'] = $answers[$i]['SurveyContact']['first_name'];
+				$row['Survey']['last_name'] = $answers[$i]['SurveyContact']['last_name'];
+				$row['Survey']['zip'] = $answers[$i]['SurveyContact']['zip'];
+				$row['Survey']['email'] = $answers[$i]['SurveyContact']['email'];
+				$row['Survey']['id'] .= "-{$answers[$i]['SurveyContact']['id']}";
+			}
+			$row['Survey']['created'] = $answers[$i]['SurveyAnswer']['created'];
+			$row['Survey'][$answers[$i]['SurveyAnswer']['question']] = $answers[$i]['SurveyAnswer']['answer'];
+			@$row['Survey'][$answers[$y]['SurveyAnswer']['question']] = $answers[$y]['SurveyAnswer']['answer'];
+			$data[] = $row;
 	  }
 	  
 	  return $data;

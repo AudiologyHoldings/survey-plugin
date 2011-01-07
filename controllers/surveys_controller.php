@@ -24,7 +24,9 @@ class SurveysController extends SurveyAppController {
       'realm' => 'Survey'
     );
     $this->Security->loginUsers = SurveyUtil::getConfig('httpauth'); //users are set in config/survey.php
-    $this->Security->requireLogin('export','admin_delete');
+    if(!empty($this->Security->loginUsers)){
+    	$this->Security->requireLogin('export','admin_delete');
+    }
     if($this->RequestHandler->isAjax()){
       Configure::write('debug', 0);
     }
