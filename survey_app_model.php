@@ -99,7 +99,7 @@ class SurveyAppModel extends AppModel {
 	function getIgnoreConditions(){
 	  $retval = array();
 	  foreach($this->getIgnoreList() as $email){
-	    $retval[]['SurveyContact.email NOT LIKE'] = $email;
+	    $retval[]['Survey.email NOT LIKE'] = $email;
 	  }
 	  return $retval;
 	}

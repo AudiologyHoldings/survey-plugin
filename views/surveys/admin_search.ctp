@@ -6,7 +6,7 @@
     
     <div id="pop_body">
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1><br /><br />
-      <?php echo $this->Form->create('SurveyContact', array(
+      <?php echo $this->Form->create('Survey', array(
         'url' => array('plugin' => 'survey', 'prefix' => 'admin', 'controller' => 'surveys', 'action' => 'search'),
         'id' => 'final_form'
       )); ?>
@@ -22,10 +22,10 @@
           </tr>
           <?php foreach($contacts as $contact): ?>
             <tr>
-              <td class="left"><?php echo $contact['SurveyContact']['email'] ?></td>
+              <td class="left"><?php echo $contact['Survey']['email'] ?></td>
               <td class="right">
                 <?php echo $this->Html->link('Delete', 
-                  array('action' => 'delete', $contact['SurveyContact']['id']),
+                  array('action' => 'delete', $contact['Survey']['id']),
                   array(),
                   "Are you sure you want to delete this survey contact and all his/her answers?"
                 ); ?>

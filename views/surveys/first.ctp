@@ -28,7 +28,7 @@
       <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <div id="one">
-        	<?php echo $this->Form->create('SurveyAnswer', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'), 'onsubmit' => 'SP.nextPage(); return false;')); ?>
+        	<?php echo $this->Form->create('Survey', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'), 'onsubmit' => 'SP.nextPage(); return false;')); ?>
           <h2>Thanks for helping!</h2>
           <p class="pop_text">
             <b>Complete our short 3 question survey and we will use the results to<br />
@@ -42,8 +42,7 @@
                 <div class="white_box pop_question">
                   <h3>Question #1</h3>
                   <p class="q_text">Which range below best describes your age?</p>
-                  <?php echo $this->Form->input('SurveyAnswer.0.question', array('type' => 'hidden', 'value' => '1_age')) ?>
-                  <?php echo $this->Form->input('SurveyAnswer.0.answer', array(
+                  <?php echo $this->Form->input('Survey.1_age', array(
                     'type' => 'radio',
                     'before' => '<ul class="question"><li>',
                     'separator' => '</li><li>',
@@ -65,8 +64,7 @@
                 <div class="white_box pop_question">
                   <h3>Question #2</h3>
                   <p class="q_text">How likely are you to schedule an appointment with a hearing professional in the next 30 days?</p>
-                  <?php echo $this->Form->input('SurveyAnswer.1.question', array('type' => 'hidden', 'value' => '2_likely_to_schedule')) ?>
-                  <?php echo $this->Form->input('SurveyAnswer.1.answer', array(
+                  <?php echo $this->Form->input('Survey.2_likely_to_schedule', array(
                     'type' => 'radio',
                     'before' => '<ul class="question"><li>',
                     'separator' => '</li><li>',
@@ -94,7 +92,7 @@
           <?php echo $this->Form->end(); ?>
         </div>
         <div id="two" style="display:none;">
-        	<?php echo $this->Form->create('SurveyContact', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_email'))); ?>
+        	<?php echo $this->Form->create('Survey', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_email'))); ?>
           <h2>You're almost done!</h2>
           <p class="pop_text">
             <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription<br />
@@ -104,10 +102,10 @@
           <div class="pop_questions">
             <div class="email">
               <div class="clear_left">
-                <?php echo $this->Form->input('SurveyContact.first_name', array('label' => 'First Name: *')); ?>
-                <?php echo $this->Form->input('SurveyContact.last_name', array('label' => 'Last Name: *')); ?>
-                <?php echo $this->Form->input('SurveyContact.email', array('label' => 'Email Address: *')); ?>
-                <?php echo $this->Form->input('SurveyContact.zip', array('label' => 'Zip Code: *')); ?>
+                <?php echo $this->Form->input('Survey.first_name', array('label' => 'First Name: *')); ?>
+                <?php echo $this->Form->input('Survey.last_name', array('label' => 'Last Name: *')); ?>
+                <?php echo $this->Form->input('Survey.email', array('label' => 'Email Address: *')); ?>
+                <?php echo $this->Form->input('Survey.zip', array('label' => 'Zip Code: *')); ?>
               </div>
               <div class="error-message" id="EmailError" style="display:none;"><!-- Update with error messages with javascript --></div>
             </div>

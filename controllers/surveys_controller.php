@@ -8,7 +8,7 @@ class SurveysController extends SurveyAppController {
     * Uses is usually dirty, but we're going to want access to these models in almost every action
     * So might as well load them the CakePHP way.
     */
-  var $uses = array('Survey.SurveyAnswer','Survey.SurveyContact');
+  //var $uses = array('Survey.SurveyAnswer','Survey.SurveyContact');
   
   var $components = array('RequestHandler','Session','Security','Email');
   
@@ -37,17 +37,17 @@ class SurveysController extends SurveyAppController {
   	*/
 	function first(){
 		if(!empty($this->data)){
-			if($this->SurveyAnswer->saveData($this->data['SurveyAnswer'])){
+			if($this->Survey->saveFirst($this->data)){
 				if($this->RequestHandler->isAjax()){
 					$this->autoRender = false;
-					$this->Session->write('Survey.answer_ids', $this->SurveyAnswer->getLastTwoInsertedIDs());
+					$this->Session->write('Survey.id', $this->Survey->id);
 					return true;
 				}
 			}
 			else {
 				if($this->RequestHandler->isAjax()){
 					$this->autoRender = false;
-					return 'ERROR: Both answers are required';
+					return 'ERROR: ' . array_shift(array_values($this->Survey->validationErrors));
 				}
 			}
 		}
@@ -62,8 +62,8 @@ class SurveysController extends SurveyAppController {
   	*/
   function save_email(){
   	if(!empty($this->data)){
-  		if($this->SurveyContact->saveData($this->data, $this->Session->read('Survey.answer_ids'))){
-  			$this->__sendEmail($this->SurveyContact->id); //Send the email
+  		if($this->Survey->saveSecond($this->data, $this->Session->read('Survey.id'))){
+  			$this->__sendEmail($this->Survey->id); //Send the email
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;
   				return true;
@@ -73,7 +73,7 @@ class SurveysController extends SurveyAppController {
   		else {
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;
-  				return 'ERROR: ' . array_shift(array_values($this->SurveyContact->validationErrors));
+  				return 'ERROR: ' . array_shift(array_values($this->Survey->validationErrors));
   			}
   		}
   	}
@@ -115,13 +115,13 @@ class SurveysController extends SurveyAppController {
       ),
       $options
     );
-    $this->SurveyContact->contain();
-    $contact = $this->SurveyContact->findById($id);
-    if($contact && isset($contact['SurveyContact']['email'])){
-    	$locations = ClassRegistry::init('Location')->findAllByZip($contact['SurveyContact']['zip']);
-      $this->log("Sending {$options['template']} to {$contact['SurveyContact']['email']}", 'email');
+    $this->Survey->contain();
+    $contact = $this->Survey->findById($id);
+    if($contact && isset($contact['Survey']['email'])){
+    	$locations = ClassRegistry::init('Location')->findAllByZip($contact['Survey']['zip']);
+      $this->log("Sending {$options['template']} to {$contact['Survey']['email']}", 'email');
       $this->Email->reset();
-      $this->Email->to = $contact['SurveyContact']['email'];
+      $this->Email->to = $contact['Survey']['email'];
       $this->Email->subject = $options['subject'];
       $this->Email->template = $options['template'];
       $this->Email->sendAs = 'html';
@@ -157,11 +157,6 @@ class SurveysController extends SurveyAppController {
     	}
     	
     	switch($type){
-				case 'answers':
-					$model = 'SurveyAnswer';
-					$data = ClassRegistry::init('Survey.SurveyAnswer')->export();
-					$filename = 'answers.csv';
-					break;
 				case 'participants':
 					$model = 'SurveyParticpant';
 					$data = ClassRegistry::init('Survey.SurveyParticpant')->export();
@@ -174,7 +169,7 @@ class SurveysController extends SurveyAppController {
 					break;
 				case 'finals':
 					$model = 'Survey';
-					$data = $this->SurveyAnswer->exportFinal();
+					$data = $this->Survey->export();
 					$filename = 'finals.csv';
 					break;
     		default: $this->redirect('/');
@@ -207,7 +202,7 @@ class SurveysController extends SurveyAppController {
     */
   function admin_search(){
     if(!empty($this->data)){
-      $contacts = $this->SurveyContact->findAllByEmail($this->data);
+      $contacts = $this->Survey->findAllByEmail($this->data);
       $this->set('contacts', $contacts);
     }
   }
@@ -216,9 +211,9 @@ class SurveysController extends SurveyAppController {
     * Delete a specific contact and their answers.
     */
   function admin_delete($id = null){
-    $this->SurveyContact->contain();
-    if($id && $this->SurveyContact->findById($id)){
-      $this->SurveyContact->delete($id);
+    $this->Survey->contain();
+    if($id && $this->Survey->findById($id)){
+      $this->Survey->delete($id);
     }
     $this->redirect(array('prefix' => 'admin', 'action' => 'search'));
   }
