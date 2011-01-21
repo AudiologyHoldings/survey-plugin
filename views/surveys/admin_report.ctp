@@ -6,7 +6,7 @@
     
     <div id="pop_body">
       <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1><br /><br />
-      <?php echo $this->Form->create('SurveyAnswer', array(
+      <?php echo $this->Form->create('Survey', array(
         'url' => array('plugin' => 'survey', 'prefix' => 'admin', 'controller' => 'surveys', 'action' => 'report'),
         'id' => 'final_form'
       )); ?>
@@ -17,7 +17,7 @@
       <?php echo $this->Form->end('Get Report'); ?>
       
       <?php if(isset($results)): ?>
-        <h1 class="report"><?php echo $this->data['SurveyAnswer']['start_month'] ?> to <?php echo $this->data['SurveyAnswer']['end_month'] ?></h1> 
+        <h1 class="report"><?php echo $this->data['Survey']['start_month'] ?> to <?php echo $this->data['Survey']['end_month'] ?></h1> 
         <table class="report">
           <tr>
             <th class="left">Label</th>
@@ -25,7 +25,7 @@
           </tr>
           <tr>
             <td>Traffic</td>
-            <td class="right"><?php echo $this->data['SurveyAnswer']['page_views'] ?></td>
+            <td class="right"><?php echo $this->data['Survey']['page_views'] ?></td>
           </tr>
           <tr>
             <td colspan="2" class="spacer">&nbsp;</td>

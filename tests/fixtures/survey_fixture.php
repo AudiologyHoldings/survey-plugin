@@ -24,7 +24,7 @@ class SurveyFixture extends CakeTestFixture {
 			'last_name' => 'Baker',
 			'email' => 'nurvzy@gmail.com',
 			'zip' => '87123',
-			'1_age' => '18-30',
+			'1_age' => '18-39',
 			'2_likely_to_schedule' => 3,
 			'created' => '2011-01-11 11:57:52',
 			'modified' => '2011-01-11 11:57:52'

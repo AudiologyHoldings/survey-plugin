@@ -4,12 +4,6 @@ class SurveysController extends SurveyAppController {
   var $name = 'Surveys';
   var $layout = 'survey';
   
-  /**
-    * Uses is usually dirty, but we're going to want access to these models in almost every action
-    * So might as well load them the CakePHP way.
-    */
-  //var $uses = array('Survey.SurveyAnswer','Survey.SurveyContact');
-  
   var $components = array('RequestHandler','Session','Security','Email');
   
   var $helpers = array('Survey.Survey');
@@ -192,7 +186,7 @@ class SurveysController extends SurveyAppController {
     */
   function admin_report(){
     if(!empty($this->data)){
-      $results = $this->SurveyAnswer->findReport($this->data);
+      $results = $this->Survey->findReport($this->data);
       $this->set('results', $results);
     }
   }

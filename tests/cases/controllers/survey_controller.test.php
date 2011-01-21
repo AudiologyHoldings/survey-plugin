@@ -59,8 +59,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 		'app.zipcode',
 		'app.zip',
 		/* Plugin */
-    'plugin.survey.survey_contact',
-    'plugin.survey.survey_answer',
+    'plugin.survey.survey',
     'plugin.survey.survey_opt_in',
     'plugin.survey.survey_participant',
   );
@@ -68,14 +67,26 @@ class SurveysControllerTestCase extends CakeTestCase {
 	function startTest() {
 		$this->Surveys = new TestSurveysController();
 		$this->Surveys->Contact = ClassRegistry::init('Contact');
-		$this->Surveys->SurveyAnswer = ClassRegistry::init('Survey.SurveyAnswer');
-		$this->Surveys->SurveyContact = ClassRegistry::init('Survey.SurveyContact');
+		$this->Surveys->Survey = ClassRegistry::init('Survey.Survey');
 		$this->Surveys->SurveyOptIn = ClassRegistry::init('Survey.SurveyOptIn');
 		$this->Surveys->SurveyParticipant = ClassRegistry::init('Survey.SurveyParticipant');
 		$this->Surveys->Auth = new MockAuthComponent();
 		$this->Surveys->Email = new MockEmailComponent();
 		$this->Surveys->Session = new MockSessionComponent();
 		$this->Surveys->RequestHandler = new MockRequestHandlerComponent();
+	}
+	
+	function testFindReport(){
+		$this->Surveys->data = array(
+			'Survey' => array(
+				'start_month' => 'Jan 2011',
+				'end_month' => 'Feb 2011',
+				'page_views' => '5000'
+			)
+		);
+		$this->Surveys->admin_report();
+		$results = $this->Surveys->viewVars['results'];
+		$this->assertTrue($results);
 	}
 	
 	function testSaveParticipantShouldSaveIfAjax(){
@@ -108,7 +119,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	
 	function testShouldReturnTrueIfAjax(){
 	  $this->Surveys->data = array(
-	    'SurveyContact' => array(
+	    'Survey' => array(
 	    	'first_name' => 'Nick',
 	    	'last_name' => 'Nick',
 	    	'email' => 'not@taken.com',
@@ -117,7 +128,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Email->expectOnce('send');
-	  $this->Surveys->Session->setReturnValue('read', array(14.13));
+	  $this->Surveys->Session->setReturnValue('read', 1);
 	  $this->assertTrue($this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	  $this->assertEqual('not@taken.com', $this->Surveys->Email->to);
@@ -126,7 +137,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	
 	function testShouldReturnValidationErrorIfAjaxAndNotValid(){
 	  $this->Surveys->data = array(
-	    'SurveyContact' => array(
+	    'Survey' => array(
 	    	'first_name' => '',
 	    	'last_name' => '',
 	    	'email' => '',
@@ -142,7 +153,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	
 	function testShouldReturnValidationErrorIfAjaxAndNotValidEmail(){
 	  $this->Surveys->data = array(
-	    'SurveyContact' => array(
+	    'Survey' => array(
 	    	'first_name' => 'Nick',
 	    	'last_name' => 'Baker',
 	    	'email' => 'nurvzy@gmail.com',
