@@ -23,7 +23,7 @@ var SurveyPopup = jQuery.Class.create({
         dataType:"text", 
         success: jQuery.proxy(this.handleRequest, this), 
         type:"post", 
-        url:"/survey/surveys/save_email"
+        url:"/survey/second"
       });
     return false;
   },

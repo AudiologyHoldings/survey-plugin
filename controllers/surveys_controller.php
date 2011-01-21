@@ -23,6 +23,7 @@ class SurveysController extends SurveyAppController {
     }
     if($this->RequestHandler->isAjax()){
       Configure::write('debug', 0);
+      $this->Security->validatePost = false;
     }
   }
   
@@ -53,7 +54,7 @@ class SurveysController extends SurveyAppController {
   /**
   	* Save the second half of the survey, email, name, zip, etc. and send thanks
   	*/
-  function save_email(){
+  function second(){
   	if(!empty($this->data)){
   		if($this->Survey->saveSecond($this->data)){
   			$this->__sendEmail($this->Survey->id); //Send the email

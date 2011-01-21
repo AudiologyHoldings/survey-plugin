@@ -129,7 +129,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Email->expectOnce('send');
-	  $this->assertTrue($this->Surveys->save_email());
+	  $this->assertTrue($this->Surveys->second());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	  $this->assertEqual('not@taken.com', $this->Surveys->Email->to);
 	  $this->assertEqual('survey_thanks', $this->Surveys->Email->template);
@@ -147,7 +147,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Email->expectNever('send');
-	  $this->assertEqual('ERROR: Please enter a first name.', $this->Surveys->save_email());
+	  $this->assertEqual('ERROR: Please enter a first name.', $this->Surveys->second());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	}
 	
@@ -163,7 +163,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Email->expectNever('send');
-	  $this->assertEqual('ERROR: Unique Email must be present.', $this->Surveys->save_email());
+	  $this->assertEqual('ERROR: Unique Email must be present.', $this->Surveys->second());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	}
 	
