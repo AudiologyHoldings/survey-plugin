@@ -34,8 +34,7 @@ class SurveysController extends SurveyAppController {
 			if($this->Survey->saveFirst($this->data)){
 				if($this->RequestHandler->isAjax()){
 					$this->autoRender = false;
-					$this->Session->write('Survey.id', $this->Survey->id);
-					return true;
+					return $this->Survey->id;
 				}
 			}
 			else {
@@ -56,7 +55,7 @@ class SurveysController extends SurveyAppController {
   	*/
   function save_email(){
   	if(!empty($this->data)){
-  		if($this->Survey->saveSecond($this->data, $this->Session->read('Survey.id'))){
+  		if($this->Survey->saveSecond($this->data)){
   			$this->__sendEmail($this->Survey->id); //Send the email
   			if($this->RequestHandler->isAjax()){
   				$this->autoRender = false;

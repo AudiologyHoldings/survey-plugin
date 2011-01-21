@@ -120,6 +120,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	function testShouldReturnTrueIfAjax(){
 	  $this->Surveys->data = array(
 	    'Survey' => array(
+	    	'id' => 1,
 	    	'first_name' => 'Nick',
 	    	'last_name' => 'Nick',
 	    	'email' => 'not@taken.com',
@@ -128,7 +129,6 @@ class SurveysControllerTestCase extends CakeTestCase {
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
 	  $this->Surveys->Email->expectOnce('send');
-	  $this->Surveys->Session->setReturnValue('read', 1);
 	  $this->assertTrue($this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);
 	  $this->assertEqual('not@taken.com', $this->Surveys->Email->to);
@@ -138,6 +138,7 @@ class SurveysControllerTestCase extends CakeTestCase {
 	function testShouldReturnValidationErrorIfAjaxAndNotValid(){
 	  $this->Surveys->data = array(
 	    'Survey' => array(
+	    	'id' => 1,
 	    	'first_name' => '',
 	    	'last_name' => '',
 	    	'email' => '',
@@ -145,7 +146,6 @@ class SurveysControllerTestCase extends CakeTestCase {
 	    )
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
-	  $this->Surveys->Session->setReturnValue('read', array(14.13));
 	  $this->Surveys->Email->expectNever('send');
 	  $this->assertEqual('ERROR: Please enter a first name.', $this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);
@@ -154,14 +154,14 @@ class SurveysControllerTestCase extends CakeTestCase {
 	function testShouldReturnValidationErrorIfAjaxAndNotValidEmail(){
 	  $this->Surveys->data = array(
 	    'Survey' => array(
+	    	'id' => 2,
 	    	'first_name' => 'Nick',
 	    	'last_name' => 'Baker',
-	    	'email' => 'nurvzy@gmail.com',
+	    	'email' => 'nurvzy@gmail.com', //fail
 	    	'zip' => '90210',
 	    )
 	  );
 	  $this->Surveys->RequestHandler->setReturnValue('isAjax', true);
-	  $this->Surveys->Session->setReturnValue('read', array(14.13));
 	  $this->Surveys->Email->expectNever('send');
 	  $this->assertEqual('ERROR: Unique Email must be present.', $this->Surveys->save_email());
 	  $this->assertFalse($this->Surveys->redirectUrl);

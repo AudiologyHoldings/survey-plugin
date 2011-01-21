@@ -102,6 +102,7 @@
           <div class="pop_questions">
             <div class="email">
               <div class="clear_left">
+                <?php echo $this->Form->input('Survey.id', array('type' => 'hidden', 'id' => 'SurveyId')); ?>
                 <?php echo $this->Form->input('Survey.first_name', array('label' => 'First Name: *')); ?>
                 <?php echo $this->Form->input('Survey.last_name', array('label' => 'Last Name: *')); ?>
                 <?php echo $this->Form->input('Survey.email', array('label' => 'Email Address: *')); ?>

@@ -42,6 +42,7 @@ class SurveyTestCase extends CakeTestCase {
 	function testSaveSecond(){
 		$data = array(
 			'Survey' => array(
+				'id' => 1,
 				'first_name' => 'Nick',
 				'last_name' => 'Baker',
 				'email' => 'nick@example.com',
@@ -49,7 +50,7 @@ class SurveyTestCase extends CakeTestCase {
 			)
 		);
 		
-		$this->assertTrue($this->Survey->saveSecond($data, 1));
+		$this->assertTrue($this->Survey->saveSecond($data));
 		$result = $this->Survey->find('last');
 		$this->assertEqual('Nick', $result['Survey']['first_name']);
 		$this->assertEqual('Baker', $result['Survey']['last_name']);
@@ -61,6 +62,7 @@ class SurveyTestCase extends CakeTestCase {
 	function testSaveSecondValidationFail(){
 		$data = array(
 			'Survey' => array(
+				'id' => 1,
 				'first_name' => 'Nick',
 				'last_name' => 'Baker',
 				'email' => 'nick', //fail
@@ -68,7 +70,7 @@ class SurveyTestCase extends CakeTestCase {
 			)
 		);
 		
-		$this->assertFalse($this->Survey->saveSecond($data, 1));
+		$this->assertFalse($this->Survey->saveSecond($data));
 		$this->assertTrue(!empty($this->Survey->validationErrors['email']));
 		$this->assertTrue(empty($this->Survey->validate));
 	}
@@ -76,6 +78,7 @@ class SurveyTestCase extends CakeTestCase {
 	function testSaveSecondNoIdFail(){
 		$data = array(
 			'Survey' => array(
+				'id' => '',
 				'first_name' => 'Nick',
 				'last_name' => 'Baker',
 				'email' => 'nick@example.com',

@@ -48,8 +48,9 @@ var SurveyPopup = jQuery.Class.create({
   	* Handle the survey submit
   	*/
   surveySubmitResponse: function(data, textStatus){
-  	if(data == 1){
+  	if(data.indexOf('ERROR') == -1){
   		this.page('two');
+  		jQuery('#SurveyId').val(data);
   	}
   	else {
   		jQuery('#QuestionError').empty().append(data).show();

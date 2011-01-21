@@ -66,15 +66,13 @@ class Survey extends SurveyAppModel {
 	/**
 		* Save the second round of data
 		* @param data to save array
-		* @param id of record to update (required)
 		* @return boolean of success.
 		*/
-	function saveSecond($data, $survey_id_to_edit = null){
-		if(!$survey_id_to_edit){
+	function saveSecond($data){
+		if(!$data['Survey']['id']){
 			$this->validationErrors['no_session'] = 'Session Expired. Please try again.';
 			return false;
-		};
-		$data['Survey']['id'] = $survey_id_to_edit;
+		}
 		
 		$this->validate = $this->validate_on_email;
 		$retval = $this->save($data);
