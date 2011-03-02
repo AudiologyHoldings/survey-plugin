@@ -193,10 +193,13 @@ ul.question li {
   height: 48px;
   padding-top: 5px;
   float: left;
-  width: 63px;
+  width: 47px;
   text-align: center;
   font-size: .7em;
   background-color: #f4f4f4;
+}
+ul.age li{
+	width: 63px;
 }
 ul.question li label {
   float: left;

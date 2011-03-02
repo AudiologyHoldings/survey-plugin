@@ -44,7 +44,7 @@
                   <p class="q_text">Which range below best describes your age?</p>
                   <?php echo $this->Form->input('Survey.1_age', array(
                     'type' => 'radio',
-                    'before' => '<ul class="question"><li>',
+                    'before' => '<ul class="question age"><li>',
                     'separator' => '</li><li>',
                     'after' => '</li></ul>',
                     'legend' => false,
@@ -66,18 +66,18 @@
                   <p class="q_text">How likely are you to schedule an appointment for yourself or a loved one with a hearing professional in the next 30 days?</p>
                   <?php echo $this->Form->input('Survey.2_likely_to_schedule', array(
                     'type' => 'radio',
-                    'before' => '<ul class="question"><li>',
+                    'before' => '<ul class="question likely"><li>Very Unlikely</li><li>',
                     'separator' => '</li><li>',
-                    'after' => '</li></ul>',
+                    'after' => '</li><li>Very Likely</li></ul>',
                     'legend' => false,
                     'options' => array(
-                      '0' => 'Not Very Likely',
-                      '1' => '',
-                      '2' => '',
-                      '3' => 'Somewhat Likely',
-                      '4' => '',
-                      '5' => '',
-                      '6' => 'Very Likely',
+                      '0' => '1',
+                      '1' => '2',
+                      '2' => '3',
+                      '3' => '4',
+                      '4' => '5',
+                      '5' => '6',
+                      '6' => '7',
                     )
                   )) ?>
                 </div>
