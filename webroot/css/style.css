@@ -206,7 +206,9 @@ ul.question li label {
   width: 100%;
   display: block;
   font-weight: bold;
-  /*font-size: 95%;*/
+  font-size: 90%;
+  margin: 0px;
+  margin-right: 5px;
 }
 input#CustomOther{
   margin-left: 20px;
@@ -229,12 +231,16 @@ div.gift_card {
 }
 #popup div.text label, #final_survey div.text label {
   display: block;
+  margin-right: 5px;
+  font-size: 90%;
 }
 #popup div.text input[type=text], #final_survey div.text input[type=text] {
   width: 400px;
   height: 35px;
   font-size: 1.5em;
   border: 1px solid #ccc; /* grey */
+  margin: 0px;
+  padding: 2px 3px;
 }
 
 /* give_away page  */

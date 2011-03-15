@@ -8,6 +8,7 @@ $config = array(
     'email' => 'no_reply@webtechnick.com',
     'name' => 'Healthy Hearing',
     'debug' => false,
+    'active' => true,
     'cookietime' => 21600, //6 hours
     'httpauth' => array(
       'user' => 'pass'

@@ -25,6 +25,9 @@ class SurveysController extends SurveyAppController {
       Configure::write('debug', 0);
       $this->Security->validatePost = false;
     }
+    if(isset($this->Auth)){
+    	$this->Auth->allow('first','second','save_participant','thanks','reply_email','export');
+    }
   }
   
   /**

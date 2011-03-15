@@ -73,6 +73,10 @@ class SurveyHelper extends AppHelper {
     * @return boolean
     */
   function shouldDisplayPopup(){
+  	//never show popup if not active
+  	if(SurveyUtil::getConfig('active') === false){
+  		return false;
+  	}
     //always show popup if 
     if(SurveyUtil::getConfig('debug')){
       return true;
