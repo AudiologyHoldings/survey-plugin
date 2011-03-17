@@ -63,7 +63,7 @@
               <td>
                 <div class="white_box pop_question">
                   <h3>Question #2</h3>
-                  <p class="q_text">How likely are you to schedule an appointment for yourself or a loved one with a hearing professional in the next 30 days?</p>
+                  <p class="q_text">How likely are you to schedule an appointment with a hearing professional in the next 30 days?</p>
                   <?php echo $this->Form->input('Survey.2_likely_to_schedule', array(
                     'type' => 'radio',
                     'before' => '<ul class="question likely"><li>Very Unlikely</li><li>',
