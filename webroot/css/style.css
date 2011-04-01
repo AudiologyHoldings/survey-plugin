@@ -100,7 +100,7 @@ div.wrapper-spiral {
 #pop_top {
   height: 34px;
   width: 1000px;
-  padding: 10px 5px 0px 0px;
+  padding: 5px 5px 0px 0px;
   background: url('../img/popup_top.png') no-repeat;
 }
 #pop_top span{
@@ -169,7 +169,7 @@ div.error-message {
   border: none;
 }
 div.pop_button {
-  padding-top: 20px;
+  padding-top: 15px;
   text-align: center;
   margin: auto;
   clear: both;
@@ -195,7 +195,7 @@ ul.question li {
   float: left;
   width: 47px;
   text-align: center;
-  font-size: .7em;
+  font-size: 10px;
   background-color: #f4f4f4;
 }
 ul.age li{
@@ -234,14 +234,24 @@ div.gift_card {
   margin-right: 5px;
   font-size: 90%;
 }
+#popup div.text {
+	float: left;
+	clear: none;
+}
 #popup div.text input[type=text], #final_survey div.text input[type=text] {
   width: 400px;
   height: 35px;
-  font-size: 1.5em;
+  font-size: 20px;
   border: 1px solid #ccc; /* grey */
   margin: 0px;
   padding: 2px 3px;
 }
+#popup input[type=radio]{
+	float: none;
+	margin: 0px;
+	width: auto;
+}
+
 
 /* give_away page  */
 div.give_away_input {
