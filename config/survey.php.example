@@ -10,6 +10,7 @@ $config = array(
     'debug' => false,
     'active' => true,
     'cookietime' => 21600, //6 hours
+    'surveyDelay' => 7, //7 seconds
     'httpauth' => array(
       'user' => 'pass'
     ),

@@ -10,9 +10,10 @@
 <?php 
 echo $this->Html->script('/survey/js/jquery.class.js');
 echo $this->Html->script('/survey/js/jq_survey_popup.js');
-echo $this->Html->script('/survey/js/jq_survey_sidebar.js'); 
+echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
 ?>
-<div id="survey_popup_wrapper">
+<?php $timer = isset($timer) ? $timer : 0; ?>
+<div id="survey_popup_wrapper" style="display:none;">
 
   <div class="white_content">
     <div class="popup popup_background">
@@ -53,4 +54,7 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
 <?php
 //echo $this->element('survey_sidebar', array('plugin' => 'survey', 'show' => false, 'wrapper' => false));
 echo $this->Html->scriptBlock("SB = new SurveySidebar();");
+echo $this->Html->scriptBlock("
+	setTimeout('$(\"#survey_popup_wrapper\").show()',$timer);
+");
 ?>

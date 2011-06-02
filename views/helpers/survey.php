@@ -9,6 +9,11 @@ class SurveyHelper extends AppHelper {
   var $firstCookieLength = 21600; //6 hours
   
   /**
+  * Timer to show survey.
+  */
+  var $timer = 0;
+  
+  /**
     * Load the view object so we can dynamically load an element into it
     * Load the Cookie Component so we can read from the cookie the CakePHP way
     * Overwrite firstCookieLength if we have a setting for it in config
@@ -24,6 +29,9 @@ class SurveyHelper extends AppHelper {
     
     if(SurveyUtil::getConfig('cookietime')){
       $this->firstCookieLength = SurveyUtil::getConfig('cookietime');
+    }
+    if(SurveyUtil::getConfig('surveyDelay')){
+      $this->timer = SurveyUtil::getConfig('surveyDelay');
     }
   }
   
@@ -107,7 +115,7 @@ class SurveyHelper extends AppHelper {
       if($log){
         $this->log("Survey Popup shown to: {$_SERVER['REMOTE_ADDR']} on page: {$this->View->here}", 'survey_popup');
       }
-      return $this->View->element('survey_popup', array('plugin' => 'survey')); 
+      return $this->View->element('survey_popup', array('plugin' => 'survey', 'timer' => $this->timer * 1000)); 
     }
     /**
     	* Survey sidebar is no longer needed, but keeping around in case we ever want to
