@@ -54,7 +54,9 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
 <?php
 //echo $this->element('survey_sidebar', array('plugin' => 'survey', 'show' => false, 'wrapper' => false));
 echo $this->Html->scriptBlock("SB = new SurveySidebar();");
+if(!isset($is_mobile) || ( isset($is_mobile) && !$is_mobile) ){
 echo $this->Html->scriptBlock("
 	setTimeout('$(\"#survey_popup_wrapper\").fadeIn(\"slow\")',$timer);
 ");
+}
 ?>
