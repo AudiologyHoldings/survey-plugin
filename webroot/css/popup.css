@@ -7,10 +7,10 @@
   height: 3500px;
   background-color: black;
   z-index:9001;
-  -moz-opacity: 0.8;
-  opacity:.80;
-  filter: alpha(opacity=80);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)"; /*--IE 8 Transparency--*/
+  -moz-opacity: 0.7;
+  opacity:.70;
+  filter: alpha(opacity=70);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)"; /*--IE 8 Transparency--*/
 }
 .white_content {
   display: block;

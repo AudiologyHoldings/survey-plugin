@@ -55,6 +55,6 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
 //echo $this->element('survey_sidebar', array('plugin' => 'survey', 'show' => false, 'wrapper' => false));
 echo $this->Html->scriptBlock("SB = new SurveySidebar();");
 echo $this->Html->scriptBlock("
-	setTimeout('$(\"#survey_popup_wrapper\").show()',$timer);
+	setTimeout('$(\"#survey_popup_wrapper\").fadeIn(\"slow\")',$timer);
 ");
 ?>
