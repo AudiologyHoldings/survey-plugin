@@ -83,7 +83,9 @@ var SurveyPopup = jQuery.Class.create({
     * Close the popup
     */
   close: function(){
-    jQuery(this.popupId).hide();
+    jQuery(this.popupId).fadeOut('fast', function(){
+    	jQuery("#youtube_feed").show();
+    });
   },
   
   /**

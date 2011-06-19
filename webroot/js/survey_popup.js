@@ -19,6 +19,7 @@ var SurveyPopup = Class.create({
     */
   close: function(){
     $(this.popupId).hide();
+    surveyHide();
   },
   
   /**

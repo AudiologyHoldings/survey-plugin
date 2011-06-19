@@ -10,8 +10,11 @@ var SurveySidebar = jQuery.Class.create({
   },
   
   closePopup: function(){
-    jQuery(this.popupId).hide();
+  	jQuery(this.popupId).fadeOut('fast', function(){
+    	jQuery("#youtube_feed").show();
+    });
     jQuery(this.sidebarId).show();
+    
   },
   
   toggleSidebar: function(){
