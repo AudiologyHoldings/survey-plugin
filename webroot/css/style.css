@@ -87,8 +87,9 @@ div#popup div.wrapper{
   border: 1px solid #ccc; /* grey */
 }
 div.wrapper-popup {
-  background: #f4f4f4 url('../img/popup_spiral.png') no-repeat;
-  height: 572px;
+/*  background: #f4f4f4 url('../img/popup_spiral.png') no-repeat;*/
+  /*height: 572px;*/
+  height: 500px;
 }
 div.wrapper-spiral {
   background: #f4f4f4 url('../img/survey_spiral.png') no-repeat;

@@ -28,11 +28,11 @@
       <div class="pop_body" id="survey">
         <h1><?php echo $this->Html->image('/survey/img/healthy_hearing.png') ?></h1>
         <div id="one">
+        	<!--<h2 style="float:right;">Thanks for helping!</h2>-->
         	<?php echo $this->Form->create('Survey', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'first'), 'onsubmit' => 'SP.nextPage(); return false;')); ?>
-          <h2>Thanks for helping!</h2>
           <p class="pop_text">
-            <b>Complete our short 3 question survey and we will use the results to<br />
-            help us give you better service in the future.<br /><br />
+            <b>Complete our short 3 question survey and we will use the results to
+            help us give you better service in the future.
             We apprecate your feedback!
             </b>
           </p>  
@@ -93,11 +93,11 @@
         </div>
         <div id="two" style="display:none;">
         	<?php echo $this->Form->create('Survey', array('url' => array('plugin' => 'survey', 'controller' => 'surveys', 'action' => 'save_email'))); ?>
-          <h2>You're almost done!</h2>
+          <!-- <h2 style="float:right">You're almost done!</h2> -->
           <p class="pop_text">
-            <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription<br />
-            and send you a copy of our Free Comprehensive Guide to Hearing Aids and Hearing Loss.<br /><br />
-            <b>* All fields required.</b><br /><br />
+            <b>Enter your email</b> address below and we will sign you up for our eNewletter subscription
+            and send you a copy of our Free Comprehensive Guide to Hearing Aids and Hearing Loss.<br />
+            <b>* All fields required.</b>
           </p>
           <div class="pop_questions">
             <div class="email">

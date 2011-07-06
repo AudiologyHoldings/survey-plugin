@@ -16,7 +16,7 @@
   display: block;
   position: fixed;
   top: 25%;
-  left: 25%;
+  left: 40%;
   background-color: white;
   z-index:9002;
   overflow: none;
@@ -25,17 +25,20 @@
   left: 10%;
   top: 10%;
 }
+.green_ribbon{
+	background-color: #7bbf44;
+}
 .popup_background {
-  background: url('../img/popup_background.jpg') #fff no-repeat;
+  /*background: url('../img/popup_background.jpg') #fff no-repeat;
   width: 586px;
-  height: 369px;
+  height: 369px;*/
 }
 .popup_block_full {
   top: 5%;
 	left: 10%;
 	z-index: 9003;
 	width: 1000px;
-  height:572px;
+  /*height:572px;*/
 }
 .popup{
 	font-size: 18px;
@@ -48,7 +51,7 @@
 	font-weight: normal;
 }
 .popup p {
-	padding: 16px 0px 6px 30px;
+	padding: 16px 6px 6px 10px;
 }
 .popup p.popup-header {
   font-weight: bold;

@@ -18,15 +18,16 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
   <div class="white_content">
     <div class="popup popup_background">
       <div id="popup-content">
+				<div class="green_ribbon" style="height: 5px;">
+				</div>
         <p class="popup-header">
-          Help Us<br />
-          Help Others.
+          Help Us Help Others.
         </p>
         <p class="text">
           Participate in a short online survey<br />
           to improve the services we offer.<br />
-          It will take less than a minute<br /> of your time.<br /><br />
-          Will you help us out?
+          It will take less than a minute of<br />
+          your time. Will you help us out?
         </p>
         <p>
           <?php echo $this->Js->link(
@@ -41,6 +42,8 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
         <p class="popup-small popup-policy">
           <?php echo $this->Html->link('Terms of Use - Privacy Policy', '/privacy-policy', array('target' => '_blank')); ?>
         </p>
+        <div class="green_ribbon" style="height: 2px;">
+				</div>
       </div>
     </div>
   </div>
