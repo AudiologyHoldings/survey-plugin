@@ -29,6 +29,7 @@
 	background-color: #7bbf44;
 }
 .popup_background {
+	width: 300px;
   /*background: url('../img/popup_background.jpg') #fff no-repeat;
   width: 586px;
   height: 369px;*/

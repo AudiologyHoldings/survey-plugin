@@ -42,7 +42,7 @@ echo $this->Html->script('/survey/js/jq_survey_sidebar.js');
         <p class="popup-small popup-policy">
           <?php echo $this->Html->link('Terms of Use - Privacy Policy', '/privacy-policy', array('target' => '_blank')); ?>
         </p>
-        <div class="green_ribbon" style="height: 2px;">
+        <div class="green_ribbon" style="height: 2px; width: 100%;">
 				</div>
       </div>
     </div>
