@@ -111,7 +111,7 @@ class SurveyHelper extends AppHelper {
     * @return mixed popup element or null
     */
   function showPopup($log = true){
-    if($this->shouldDisplayPopup()){
+    if($this->shouldDisplayPopup() && $this->isInUs()){
       if($log){
         $this->log("Survey Popup shown to: {$_SERVER['REMOTE_ADDR']} on page: {$this->View->here}", 'survey_popup');
       }
@@ -122,6 +122,19 @@ class SurveyHelper extends AppHelper {
     	* bring it back.
     	*/
     //return $this->View->element('survey_sidebar', array('plugin' => 'survey'));
+  }
+  
+  /**
+  *
+  */
+  function isInUs(){
+		App::import('Core','ConnectionManager');
+		$GeoLoc = ConnectionManager::getDataSource('geoloc');
+		if($GeoLoc){
+			$geoloc_result = $GeoLoc->byIp($GeoLoc->getIp(), array('server' => 'hostip'));
+			return (empty($geoloc_result['country']) || $geoloc_result['country'] == 'US' || $geoloc_result['country'] == 'XX');
+		}
+		return true;
   }
 }
 ?>
