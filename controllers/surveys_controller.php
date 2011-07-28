@@ -124,7 +124,7 @@ class SurveysController extends SurveyAppController {
       $this->Email->sendAs = 'html';
       $this->Email->from = SurveyUtil::getConfig('email');
       $this->Email->bcc = array('pdybala@healthyhearing.com');
-      $this->Email->attachments = array(WWW_ROOT.'files/pdf/happy/healthyhearing_comprehensive_guide_get_happy_0710.pdf');
+      $this->Email->attachments = array(WWW_ROOT.'files/pdf/happy/healthyhearing_comprehensive_guide_get_happy_1008.pdf');
       $this->set(compact('contact', 'locations'));
       return $this->Email->send();
     }
