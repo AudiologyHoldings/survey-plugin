@@ -40,6 +40,7 @@ class SurveysControllerTestCase extends CakeTestCase {
     'app.contact_detail',
     /* Location */
     'app.location',
+    'app.call_source',
 		'app.hour',
 		'app.staff',
 		'app.site',
@@ -74,6 +75,12 @@ class SurveysControllerTestCase extends CakeTestCase {
 		$this->Surveys->Email = new MockEmailComponent();
 		$this->Surveys->Session = new MockSessionComponent();
 		$this->Surveys->RequestHandler = new MockRequestHandlerComponent();
+	}
+	
+	function test_sendEmail(){
+		$contact_id = 1;
+		$this->Surveys->__sendEmail($contact_id);
+		$this->assertTrue(!empty($this->Surveys->viewVars['locations_split']));
 	}
 	
 	function testFindReport(){

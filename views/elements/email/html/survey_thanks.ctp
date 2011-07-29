@@ -28,11 +28,11 @@
       
       As promised, we are attaching our Comprehensive Guide to Hearing Loss and Hearing Aids.  For ease of viewing, the guide is in PDF format and attached to this email. If you cannot view the guide on your computer, you may need to install the free PDF Reader from http://get.adobe.com/reader/<br /><br />
       
-      <?php if(!empty($locations)): ?>
+      <?php if(!empty($locations_split)): ?>
       	<h4>Hearing Care Professionals in your Area</h4>
       	<p>
       		You listed your zip code as <?php echo $contact['Contact']['zip']; ?>, below is a list of hearing care professionals in your area.<br />
-      		<?php echo $this->element('findaprofessional/location_list',array('locations'=>$locations, 'host' => $host)); ?>
+      		<?php echo $this->element('email/locations',array('locations_split'=>$locations_split)); ?>
       	</p>
       	<br /><br />
       <?php endif; ?>

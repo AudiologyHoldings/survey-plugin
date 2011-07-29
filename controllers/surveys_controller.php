@@ -103,7 +103,7 @@ class SurveysController extends SurveyAppController {
     * - subject
     * @return mixed result of send, or void
     */  
-  private function __sendEmail($id = null, $options = array()){
+  function __sendEmail($id = null, $options = array()){
     $this->autoRender = true;
     $options = array_merge(
       array(
@@ -115,7 +115,10 @@ class SurveysController extends SurveyAppController {
     $this->Survey->contain();
     $contact = $this->Survey->findById($id);
     if($contact && isset($contact['Survey']['email'])){
-    	$locations = ClassRegistry::init('Location')->findAllByZip($contact['Survey']['zip']);
+    	if(!empty($contact['Survey']['zip'])){
+    		$locations = ClassRegistry::init('Location')->findAllByZip($contact['Survey']['zip']);
+    		$locations_split = ClassRegistry::init('Location')->splitLocations($locations);
+    	}
       $this->log("Sending {$options['template']} to {$contact['Survey']['email']}", 'email');
       $this->Email->reset();
       $this->Email->to = $contact['Survey']['email'];
@@ -125,7 +128,7 @@ class SurveysController extends SurveyAppController {
       $this->Email->from = SurveyUtil::getConfig('email');
       $this->Email->bcc = array('pdybala@healthyhearing.com');
       $this->Email->attachments = array(WWW_ROOT.'files/pdf/happy/healthyhearing_comprehensive_guide_get_happy_0710.pdf');
-      $this->set(compact('contact', 'locations'));
+      $this->set(compact('contact', 'locations_split', 'locations'));
       return $this->Email->send();
     }
   }
