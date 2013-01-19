@@ -1,5 +1,5 @@
-<?php 
- 
+<?php
+App::uses('AppHelper','View/Helper')
 class CsvHelper extends AppHelper {
 	
 	var $delimiter = ',';
